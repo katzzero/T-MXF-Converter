@@ -33,23 +33,25 @@ Partial Class frmTMXF
         Me.txtOutPath = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabCodec = New System.Windows.Forms.TabPage()
+        Me.grpGlobal = New System.Windows.Forms.GroupBox()
         Me.TabConfig = New System.Windows.Forms.TabPage()
-        Me.btnFFmpeg = New System.Windows.Forms.Button()
+        Me.grpTemp = New System.Windows.Forms.GroupBox()
+        Me.btnTempDefault = New System.Windows.Forms.Button()
+        Me.txtTemp = New System.Windows.Forms.Label()
+        Me.btnTemp = New System.Windows.Forms.Button()
         Me.grpFFmpeg = New System.Windows.Forms.GroupBox()
         Me.txtFFmpeg = New System.Windows.Forms.Label()
-        Me.grpTemp = New System.Windows.Forms.GroupBox()
-        Me.btnTemp = New System.Windows.Forms.Button()
-        Me.txtTemp = New System.Windows.Forms.Label()
+        Me.btnFFmpeg = New System.Windows.Forms.Button()
         Me.OpenFFmpegDialog = New System.Windows.Forms.OpenFileDialog()
         Me.btnChk3 = New System.Windows.Forms.Button()
-        Me.btnTempDefault = New System.Windows.Forms.Button()
         Me.btnChk2 = New System.Windows.Forms.Button()
         Me.btnChk1 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
+        Me.TabCodec.SuspendLayout()
         Me.TabConfig.SuspendLayout()
-        Me.grpFFmpeg.SuspendLayout()
         Me.grpTemp.SuspendLayout()
+        Me.grpFFmpeg.SuspendLayout()
         Me.SuspendLayout()
         '
         'Process1
@@ -139,6 +141,7 @@ Partial Class frmTMXF
         '
         'TabCodec
         '
+        Me.TabCodec.Controls.Add(Me.grpGlobal)
         Me.TabCodec.Location = New System.Drawing.Point(4, 22)
         Me.TabCodec.Name = "TabCodec"
         Me.TabCodec.Padding = New System.Windows.Forms.Padding(3)
@@ -146,6 +149,15 @@ Partial Class frmTMXF
         Me.TabCodec.TabIndex = 0
         Me.TabCodec.Text = "Codec Config"
         Me.TabCodec.UseVisualStyleBackColor = True
+        '
+        'grpGlobal
+        '
+        Me.grpGlobal.Location = New System.Drawing.Point(4, 4)
+        Me.grpGlobal.Name = "grpGlobal"
+        Me.grpGlobal.Size = New System.Drawing.Size(200, 100)
+        Me.grpGlobal.TabIndex = 0
+        Me.grpGlobal.TabStop = False
+        Me.grpGlobal.Text = "Global Options"
         '
         'TabConfig
         '
@@ -159,14 +171,44 @@ Partial Class frmTMXF
         Me.TabConfig.Text = "Software Config"
         Me.TabConfig.UseVisualStyleBackColor = True
         '
-        'btnFFmpeg
+        'grpTemp
         '
-        Me.btnFFmpeg.Location = New System.Drawing.Point(6, 19)
-        Me.btnFFmpeg.Name = "btnFFmpeg"
-        Me.btnFFmpeg.Size = New System.Drawing.Size(75, 23)
-        Me.btnFFmpeg.TabIndex = 0
-        Me.btnFFmpeg.Text = "Set Path"
-        Me.btnFFmpeg.UseVisualStyleBackColor = True
+        Me.grpTemp.Controls.Add(Me.btnTempDefault)
+        Me.grpTemp.Controls.Add(Me.txtTemp)
+        Me.grpTemp.Controls.Add(Me.btnTemp)
+        Me.grpTemp.Location = New System.Drawing.Point(7, 63)
+        Me.grpTemp.Name = "grpTemp"
+        Me.grpTemp.Size = New System.Drawing.Size(938, 50)
+        Me.grpTemp.TabIndex = 2
+        Me.grpTemp.TabStop = False
+        Me.grpTemp.Text = "Temporary Folder"
+        '
+        'btnTempDefault
+        '
+        Me.btnTempDefault.Location = New System.Drawing.Point(857, 19)
+        Me.btnTempDefault.Name = "btnTempDefault"
+        Me.btnTempDefault.Size = New System.Drawing.Size(75, 23)
+        Me.btnTempDefault.TabIndex = 2
+        Me.btnTempDefault.Text = "Set Default"
+        Me.btnTempDefault.UseVisualStyleBackColor = True
+        '
+        'txtTemp
+        '
+        Me.txtTemp.AutoSize = True
+        Me.txtTemp.Location = New System.Drawing.Point(87, 24)
+        Me.txtTemp.Name = "txtTemp"
+        Me.txtTemp.Size = New System.Drawing.Size(43, 13)
+        Me.txtTemp.TabIndex = 1
+        Me.txtTemp.Text = "c:Temp"
+        '
+        'btnTemp
+        '
+        Me.btnTemp.Location = New System.Drawing.Point(6, 19)
+        Me.btnTemp.Name = "btnTemp"
+        Me.btnTemp.Size = New System.Drawing.Size(75, 23)
+        Me.btnTemp.TabIndex = 0
+        Me.btnTemp.Text = "Set Folder"
+        Me.btnTemp.UseVisualStyleBackColor = True
         '
         'grpFFmpeg
         '
@@ -188,35 +230,14 @@ Partial Class frmTMXF
         Me.txtFFmpeg.TabIndex = 1
         Me.txtFFmpeg.Text = "c:FFmpeg"
         '
-        'grpTemp
+        'btnFFmpeg
         '
-        Me.grpTemp.Controls.Add(Me.btnTempDefault)
-        Me.grpTemp.Controls.Add(Me.txtTemp)
-        Me.grpTemp.Controls.Add(Me.btnTemp)
-        Me.grpTemp.Location = New System.Drawing.Point(7, 63)
-        Me.grpTemp.Name = "grpTemp"
-        Me.grpTemp.Size = New System.Drawing.Size(938, 50)
-        Me.grpTemp.TabIndex = 2
-        Me.grpTemp.TabStop = False
-        Me.grpTemp.Text = "Temporary Folder"
-        '
-        'btnTemp
-        '
-        Me.btnTemp.Location = New System.Drawing.Point(6, 19)
-        Me.btnTemp.Name = "btnTemp"
-        Me.btnTemp.Size = New System.Drawing.Size(75, 23)
-        Me.btnTemp.TabIndex = 0
-        Me.btnTemp.Text = "Set Folder"
-        Me.btnTemp.UseVisualStyleBackColor = True
-        '
-        'txtTemp
-        '
-        Me.txtTemp.AutoSize = True
-        Me.txtTemp.Location = New System.Drawing.Point(87, 24)
-        Me.txtTemp.Name = "txtTemp"
-        Me.txtTemp.Size = New System.Drawing.Size(43, 13)
-        Me.txtTemp.TabIndex = 1
-        Me.txtTemp.Text = "c:Temp"
+        Me.btnFFmpeg.Location = New System.Drawing.Point(6, 19)
+        Me.btnFFmpeg.Name = "btnFFmpeg"
+        Me.btnFFmpeg.Size = New System.Drawing.Size(75, 23)
+        Me.btnFFmpeg.TabIndex = 0
+        Me.btnFFmpeg.Text = "Set Path"
+        Me.btnFFmpeg.UseVisualStyleBackColor = True
         '
         'OpenFFmpegDialog
         '
@@ -230,6 +251,7 @@ Partial Class frmTMXF
         '
         Me.btnChk3.BackColor = System.Drawing.Color.Red
         Me.btnChk3.Enabled = False
+        Me.btnChk3.FlatAppearance.BorderSize = 0
         Me.btnChk3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnChk3.Location = New System.Drawing.Point(952, 635)
         Me.btnChk3.Name = "btnChk3"
@@ -237,19 +259,11 @@ Partial Class frmTMXF
         Me.btnChk3.TabIndex = 8
         Me.btnChk3.UseVisualStyleBackColor = False
         '
-        'btnTempDefault
-        '
-        Me.btnTempDefault.Location = New System.Drawing.Point(857, 19)
-        Me.btnTempDefault.Name = "btnTempDefault"
-        Me.btnTempDefault.Size = New System.Drawing.Size(75, 23)
-        Me.btnTempDefault.TabIndex = 2
-        Me.btnTempDefault.Text = "Set Default"
-        Me.btnTempDefault.UseVisualStyleBackColor = True
-        '
         'btnChk2
         '
         Me.btnChk2.BackColor = System.Drawing.Color.Red
         Me.btnChk2.Enabled = False
+        Me.btnChk2.FlatAppearance.BorderSize = 0
         Me.btnChk2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnChk2.Location = New System.Drawing.Point(923, 635)
         Me.btnChk2.Name = "btnChk2"
@@ -261,6 +275,7 @@ Partial Class frmTMXF
         '
         Me.btnChk1.BackColor = System.Drawing.Color.Red
         Me.btnChk1.Enabled = False
+        Me.btnChk1.FlatAppearance.BorderSize = 0
         Me.btnChk1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnChk1.Location = New System.Drawing.Point(897, 635)
         Me.btnChk1.Name = "btnChk1"
@@ -270,12 +285,11 @@ Partial Class frmTMXF
         '
         'Button1
         '
-        Me.Button1.Enabled = False
         Me.Button1.Location = New System.Drawing.Point(897, 554)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(75, 75)
-        Me.Button1.TabIndex = 4
-        Me.Button1.Text = "Convert"
+        Me.Button1.TabIndex = 9
+        Me.Button1.Text = "Button1"
         Me.Button1.UseVisualStyleBackColor = True
         '
         'frmTMXF
@@ -283,12 +297,12 @@ Partial Class frmTMXF
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(984, 662)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.btnChk1)
         Me.Controls.Add(Me.btnChk2)
         Me.Controls.Add(Me.btnChk3)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.txtOutPath)
-        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.btnSaveOut)
         Me.Controls.Add(Me.lblVersion)
         Me.Controls.Add(Me.lblAuthor)
@@ -300,11 +314,12 @@ Partial Class frmTMXF
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "T MXF Converter"
         Me.TabControl1.ResumeLayout(False)
+        Me.TabCodec.ResumeLayout(False)
         Me.TabConfig.ResumeLayout(False)
-        Me.grpFFmpeg.ResumeLayout(False)
-        Me.grpFFmpeg.PerformLayout()
         Me.grpTemp.ResumeLayout(False)
         Me.grpTemp.PerformLayout()
+        Me.grpFFmpeg.ResumeLayout(False)
+        Me.grpFFmpeg.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -332,6 +347,7 @@ Partial Class frmTMXF
     Friend WithEvents btnTempDefault As System.Windows.Forms.Button
     Friend WithEvents btnChk2 As System.Windows.Forms.Button
     Friend WithEvents btnChk1 As System.Windows.Forms.Button
+    Friend WithEvents grpGlobal As System.Windows.Forms.GroupBox
     Friend WithEvents Button1 As System.Windows.Forms.Button
 
 End Class

@@ -39,7 +39,7 @@
         End If
     End Sub
 
-    Private Sub btnSaveOut_Click(sender As Object, e As EventArgs) Handles btnSaveOut.Click, Button1.Click
+    Private Sub btnSaveOut_Click(sender As Object, e As EventArgs) Handles btnSaveOut.Click
         If FolderBrowserDialog.ShowDialog() = Windows.Forms.DialogResult.OK Then
             txtOutPath.Text = FolderBrowserDialog.SelectedPath.ToString
             btnChk2.BackColor = Color.Green
