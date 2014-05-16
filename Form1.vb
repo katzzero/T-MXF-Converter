@@ -15,9 +15,9 @@
                 txtFFmpeg.Text = My.Settings.ffmpegpath.ToString
                 btnChk3.BackColor = Color.Green
             Else
-                My.Settings.ffmpegpath = "c:FFmpeg"
+                My.Settings.ffmpegpath = ""
                 txtFFmpeg.Text = "c:FFmpeg"
-                MessageBox.Show("FFmpeg Not Found!")
+                MessageBox.Show("FFmpeg Not Found!" & vbCrLf & "Please check the path in Software Config Tab")
             End If
         End If
 
@@ -52,12 +52,13 @@
     End Sub
 
     Private Sub btnFFmpeg_Click(sender As Object, e As EventArgs) Handles btnFFmpeg.Click
-        If OpenFFmpegDialog.ShowDialog() = Windows.Forms.DialogResult.OK Then
-            txtFFmpeg.Text = OpenFFmpegDialog.FileName.ToString
-            My.Settings.ffmpegpath = txtFFmpeg.Text.ToString
-
-        End If
-
+        Do
+            If OpenFFmpegDialog.ShowDialog() = Windows.Forms.DialogResult.OK Then
+                txtFFmpeg.Text = OpenFFmpegDialog.FileName.ToString
+                My.Settings.ffmpegpath = txtFFmpeg.Text.ToString
+                btnChk3.BackColor = Color.Green
+            End If
+        Loop Until System.IO.File.Exists(txtFFmpeg.Text.ToString) = True Or Windows.Forms.DialogResult.Cancel
     End Sub
 
     Private Sub btnTemp_Click(sender As Object, e As EventArgs) Handles btnTemp.Click
