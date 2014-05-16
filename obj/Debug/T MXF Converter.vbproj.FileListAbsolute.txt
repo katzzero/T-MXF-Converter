@@ -8,3 +8,13 @@ C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Conv
 C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\obj\Debug\T MXF Converter.exe
 C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\obj\Debug\T MXF Converter.xml
 C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\obj\Debug\T MXF Converter.pdb
+C:\Users\Katz\Documents\GitHub\T-MXF-Converter\bin\Debug\T MXF Converter.exe.config
+C:\Users\Katz\Documents\GitHub\T-MXF-Converter\obj\Debug\T MXF Converter.exe
+C:\Users\Katz\Documents\GitHub\T-MXF-Converter\obj\Debug\T MXF Converter.xml
+C:\Users\Katz\Documents\GitHub\T-MXF-Converter\obj\Debug\T MXF Converter.pdb
+C:\Users\Katz\Documents\GitHub\T-MXF-Converter\bin\Debug\T MXF Converter.exe
+C:\Users\Katz\Documents\GitHub\T-MXF-Converter\bin\Debug\T MXF Converter.pdb
+C:\Users\Katz\Documents\GitHub\T-MXF-Converter\bin\Debug\T MXF Converter.xml
+C:\Users\Katz\Documents\GitHub\T-MXF-Converter\obj\Debug\WindowsApplication1.frmTMXF.resources
+C:\Users\Katz\Documents\GitHub\T-MXF-Converter\obj\Debug\WindowsApplication1.Resources.resources
+C:\Users\Katz\Documents\GitHub\T-MXF-Converter\obj\Debug\T MXF Converter.vbproj.GenerateResource.Cache

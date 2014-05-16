@@ -154,7 +154,7 @@ Partial Class frmTMXF
         '
         Me.grpGlobal.Location = New System.Drawing.Point(4, 4)
         Me.grpGlobal.Name = "grpGlobal"
-        Me.grpGlobal.Size = New System.Drawing.Size(200, 100)
+        Me.grpGlobal.Size = New System.Drawing.Size(155, 222)
         Me.grpGlobal.TabIndex = 0
         Me.grpGlobal.TabStop = False
         Me.grpGlobal.Text = "Global Options"

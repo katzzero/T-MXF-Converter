@@ -11,9 +11,13 @@
                 txtFFmpeg.Text = OpenFFmpegDialog.FileName.ToString
                 My.Settings.ffmpegpath = OpenFFmpegDialog.FileName.ToString
                 btnChk3.BackColor = Color.Green
-            Else
+            ElseIf System.IO.File.Exists(My.Settings.ffmpegpath.ToString) Then
                 txtFFmpeg.Text = My.Settings.ffmpegpath.ToString
                 btnChk3.BackColor = Color.Green
+            Else
+                My.Settings.ffmpegpath = "c:FFmpeg"
+                txtFFmpeg.Text = "c:FFmpeg"
+                MessageBox.Show("FFmpeg Not Found!")
             End If
         End If
 
