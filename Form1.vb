@@ -31,6 +31,28 @@
             End If
         End If
 
+        'Check last used codec and assign it
+        If My.Settings.lastcodec = "h264" Then
+            rdbH264.Checked = True
+        ElseIf My.Settings.lastcodec = "prores" Then
+            rdbProRes.Checked = True
+        ElseIf My.Settings.lastcodec = "dnxhd" Then
+            rdbDNxHD.Checked = True
+        ElseIf My.Settings.lastcodec = "wav" Then
+            rdbWAV.Checked = True
+        End If
+
+        'Check Last used Resolution and assign it
+        If My.Settings.lastres = "1080" Then
+            rdb1080.Checked = True
+        ElseIf My.Settings.lastres = "720" Then
+            rdb720.Checked = True
+        ElseIf My.Settings.lastres = "486" Then
+            rdb486.Checked = True
+        ElseIf My.Settings.lastres = "540" Then
+            rdb540.Checked = True
+        End If
+
     End Sub
 
     Private Sub btnLoadMXF_Click(sender As Object, e As EventArgs) Handles btnLoadMXF.Click
@@ -40,6 +62,7 @@
         End If
         If System.IO.File.Exists(txtMXFpath.Text) Then
             btnChk1.BackColor = Color.Green
+            lblMXFPathCommand.Text = txtMXFpath.Text
         End If
     End Sub
 
@@ -53,6 +76,7 @@
 
     Private Sub btnFFmpeg_Click(sender As Object, e As EventArgs) Handles btnFFmpeg.Click
         Do
+            OpenFFmpegDialog.InitialDirectory = My.Computer.FileSystem.SpecialDirectories.Desktop
             If OpenFFmpegDialog.ShowDialog() = Windows.Forms.DialogResult.OK Then
                 txtFFmpeg.Text = OpenFFmpegDialog.FileName.ToString
                 My.Settings.ffmpegpath = txtFFmpeg.Text.ToString
@@ -71,5 +95,46 @@
     Private Sub btnTempDefault_Click(sender As Object, e As EventArgs) Handles btnTempDefault.Click
         txtTemp.Text = System.IO.Path.GetTempPath
         My.Settings.temppath = System.IO.Path.GetTempPath
+    End Sub
+
+    Private Sub codec_CheckedChanged(sender As Object, e As EventArgs) Handles rdbH264.CheckedChanged, rdbDNxHD.CheckedChanged, rdbProRes.CheckedChanged, rdbWAV.CheckedChanged
+        If rdbH264.Checked = True Then
+            lblCodecCommand.Text = "-vcodec libx264 -profile:v baseline -tune fastdecode -g 1 -crf 16 -bf 0 -pix_fmt yuv420p -copyts"
+            My.Settings.lastcodec = "h264"
+        ElseIf rdbProRes.Checked = True Then
+            lblCodecCommand.Text = "-vcodec prores -profile:v 1 -qscale:v 5 -copyts"
+            My.Settings.lastcodec = "prores"
+        ElseIf rdbDNxHD.Checked = True Then
+            lblCodecCommand.Text = "-vcodec dnxhd"
+            My.Settings.lastcodec = "dnxhd"
+        ElseIf rdbWAV.Checked = True Then
+            lblCodecCommand.Text = "-vn -acodec pcm_s24le -map 0:a -filter_complex " & Microsoft.VisualBasic.Chr(34) & "[0:a] amerge=inputs=8" & Microsoft.VisualBasic.Chr(34) & ""
+            My.Settings.lastcodec = "wav"
+        End If
+    End Sub
+
+    Private Sub txtFFmpeg_TextChanged(sender As Object, e As EventArgs) Handles txtFFmpeg.TextChanged
+        lblFFmpegCommand.Text = txtFFmpeg.Text
+    End Sub
+
+    Private Sub resolution_CheckedChanged(sender As Object, e As EventArgs) Handles rdb1080.CheckedChanged, rdb486.CheckedChanged, rdb540.CheckedChanged, rdb720.CheckedChanged
+        If rdb1080.Checked = True Then
+            lblRes.Text = " -s 1920x1080"
+            My.Settings.lastres = "1080"
+        ElseIf rdb720.Checked = True Then
+            lblRes.Text = "-s 1280x720"
+            My.Settings.lastres = "720"
+        ElseIf rdb486.Checked = True Then
+            lblRes.Text = " -s 864x486"
+            My.Settings.lastres = "486"
+        ElseIf rdb540.Checked = True Then
+            lblRes.Text = "-s 720x540"
+            My.Settings.lastres = "540"
+        End If
+
+    End Sub
+
+    Private Sub TabConfig_Click(sender As Object, e As EventArgs) Handles TabConfig.Click
+
     End Sub
 End Class

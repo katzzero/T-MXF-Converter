@@ -1,0 +1,50 @@
+H264 -Iframe
+
+"C:\Users\Thiago\Desktop\ffmpeg-20140408-git-b176320-win64-static\ffmpeg-20140408-git-b176320-win64-static\bin\ffmpeg.exe" -loglevel verbose -i "C:\Users\Thiago\Desktop\MXF Samples\joia rara\Clip07097.MXF" -y -vcodec libx264 -s 1280x720 -profile:v baseline -tune fastdecode -g 1 -crf 18 -bf 0 -vendor ap10 -pix_fmt yuv420p -copyts -acodec pcm_s24le -map 0 -map -0:d "C:\Users\Thiago\Desktop\testoutput\test-ffmbc-thiago-h264-iframe-1280x720-base.mov"
+
+Wav - 8 channels
+
+"C:\Users\Thiago\Desktop\another gui\ffmpeg.exe" -i "F:\Clip\Clip07097.MXF" -y -acodec pcm_s24le -map 0:a -filter_complex "[0:a] amerge=inputs=8" "C:\Users\Thiago\Desktop\New folder\test-ffmbc-thiago-pcm_s24le.wav"
+
+ProRes Apple
+
+"C:\Users\Thiago\Desktop\ffmpeg-20140408-git-b176320-win64-static\ffmpeg-20140408-git-b176320-win64-static\bin\ffmpeg.exe" -loglevel verbose -i "C:\Users\Thiago\Desktop\MXF Samples\joia rara\Clip07097.MXF" -y -vcodec prores -s 1280x720 -profile:v 1 -qscale:v 5 -copyts -acodec pcm_s24le -map 0 -map -0:d "C:\Users\Thiago\Desktop\New folder\test-ffmbc-thiago-prores-1280x720.mov"
+
+Burn Timecode
+"drawtext=fontfile=DroidSansMono.ttf: timecode='09\:57\:00\:00': r=23.976: x=(w-tw)/2: y=h-(2*lh): fontcolor=white: box=1: boxcolor=0x00000099"
+
+"C:\Users\Thiago\Desktop\ffmpeg-20140408-git-b176320-win64-static\ffmpeg-win64-static\bin\ffmpeg.exe" -loglevel verbose -i "C:\Users\Thiago\Desktop\MXF Samples\joia rara\Clip07097.MXF"  -y -vcodec prores -s 1280x720 -profile:v 1 -qscale:v 5 -copyts -vf "drawtext=fontfile=windows/fonts/arial.ttf: timecode='01\:57\:00\:00': r=29.97: x=(w-tw)/2: y=h-(2*lh): fontcolor=white: box=1: boxcolor=0x00000099" -acodec pcm_s24le -map 0 -map -0:d "C:\Users\Thiago\Desktop\New folder\test-ffmbc-thiago-prores-1280x720.mov"
+
+VC-3 (aka Avid DNxHD) Encoding
+
+ffmpeg -i <input_file> -vcodec dnxhd -b <bitrate> -an output.mov
+
+Notes :
+- <bitrate> can take the following values : 36Mb, 120Mb, 185Mb ( please refer to the following table ).
+- Add the following option for interlaced modes : -flags +ildct
+- Add the following option for best quality mode ( very slow ! ) : -mbd rd
+
+Supported Resolutions :
+
+Project Format 	Resolution 	Frame Size 	Bits 	FPS 	<bitrate>
+1080i / 59.94 	DNxHD 220 	1920 x 1080 	8 	29.97 	185Mb
+1080i / 59.94 	DNxHD 145 	1920 x 1080 	8 	29.97 	120Mb
+1080i / 50 	DNxHD 185 	1920 x 1080 	8 	25 	185Mb
+1080i / 50 	DNxHD 120 	1920 x 1080 	8 	25 	120Mb
+1080p / 25 	DNxHD 185 	1920 x 1080 	8 	25 	185Mb
+1080p / 25 	DNxHD 120 	1920 x 1080 	8 	25 	120Mb
+1080p / 25 	DNxHD 36 	1920 x 1080 	8 	25 	36Mb
+1080p / 24 	DNxHD 175 	1920 x 1080 	8 	24 	185Mb
+1080p / 24 	DNxHD 115 	1920 x 1080 	8 	24 	120Mb
+1080p / 24 	DNxHD 36 	1920 x 1080 	8 	24 	36Mb
+1080p / 23.976 	DNxHD 175 	1920 x 1080 	8 	23.976 	185Mb
+1080p / 23.976 	DNxHD 115 	1920 x 1080 	8 	23.976 	120Mb
+1080p / 23.976 	DNxHD 36 	1920 x 1080 	8 	23.976 	36Mb
+1080p / 29.7 	DNxHD 45 	1920 x 1080 	8 	29.97 	36Mb
+
+ffmpeg [global_options] {[input_file_options] -i ‘input_file’} ... {[output_file_options] ‘output_file’}
+
+executavel = caminho ffmpeg
+Variavel global = -loglevel verbose  -y
+declaração de input = -i + caminho do arquivo MXF entre " "
+Declaração de opções de conversão de video

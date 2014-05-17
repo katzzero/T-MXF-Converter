@@ -77,6 +77,30 @@ Namespace My
                 Me("temppath") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property lastcodec() As String
+            Get
+                Return CType(Me("lastcodec"),String)
+            End Get
+            Set
+                Me("lastcodec") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property lastres() As String
+            Get
+                Return CType(Me("lastres"),String)
+            End Get
+            Set
+                Me("lastres") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
