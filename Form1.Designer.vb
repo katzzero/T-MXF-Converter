@@ -31,8 +31,14 @@ Partial Class frmTMXF
         Me.btnSaveOut = New System.Windows.Forms.Button()
         Me.FolderBrowserDialog = New System.Windows.Forms.FolderBrowserDialog()
         Me.txtOutPath = New System.Windows.Forms.Label()
-        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.tabsMain = New System.Windows.Forms.TabControl()
         Me.TabCodec = New System.Windows.Forms.TabPage()
+        Me.grpACodec = New System.Windows.Forms.GroupBox()
+        Me.grpACh = New System.Windows.Forms.GroupBox()
+        Me.rdbA8Ch = New System.Windows.Forms.RadioButton()
+        Me.rdbA4Ch = New System.Windows.Forms.RadioButton()
+        Me.rdbA2Ch = New System.Windows.Forms.RadioButton()
+        Me.rdbADirect = New System.Windows.Forms.RadioButton()
         Me.grpResolution = New System.Windows.Forms.GroupBox()
         Me.rdb540 = New System.Windows.Forms.RadioButton()
         Me.rdb486 = New System.Windows.Forms.RadioButton()
@@ -45,6 +51,9 @@ Partial Class frmTMXF
         Me.rdbH264 = New System.Windows.Forms.RadioButton()
         Me.grpGlobal = New System.Windows.Forms.GroupBox()
         Me.TabConfig = New System.Windows.Forms.TabPage()
+        Me.lblAudioCommand = New System.Windows.Forms.Label()
+        Me.lblFileNameCommand = New System.Windows.Forms.Label()
+        Me.lblRes = New System.Windows.Forms.Label()
         Me.lblCodecCommand = New System.Windows.Forms.Label()
         Me.lblMXFPathCommand = New System.Windows.Forms.Label()
         Me.chkDumb = New System.Windows.Forms.CheckBox()
@@ -63,17 +72,33 @@ Partial Class frmTMXF
         Me.btnConvert = New System.Windows.Forms.Button()
         Me.btnChk4 = New System.Windows.Forms.Button()
         Me.btnChk5 = New System.Windows.Forms.Button()
-        Me.lblRes = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.txtOutFilename = New System.Windows.Forms.TextBox()
         Me.lblOutName = New System.Windows.Forms.Label()
-        Me.lblFileNameCommand = New System.Windows.Forms.Label()
-        Me.TabControl1.SuspendLayout()
+        Me.rdbPCM16 = New System.Windows.Forms.RadioButton()
+        Me.rdbPCM24 = New System.Windows.Forms.RadioButton()
+        Me.rdbAAC = New System.Windows.Forms.RadioButton()
+        Me.rdbMP3 = New System.Windows.Forms.RadioButton()
+        Me.grpSRate = New System.Windows.Forms.GroupBox()
+        Me.rdbSRDirect = New System.Windows.Forms.RadioButton()
+        Me.rdbSR44 = New System.Windows.Forms.RadioButton()
+        Me.rdbSR48 = New System.Windows.Forms.RadioButton()
+        Me.rdb96 = New System.Windows.Forms.RadioButton()
+        Me.tabSimple = New System.Windows.Forms.TabPage()
+        Me.rdb = New System.Windows.Forms.RadioButton()
+        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.tabsMain.SuspendLayout()
         Me.TabCodec.SuspendLayout()
+        Me.grpACodec.SuspendLayout()
+        Me.grpACh.SuspendLayout()
         Me.grpResolution.SuspendLayout()
         Me.grpDumbCodec.SuspendLayout()
         Me.TabConfig.SuspendLayout()
         Me.grpTemp.SuspendLayout()
         Me.grpFFmpeg.SuspendLayout()
+        Me.grpSRate.SuspendLayout()
+        Me.tabSimple.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Process1
@@ -151,18 +176,22 @@ Partial Class frmTMXF
         Me.txtOutPath.TabIndex = 6
         Me.txtOutPath.Text = "..."
         '
-        'TabControl1
+        'tabsMain
         '
-        Me.TabControl1.Controls.Add(Me.TabCodec)
-        Me.TabControl1.Controls.Add(Me.TabConfig)
-        Me.TabControl1.Location = New System.Drawing.Point(13, 95)
-        Me.TabControl1.Name = "TabControl1"
-        Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(959, 451)
-        Me.TabControl1.TabIndex = 7
+        Me.tabsMain.Controls.Add(Me.tabSimple)
+        Me.tabsMain.Controls.Add(Me.TabCodec)
+        Me.tabsMain.Controls.Add(Me.TabConfig)
+        Me.tabsMain.Location = New System.Drawing.Point(13, 95)
+        Me.tabsMain.Name = "tabsMain"
+        Me.tabsMain.SelectedIndex = 0
+        Me.tabsMain.Size = New System.Drawing.Size(959, 451)
+        Me.tabsMain.TabIndex = 7
         '
         'TabCodec
         '
+        Me.TabCodec.Controls.Add(Me.grpSRate)
+        Me.TabCodec.Controls.Add(Me.grpACodec)
+        Me.TabCodec.Controls.Add(Me.grpACh)
         Me.TabCodec.Controls.Add(Me.grpResolution)
         Me.TabCodec.Controls.Add(Me.grpDumbCodec)
         Me.TabCodec.Controls.Add(Me.grpGlobal)
@@ -173,6 +202,87 @@ Partial Class frmTMXF
         Me.TabCodec.TabIndex = 0
         Me.TabCodec.Text = "Codec Config"
         Me.TabCodec.UseVisualStyleBackColor = True
+        '
+        'grpACodec
+        '
+        Me.grpACodec.Controls.Add(Me.rdbMP3)
+        Me.grpACodec.Controls.Add(Me.rdbAAC)
+        Me.grpACodec.Controls.Add(Me.rdbPCM24)
+        Me.grpACodec.Controls.Add(Me.rdbPCM16)
+        Me.grpACodec.Location = New System.Drawing.Point(542, 7)
+        Me.grpACodec.Name = "grpACodec"
+        Me.grpACodec.Size = New System.Drawing.Size(121, 155)
+        Me.grpACodec.TabIndex = 4
+        Me.grpACodec.TabStop = False
+        Me.grpACodec.Text = "Audio Codec"
+        '
+        'grpACh
+        '
+        Me.grpACh.Controls.Add(Me.rdbA8Ch)
+        Me.grpACh.Controls.Add(Me.rdbA4Ch)
+        Me.grpACh.Controls.Add(Me.rdbA2Ch)
+        Me.grpACh.Controls.Add(Me.rdbADirect)
+        Me.grpACh.Location = New System.Drawing.Point(420, 7)
+        Me.grpACh.Name = "grpACh"
+        Me.grpACh.Size = New System.Drawing.Size(116, 155)
+        Me.grpACh.TabIndex = 3
+        Me.grpACh.TabStop = False
+        Me.grpACh.Text = "Audio Channels"
+        '
+        'rdbA8Ch
+        '
+        Me.rdbA8Ch.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbA8Ch.Enabled = False
+        Me.rdbA8Ch.Location = New System.Drawing.Point(6, 121)
+        Me.rdbA8Ch.Margin = New System.Windows.Forms.Padding(5)
+        Me.rdbA8Ch.Name = "rdbA8Ch"
+        Me.rdbA8Ch.Size = New System.Drawing.Size(104, 24)
+        Me.rdbA8Ch.TabIndex = 3
+        Me.rdbA8Ch.TabStop = True
+        Me.rdbA8Ch.Text = "8 Channels"
+        Me.rdbA8Ch.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdbA8Ch.UseVisualStyleBackColor = True
+        '
+        'rdbA4Ch
+        '
+        Me.rdbA4Ch.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbA4Ch.Enabled = False
+        Me.rdbA4Ch.Location = New System.Drawing.Point(6, 87)
+        Me.rdbA4Ch.Margin = New System.Windows.Forms.Padding(5)
+        Me.rdbA4Ch.Name = "rdbA4Ch"
+        Me.rdbA4Ch.Size = New System.Drawing.Size(104, 24)
+        Me.rdbA4Ch.TabIndex = 2
+        Me.rdbA4Ch.TabStop = True
+        Me.rdbA4Ch.Text = "4 Channels"
+        Me.rdbA4Ch.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdbA4Ch.UseVisualStyleBackColor = True
+        '
+        'rdbA2Ch
+        '
+        Me.rdbA2Ch.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbA2Ch.Enabled = False
+        Me.rdbA2Ch.Location = New System.Drawing.Point(6, 55)
+        Me.rdbA2Ch.Margin = New System.Windows.Forms.Padding(5)
+        Me.rdbA2Ch.Name = "rdbA2Ch"
+        Me.rdbA2Ch.Size = New System.Drawing.Size(104, 24)
+        Me.rdbA2Ch.TabIndex = 1
+        Me.rdbA2Ch.TabStop = True
+        Me.rdbA2Ch.Text = "2 Channels"
+        Me.rdbA2Ch.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdbA2Ch.UseVisualStyleBackColor = True
+        '
+        'rdbADirect
+        '
+        Me.rdbADirect.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbADirect.Location = New System.Drawing.Point(6, 21)
+        Me.rdbADirect.Margin = New System.Windows.Forms.Padding(5)
+        Me.rdbADirect.Name = "rdbADirect"
+        Me.rdbADirect.Size = New System.Drawing.Size(104, 24)
+        Me.rdbADirect.TabIndex = 0
+        Me.rdbADirect.TabStop = True
+        Me.rdbADirect.Text = "Direct"
+        Me.rdbADirect.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdbADirect.UseVisualStyleBackColor = True
         '
         'grpResolution
         '
@@ -246,7 +356,7 @@ Partial Class frmTMXF
         Me.grpDumbCodec.Size = New System.Drawing.Size(120, 155)
         Me.grpDumbCodec.TabIndex = 1
         Me.grpDumbCodec.TabStop = False
-        Me.grpDumbCodec.Text = "Codec"
+        Me.grpDumbCodec.Text = "Video Codec"
         '
         'rdbWAV
         '
@@ -307,6 +417,7 @@ Partial Class frmTMXF
         '
         'TabConfig
         '
+        Me.TabConfig.Controls.Add(Me.lblAudioCommand)
         Me.TabConfig.Controls.Add(Me.lblFileNameCommand)
         Me.TabConfig.Controls.Add(Me.lblRes)
         Me.TabConfig.Controls.Add(Me.lblCodecCommand)
@@ -322,6 +433,36 @@ Partial Class frmTMXF
         Me.TabConfig.TabIndex = 1
         Me.TabConfig.Text = "Software Config"
         Me.TabConfig.UseVisualStyleBackColor = True
+        '
+        'lblAudioCommand
+        '
+        Me.lblAudioCommand.AutoSize = True
+        Me.lblAudioCommand.Location = New System.Drawing.Point(17, 139)
+        Me.lblAudioCommand.Margin = New System.Windows.Forms.Padding(3)
+        Me.lblAudioCommand.Name = "lblAudioCommand"
+        Me.lblAudioCommand.Size = New System.Drawing.Size(34, 13)
+        Me.lblAudioCommand.TabIndex = 15
+        Me.lblAudioCommand.Text = "Audio"
+        '
+        'lblFileNameCommand
+        '
+        Me.lblFileNameCommand.AutoSize = True
+        Me.lblFileNameCommand.Location = New System.Drawing.Point(17, 120)
+        Me.lblFileNameCommand.Margin = New System.Windows.Forms.Padding(3)
+        Me.lblFileNameCommand.Name = "lblFileNameCommand"
+        Me.lblFileNameCommand.Size = New System.Drawing.Size(54, 13)
+        Me.lblFileNameCommand.TabIndex = 14
+        Me.lblFileNameCommand.Text = "File Name"
+        '
+        'lblRes
+        '
+        Me.lblRes.AutoSize = True
+        Me.lblRes.Location = New System.Drawing.Point(17, 101)
+        Me.lblRes.Margin = New System.Windows.Forms.Padding(3)
+        Me.lblRes.Name = "lblRes"
+        Me.lblRes.Size = New System.Drawing.Size(57, 13)
+        Me.lblRes.TabIndex = 13
+        Me.lblRes.Text = "Resolution"
         '
         'lblCodecCommand
         '
@@ -512,40 +653,174 @@ Partial Class frmTMXF
         Me.btnChk5.TabIndex = 8
         Me.btnChk5.UseVisualStyleBackColor = False
         '
-        'lblRes
+        'txtOutFilename
         '
-        Me.lblRes.AutoSize = True
-        Me.lblRes.Location = New System.Drawing.Point(17, 101)
-        Me.lblRes.Margin = New System.Windows.Forms.Padding(3)
-        Me.lblRes.Name = "lblRes"
-        Me.lblRes.Size = New System.Drawing.Size(57, 13)
-        Me.lblRes.TabIndex = 13
-        Me.lblRes.Text = "Resolution"
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Location = New System.Drawing.Point(97, 580)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(326, 20)
-        Me.TextBox1.TabIndex = 10
+        Me.txtOutFilename.Location = New System.Drawing.Point(93, 568)
+        Me.txtOutFilename.Name = "txtOutFilename"
+        Me.txtOutFilename.Size = New System.Drawing.Size(326, 20)
+        Me.txtOutFilename.TabIndex = 10
         '
         'lblOutName
         '
         Me.lblOutName.AutoSize = True
-        Me.lblOutName.Location = New System.Drawing.Point(97, 554)
+        Me.lblOutName.Location = New System.Drawing.Point(94, 552)
         Me.lblOutName.Name = "lblOutName"
         Me.lblOutName.Size = New System.Drawing.Size(89, 13)
         Me.lblOutName.TabIndex = 11
         Me.lblOutName.Text = "Output File Name"
         '
-        'lblFileNameCommand
+        'rdbPCM16
         '
-        Me.lblFileNameCommand.AutoSize = True
-        Me.lblFileNameCommand.Location = New System.Drawing.Point(20, 121)
-        Me.lblFileNameCommand.Name = "lblFileNameCommand"
-        Me.lblFileNameCommand.Size = New System.Drawing.Size(54, 13)
-        Me.lblFileNameCommand.TabIndex = 14
-        Me.lblFileNameCommand.Text = "File Name"
+        Me.rdbPCM16.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbPCM16.Location = New System.Drawing.Point(7, 21)
+        Me.rdbPCM16.Name = "rdbPCM16"
+        Me.rdbPCM16.Size = New System.Drawing.Size(104, 24)
+        Me.rdbPCM16.TabIndex = 0
+        Me.rdbPCM16.TabStop = True
+        Me.rdbPCM16.Text = "PCM 16 bits"
+        Me.rdbPCM16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdbPCM16.UseVisualStyleBackColor = True
+        '
+        'rdbPCM24
+        '
+        Me.rdbPCM24.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbPCM24.Location = New System.Drawing.Point(6, 55)
+        Me.rdbPCM24.Name = "rdbPCM24"
+        Me.rdbPCM24.Size = New System.Drawing.Size(104, 24)
+        Me.rdbPCM24.TabIndex = 1
+        Me.rdbPCM24.TabStop = True
+        Me.rdbPCM24.Text = "PCM 24 bits"
+        Me.rdbPCM24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdbPCM24.UseVisualStyleBackColor = True
+        '
+        'rdbAAC
+        '
+        Me.rdbAAC.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbAAC.Location = New System.Drawing.Point(7, 89)
+        Me.rdbAAC.Name = "rdbAAC"
+        Me.rdbAAC.Size = New System.Drawing.Size(104, 24)
+        Me.rdbAAC.TabIndex = 2
+        Me.rdbAAC.TabStop = True
+        Me.rdbAAC.Text = "AAC"
+        Me.rdbAAC.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdbAAC.UseVisualStyleBackColor = True
+        '
+        'rdbMP3
+        '
+        Me.rdbMP3.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbMP3.Location = New System.Drawing.Point(7, 121)
+        Me.rdbMP3.Name = "rdbMP3"
+        Me.rdbMP3.Size = New System.Drawing.Size(104, 24)
+        Me.rdbMP3.TabIndex = 3
+        Me.rdbMP3.TabStop = True
+        Me.rdbMP3.Text = "MP3 320 kbps"
+        Me.rdbMP3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdbMP3.UseVisualStyleBackColor = True
+        '
+        'grpSRate
+        '
+        Me.grpSRate.Controls.Add(Me.rdb96)
+        Me.grpSRate.Controls.Add(Me.rdbSR48)
+        Me.grpSRate.Controls.Add(Me.rdbSR44)
+        Me.grpSRate.Controls.Add(Me.rdbSRDirect)
+        Me.grpSRate.Location = New System.Drawing.Point(670, 7)
+        Me.grpSRate.Name = "grpSRate"
+        Me.grpSRate.Size = New System.Drawing.Size(118, 155)
+        Me.grpSRate.TabIndex = 5
+        Me.grpSRate.TabStop = False
+        Me.grpSRate.Text = "Sample Rate"
+        '
+        'rdbSRDirect
+        '
+        Me.rdbSRDirect.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbSRDirect.Location = New System.Drawing.Point(7, 21)
+        Me.rdbSRDirect.Name = "rdbSRDirect"
+        Me.rdbSRDirect.Size = New System.Drawing.Size(104, 24)
+        Me.rdbSRDirect.TabIndex = 0
+        Me.rdbSRDirect.TabStop = True
+        Me.rdbSRDirect.Text = "Direct"
+        Me.rdbSRDirect.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdbSRDirect.UseVisualStyleBackColor = True
+        '
+        'rdbSR44
+        '
+        Me.rdbSR44.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbSR44.Location = New System.Drawing.Point(7, 55)
+        Me.rdbSR44.Name = "rdbSR44"
+        Me.rdbSR44.Size = New System.Drawing.Size(104, 24)
+        Me.rdbSR44.TabIndex = 1
+        Me.rdbSR44.TabStop = True
+        Me.rdbSR44.Text = "44.1 KHz"
+        Me.rdbSR44.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdbSR44.UseVisualStyleBackColor = True
+        '
+        'rdbSR48
+        '
+        Me.rdbSR48.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbSR48.Location = New System.Drawing.Point(7, 89)
+        Me.rdbSR48.Name = "rdbSR48"
+        Me.rdbSR48.Size = New System.Drawing.Size(104, 24)
+        Me.rdbSR48.TabIndex = 2
+        Me.rdbSR48.TabStop = True
+        Me.rdbSR48.Text = "48 KHz"
+        Me.rdbSR48.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdbSR48.UseVisualStyleBackColor = True
+        '
+        'rdb96
+        '
+        Me.rdb96.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdb96.Location = New System.Drawing.Point(7, 121)
+        Me.rdb96.Name = "rdb96"
+        Me.rdb96.Size = New System.Drawing.Size(104, 24)
+        Me.rdb96.TabIndex = 3
+        Me.rdb96.TabStop = True
+        Me.rdb96.Text = "96 KHz"
+        Me.rdb96.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdb96.UseVisualStyleBackColor = True
+        '
+        'tabSimple
+        '
+        Me.tabSimple.Controls.Add(Me.GroupBox1)
+        Me.tabSimple.Location = New System.Drawing.Point(4, 22)
+        Me.tabSimple.Name = "tabSimple"
+        Me.tabSimple.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabSimple.Size = New System.Drawing.Size(951, 425)
+        Me.tabSimple.TabIndex = 2
+        Me.tabSimple.Text = "Simple Mode"
+        Me.tabSimple.UseVisualStyleBackColor = True
+        '
+        'rdb
+        '
+        Me.rdb.AutoSize = True
+        Me.rdb.Location = New System.Drawing.Point(6, 19)
+        Me.rdb.Name = "rdb"
+        Me.rdb.Size = New System.Drawing.Size(90, 17)
+        Me.rdb.TabIndex = 0
+        Me.rdb.TabStop = True
+        Me.rdb.Text = "RadioButton1"
+        Me.rdb.UseVisualStyleBackColor = True
+        '
+        'RadioButton1
+        '
+        Me.RadioButton1.AutoSize = True
+        Me.RadioButton1.Location = New System.Drawing.Point(6, 42)
+        Me.RadioButton1.Name = "RadioButton1"
+        Me.RadioButton1.Size = New System.Drawing.Size(90, 17)
+        Me.RadioButton1.TabIndex = 1
+        Me.RadioButton1.TabStop = True
+        Me.RadioButton1.Text = "RadioButton1"
+        Me.RadioButton1.UseVisualStyleBackColor = True
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.RadioButton1)
+        Me.GroupBox1.Controls.Add(Me.rdb)
+        Me.GroupBox1.Location = New System.Drawing.Point(6, 6)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(200, 100)
+        Me.GroupBox1.TabIndex = 2
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "GroupBox1"
         '
         'frmTMXF
         '
@@ -553,14 +828,14 @@ Partial Class frmTMXF
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(984, 662)
         Me.Controls.Add(Me.lblOutName)
-        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.txtOutFilename)
         Me.Controls.Add(Me.btnConvert)
         Me.Controls.Add(Me.btnChk1)
         Me.Controls.Add(Me.btnChk2)
         Me.Controls.Add(Me.btnChk5)
         Me.Controls.Add(Me.btnChk4)
         Me.Controls.Add(Me.btnChk3)
-        Me.Controls.Add(Me.TabControl1)
+        Me.Controls.Add(Me.tabsMain)
         Me.Controls.Add(Me.txtOutPath)
         Me.Controls.Add(Me.btnSaveOut)
         Me.Controls.Add(Me.lblVersion)
@@ -571,9 +846,11 @@ Partial Class frmTMXF
         Me.MaximizeBox = False
         Me.Name = "frmTMXF"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "s"
-        Me.TabControl1.ResumeLayout(False)
+        Me.Text = "T MXF Converter"
+        Me.tabsMain.ResumeLayout(False)
         Me.TabCodec.ResumeLayout(False)
+        Me.grpACodec.ResumeLayout(False)
+        Me.grpACh.ResumeLayout(False)
         Me.grpResolution.ResumeLayout(False)
         Me.grpDumbCodec.ResumeLayout(False)
         Me.TabConfig.ResumeLayout(False)
@@ -582,6 +859,10 @@ Partial Class frmTMXF
         Me.grpTemp.PerformLayout()
         Me.grpFFmpeg.ResumeLayout(False)
         Me.grpFFmpeg.PerformLayout()
+        Me.grpSRate.ResumeLayout(False)
+        Me.tabSimple.ResumeLayout(False)
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -595,7 +876,7 @@ Partial Class frmTMXF
     Friend WithEvents txtOutPath As System.Windows.Forms.Label
     Friend WithEvents btnSaveOut As System.Windows.Forms.Button
     Friend WithEvents FolderBrowserDialog As System.Windows.Forms.FolderBrowserDialog
-    Friend WithEvents TabControl1 As System.Windows.Forms.TabControl
+    Friend WithEvents tabsMain As System.Windows.Forms.TabControl
     Friend WithEvents TabCodec As System.Windows.Forms.TabPage
     Friend WithEvents TabConfig As System.Windows.Forms.TabPage
     Friend WithEvents grpFFmpeg As System.Windows.Forms.GroupBox
@@ -629,7 +910,27 @@ Partial Class frmTMXF
     Friend WithEvents rdb1080 As System.Windows.Forms.RadioButton
     Friend WithEvents lblRes As System.Windows.Forms.Label
     Friend WithEvents lblOutName As System.Windows.Forms.Label
-    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
+    Friend WithEvents txtOutFilename As System.Windows.Forms.TextBox
     Friend WithEvents lblFileNameCommand As System.Windows.Forms.Label
+    Friend WithEvents grpACodec As System.Windows.Forms.GroupBox
+    Friend WithEvents grpACh As System.Windows.Forms.GroupBox
+    Friend WithEvents rdbA8Ch As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbA4Ch As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbA2Ch As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbADirect As System.Windows.Forms.RadioButton
+    Friend WithEvents lblAudioCommand As System.Windows.Forms.Label
+    Friend WithEvents rdbMP3 As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbAAC As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbPCM24 As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbPCM16 As System.Windows.Forms.RadioButton
+    Friend WithEvents grpSRate As System.Windows.Forms.GroupBox
+    Friend WithEvents rdbSR44 As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbSRDirect As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbSR48 As System.Windows.Forms.RadioButton
+    Friend WithEvents rdb96 As System.Windows.Forms.RadioButton
+    Friend WithEvents tabSimple As System.Windows.Forms.TabPage
+    Friend WithEvents rdb As System.Windows.Forms.RadioButton
+    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents RadioButton1 As System.Windows.Forms.RadioButton
 
 End Class

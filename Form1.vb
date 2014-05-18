@@ -53,6 +53,7 @@
             rdb540.Checked = True
         End If
 
+        txtOutFilename.Text = DateAndTime.Now.Day & "-" & DateAndTime.Now.Month & "-" & DateAndTime.Now.Year & "-" & DateAndTime.Now.Hour & DateAndTime.Now.Minute
     End Sub
 
     Private Sub btnLoadMXF_Click(sender As Object, e As EventArgs) Handles btnLoadMXF.Click
@@ -71,7 +72,7 @@
             txtOutPath.Text = FolderBrowserDialog.SelectedPath.ToString
             btnChk2.BackColor = Color.Green
         End If
-
+        lblFileNameCommand.Text = txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & ".mov"
     End Sub
 
     Private Sub btnFFmpeg_Click(sender As Object, e As EventArgs) Handles btnFFmpeg.Click
@@ -115,6 +116,7 @@
 
     Private Sub txtFFmpeg_TextChanged(sender As Object, e As EventArgs) Handles txtFFmpeg.TextChanged
         lblFFmpegCommand.Text = txtFFmpeg.Text
+
     End Sub
 
     Private Sub resolution_CheckedChanged(sender As Object, e As EventArgs) Handles rdb1080.CheckedChanged, rdb486.CheckedChanged, rdb540.CheckedChanged, rdb720.CheckedChanged
@@ -136,5 +138,34 @@
 
     Private Sub TabConfig_Click(sender As Object, e As EventArgs) Handles TabConfig.Click
 
+    End Sub
+
+    Private Sub txtOutFilename_TextChanged(sender As Object, e As EventArgs) Handles txtOutFilename.TextChanged
+        lblFileNameCommand.Text = txtOutFilename.Text.ToString
+
+    End Sub
+
+    Private Sub btnChk3_BackColorChanged(sender As Object, e As EventArgs) Handles btnChk3.BackColorChanged
+        If txtFFmpeg.Text = "FFmpeg.exe" Then
+            My.Settings.ffmpegpath = ""
+            txtFFmpeg.Text = "c:FFmpeg"
+            MessageBox.Show("FFmpeg Not Selected" & vbCrLf & "Please, choose a path in Software Config Tab")
+            btnChk3.BackColor = Color.Red
+        End If
+
+    End Sub
+
+    
+    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles rdbPCM16.CheckedChanged
+
+    End Sub
+
+    Private Sub rdb_CheckedChanged(sender As Object, e As EventArgs) Handles rdb.CheckedChanged
+        If rdb.Checked = False Then
+            Me.tabsMain.TabPages(1).Enabled = False
+        ElseIf rdb.Checked = True Then
+            Me.tabsMain.TabPages(1).Enabled = True
+
+        End If
     End Sub
 End Class
