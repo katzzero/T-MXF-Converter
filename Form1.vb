@@ -32,13 +32,13 @@
         End If
 
         'Check last used codec and assign it
-        If My.Settings.lastcodec = "h264" Then
+        If My.Settings.lastVcodec = "h264" Then
             rdbH264.Checked = True
-        ElseIf My.Settings.lastcodec = "prores" Then
+        ElseIf My.Settings.lastVcodec = "prores" Then
             rdbProRes.Checked = True
-        ElseIf My.Settings.lastcodec = "dnxhd" Then
+        ElseIf My.Settings.lastVcodec = "dnxhd" Then
             rdbDNxHD.Checked = True
-        ElseIf My.Settings.lastcodec = "wav" Then
+        ElseIf My.Settings.lastVcodec = "wav" Then
             rdbWAV.Checked = True
         End If
 
@@ -53,7 +53,30 @@
             rdb540.Checked = True
         End If
 
-        txtOutFilename.Text = DateAndTime.Now.Day & "-" & DateAndTime.Now.Month & "-" & DateAndTime.Now.Year & "-" & DateAndTime.Now.Hour & DateAndTime.Now.Minute
+        'Check Last used Audio Codec and assign it
+        If My.Settings.lastAcodec = "PCM16" Then
+            rdbPCM16.Checked = True
+        ElseIf My.Settings.lastAcodec = "PCM24" Then
+            rdbPCM24.Checked = True
+        ElseIf My.Settings.lastAcodec = "AAC" Then
+            rdbAAC.Checked = True
+        ElseIf My.Settings.lastAcodec = "MP3" Then
+            rdbMP3.Checked = True
+        End If
+
+        If My.Settings.lastchannels = "direct" Then
+            rdbADirect.Checked = True
+        ElseIf My.Settings.lastchannels = "2ch" Then
+            rdbA2Ch.Checked = True
+        ElseIf My.Settings.lastchannels = "4ch" Then
+            rdbA4Ch.Checked = True
+        ElseIf My.Settings.lastchannels = "8ch" Then
+            rdbA8Ch.Checked = True
+        End If
+
+        'Set date and time as part of the output name
+        txtNameDate.Text = DateAndTime.Now.Day & "-" & DateAndTime.Now.Month & "-" & DateAndTime.Now.Year & "-" & DateAndTime.Now.Hour & DateAndTime.Now.Minute
+
     End Sub
 
     Private Sub btnLoadMXF_Click(sender As Object, e As EventArgs) Handles btnLoadMXF.Click
@@ -101,16 +124,16 @@
     Private Sub codec_CheckedChanged(sender As Object, e As EventArgs) Handles rdbH264.CheckedChanged, rdbDNxHD.CheckedChanged, rdbProRes.CheckedChanged, rdbWAV.CheckedChanged
         If rdbH264.Checked = True Then
             lblCodecCommand.Text = "-vcodec libx264 -profile:v baseline -tune fastdecode -g 1 -crf 16 -bf 0 -pix_fmt yuv420p -copyts"
-            My.Settings.lastcodec = "h264"
+            My.Settings.lastVcodec = "h264"
         ElseIf rdbProRes.Checked = True Then
             lblCodecCommand.Text = "-vcodec prores -profile:v 1 -qscale:v 5 -copyts"
-            My.Settings.lastcodec = "prores"
+            My.Settings.lastVcodec = "prores"
         ElseIf rdbDNxHD.Checked = True Then
             lblCodecCommand.Text = "-vcodec dnxhd"
-            My.Settings.lastcodec = "dnxhd"
+            My.Settings.lastVcodec = "dnxhd"
         ElseIf rdbWAV.Checked = True Then
             lblCodecCommand.Text = "-vn -acodec pcm_s24le -map 0:a -filter_complex " & Microsoft.VisualBasic.Chr(34) & "[0:a] amerge=inputs=8" & Microsoft.VisualBasic.Chr(34) & ""
-            My.Settings.lastcodec = "wav"
+            My.Settings.lastVcodec = "wav"
         End If
     End Sub
 
@@ -155,17 +178,37 @@
 
     End Sub
 
-    
-    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles rdbPCM16.CheckedChanged
-
-    End Sub
-
-    Private Sub rdb_CheckedChanged(sender As Object, e As EventArgs) Handles rdb.CheckedChanged
-        If rdb.Checked = False Then
-            Me.tabsMain.TabPages(1).Enabled = False
-        ElseIf rdb.Checked = True Then
-            Me.tabsMain.TabPages(1).Enabled = True
-
+    Private Sub rdbAchannels_CheckedChanged(sender As Object, e As EventArgs) Handles rdbADirect.CheckedChanged, rdbA2Ch.CheckedChanged, rdbA4Ch.CheckedChanged, rdbA8Ch.CheckedChanged
+        If rdbADirect.Checked = True Then
+            lblAudioChCommand.Text = "-map 0 -map -0:d"
+            My.Settings.lastchannels = "direct"
+        ElseIf rdbA2Ch.Checked = True Then
+            lblAudioChCommand.Text = "2 channels map"
+            My.Settings.lastchannels = "2ch"
+        ElseIf rdbA4Ch.Checked = True Then
+            lblAudioChCommand.Text = "4 Channels map"
+            My.Settings.lastchannels = "4ch"
+        ElseIf rdbA8Ch.Checked = True Then
+            lblAudioChCommand.Text = "8 Channels map"
+            My.Settings.lastchannels = "8ch"
         End If
     End Sub
+
+
+    Private Sub rdbACodec_CheckedChanged(sender As Object, e As EventArgs) Handles rdbPCM16.CheckedChanged
+        If rdbPCM16.Checked = True Then
+            lblACodecCommand.Text = "-acodec pcm_s16le"
+            My.Settings.lastAcodec = "PCM16"
+        ElseIf rdbPCM24.Checked = True Then
+            lblACodecCommand.Text = "-acodec pcm_s24le"
+            My.Settings.lastAcodec = "PCM24"
+        ElseIf rdbAAC.Checked = True Then
+            lblACodecCommand.Text = "-acodec libfdk_aac -vbr 5"
+            My.Settings.lastchannels = "AAC"
+        ElseIf rdbMP3.Checked = True Then
+            lblACodecCommand.Text = "-acodec libmp3lame -b:a 320k"
+            My.Settings.lastAcodec = "MP3"
+        End If
+    End Sub
+
 End Class

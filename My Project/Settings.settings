@@ -8,10 +8,16 @@
     <Setting Name="temppath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="lastcodec" Type="System.String" Scope="User">
+    <Setting Name="lastVcodec" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="lastres" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="lastchannels" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="lastAcodec" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>
