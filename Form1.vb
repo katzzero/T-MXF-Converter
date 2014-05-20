@@ -1,4 +1,6 @@
-﻿Public Class frmTMXF
+﻿Imports System.IO
+
+Public Class frmTMXF
 
     Private Sub frmTMXF_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Show version on label
@@ -81,12 +83,12 @@
 
     Private Sub btnLoadMXF_Click(sender As Object, e As EventArgs) Handles btnLoadMXF.Click
         If OpenMXFDialog.ShowDialog() = Windows.Forms.DialogResult.OK Then
-            txtMXFpath.Text = OpenMXFDialog.FileName.ToString
+            txtMXFpath.Text = Microsoft.VisualBasic.Chr(34) & OpenMXFDialog.FileName.ToString & Microsoft.VisualBasic.Chr(34)
             btnSaveOut.Enabled = True
         End If
         If System.IO.File.Exists(txtMXFpath.Text) Then
             btnChk1.BackColor = Color.Green
-            lblMXFPathCommand.Text = txtMXFpath.Text
+            lblMXFPathCommand.Text = "-i " & txtMXFpath.Text
         End If
     End Sub
 
@@ -195,7 +197,7 @@
     End Sub
 
 
-    Private Sub rdbACodec_CheckedChanged(sender As Object, e As EventArgs) Handles rdbPCM16.CheckedChanged
+    Private Sub rdbACodec_CheckedChanged(sender As Object, e As EventArgs) Handles rdbPCM16.CheckedChanged, rdbPCM24.CheckedChanged, rdbAAC.CheckedChanged, rdbMP3.CheckedChanged
         If rdbPCM16.Checked = True Then
             lblACodecCommand.Text = "-acodec pcm_s16le"
             My.Settings.lastAcodec = "PCM16"
@@ -211,4 +213,32 @@
         End If
     End Sub
 
+
+    Private Sub btnConvert_Click(sender As Object, e As EventArgs) Handles btnConvert.Click
+        Dim FFmpegprocess As New Process()
+        Dim FFarguments As String
+        FFarguments = " -loglevel verbose" & " -i " & txtMXFpath.Text.ToString & " " & lblCodecCommand.Text.ToString & " " & lblRes.Text.ToString & " " & lblACodecCommand.Text.ToString & " " & lblAudioChCommand.Text.ToString & " " & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".mov"
+        lblFFarguments.Text = FFarguments.ToString
+        FFmpegprocess.StartInfo.FileName = txtFFmpeg.Text.ToString
+        FFmpegprocess.StartInfo.Arguments = "-report" & FFarguments
+        'FFmpegprocess.StartInfo.RedirectStandardOutput = True
+        'FFmpegprocess.StartInfo.UseShellExecute = False
+        FFmpegprocess.StartInfo.ErrorDialog = True
+        FFmpegprocess.Start()
+        'Dim FFStreamReader As StreamReader = FFmpegprocess.StandardOutput
+
+        'txtFFoutput.Text = FFStreamReader.ReadToEnd()
+        'Console.WriteLine(FFStreamReader.ReadLineAsync.ToString())
+        'FFmpegprocess.WaitForExit()
+
+
+        'ProcessFFmpeg.StartInfo.FileName = txtFFmpeg.Text.ToString
+        'ProcessFFmpeg.StartInfo.Arguments = " -loglevel verbose" & " " & lblMXFPathCommand.Text.ToString & " " & lblCodecCommand.Text.ToString & " " & lblRes.Text.ToString & " " & lblACodecCommand.Text.ToString & " " & lblAudioChCommand.Text.ToString & " " & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".mov"
+        'ProcessFFmpeg.Start()
+
+    End Sub
+
+    Private Sub txtFFoutput_TextChanged(sender As Object, e As EventArgs) Handles txtFFoutput.TextChanged
+
+    End Sub
 End Class

@@ -22,7 +22,7 @@ Partial Class frmTMXF
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.Process1 = New System.Diagnostics.Process()
+        Me.ProcessFFmpeg = New System.Diagnostics.Process()
         Me.btnLoadMXF = New System.Windows.Forms.Button()
         Me.txtMXFpath = New System.Windows.Forms.Label()
         Me.lblAuthor = New System.Windows.Forms.Label()
@@ -60,6 +60,7 @@ Partial Class frmTMXF
         Me.rdbH264 = New System.Windows.Forms.RadioButton()
         Me.grpGlobal = New System.Windows.Forms.GroupBox()
         Me.TabConfig = New System.Windows.Forms.TabPage()
+        Me.lblACodecCommand = New System.Windows.Forms.Label()
         Me.lblAudioChCommand = New System.Windows.Forms.Label()
         Me.lblFileNameCommand = New System.Windows.Forms.Label()
         Me.lblRes = New System.Windows.Forms.Label()
@@ -83,8 +84,10 @@ Partial Class frmTMXF
         Me.btnChk5 = New System.Windows.Forms.Button()
         Me.txtOutFilename = New System.Windows.Forms.TextBox()
         Me.lblOutName = New System.Windows.Forms.Label()
-        Me.lblACodecCommand = New System.Windows.Forms.Label()
         Me.txtNameDate = New System.Windows.Forms.Label()
+        Me.lblASRCommand = New System.Windows.Forms.Label()
+        Me.txtFFoutput = New System.Windows.Forms.TextBox()
+        Me.lblFFarguments = New System.Windows.Forms.Label()
         Me.tabsMain.SuspendLayout()
         Me.TabCodec.SuspendLayout()
         Me.grpSRate.SuspendLayout()
@@ -97,15 +100,20 @@ Partial Class frmTMXF
         Me.grpFFmpeg.SuspendLayout()
         Me.SuspendLayout()
         '
-        'Process1
+        'ProcessFFmpeg
         '
-        Me.Process1.StartInfo.Domain = ""
-        Me.Process1.StartInfo.LoadUserProfile = False
-        Me.Process1.StartInfo.Password = Nothing
-        Me.Process1.StartInfo.StandardErrorEncoding = Nothing
-        Me.Process1.StartInfo.StandardOutputEncoding = Nothing
-        Me.Process1.StartInfo.UserName = ""
-        Me.Process1.SynchronizingObject = Me
+        Me.ProcessFFmpeg.StartInfo.CreateNoWindow = True
+        Me.ProcessFFmpeg.StartInfo.Domain = ""
+        Me.ProcessFFmpeg.StartInfo.LoadUserProfile = False
+        Me.ProcessFFmpeg.StartInfo.Password = Nothing
+        Me.ProcessFFmpeg.StartInfo.RedirectStandardError = True
+        Me.ProcessFFmpeg.StartInfo.RedirectStandardInput = True
+        Me.ProcessFFmpeg.StartInfo.RedirectStandardOutput = True
+        Me.ProcessFFmpeg.StartInfo.StandardErrorEncoding = Nothing
+        Me.ProcessFFmpeg.StartInfo.StandardOutputEncoding = Nothing
+        Me.ProcessFFmpeg.StartInfo.UserName = ""
+        Me.ProcessFFmpeg.StartInfo.UseShellExecute = False
+        Me.ProcessFFmpeg.SynchronizingObject = Me
         '
         'btnLoadMXF
         '
@@ -184,6 +192,7 @@ Partial Class frmTMXF
         '
         'TabCodec
         '
+        Me.TabCodec.Controls.Add(Me.txtFFoutput)
         Me.TabCodec.Controls.Add(Me.grpSRate)
         Me.TabCodec.Controls.Add(Me.grpACodec)
         Me.TabCodec.Controls.Add(Me.grpACh)
@@ -214,11 +223,11 @@ Partial Class frmTMXF
         'rdb96
         '
         Me.rdb96.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdb96.Enabled = False
         Me.rdb96.Location = New System.Drawing.Point(7, 121)
         Me.rdb96.Name = "rdb96"
         Me.rdb96.Size = New System.Drawing.Size(104, 24)
         Me.rdb96.TabIndex = 3
-        Me.rdb96.TabStop = True
         Me.rdb96.Text = "96 KHz"
         Me.rdb96.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rdb96.UseVisualStyleBackColor = True
@@ -226,11 +235,11 @@ Partial Class frmTMXF
         'rdbSR48
         '
         Me.rdbSR48.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbSR48.Enabled = False
         Me.rdbSR48.Location = New System.Drawing.Point(7, 89)
         Me.rdbSR48.Name = "rdbSR48"
         Me.rdbSR48.Size = New System.Drawing.Size(104, 24)
         Me.rdbSR48.TabIndex = 2
-        Me.rdbSR48.TabStop = True
         Me.rdbSR48.Text = "48 KHz"
         Me.rdbSR48.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rdbSR48.UseVisualStyleBackColor = True
@@ -238,11 +247,11 @@ Partial Class frmTMXF
         'rdbSR44
         '
         Me.rdbSR44.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbSR44.Enabled = False
         Me.rdbSR44.Location = New System.Drawing.Point(7, 55)
         Me.rdbSR44.Name = "rdbSR44"
         Me.rdbSR44.Size = New System.Drawing.Size(104, 24)
         Me.rdbSR44.TabIndex = 1
-        Me.rdbSR44.TabStop = True
         Me.rdbSR44.Text = "44.1 KHz"
         Me.rdbSR44.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rdbSR44.UseVisualStyleBackColor = True
@@ -254,7 +263,6 @@ Partial Class frmTMXF
         Me.rdbSRDirect.Name = "rdbSRDirect"
         Me.rdbSRDirect.Size = New System.Drawing.Size(104, 24)
         Me.rdbSRDirect.TabIndex = 0
-        Me.rdbSRDirect.TabStop = True
         Me.rdbSRDirect.Text = "Direct"
         Me.rdbSRDirect.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rdbSRDirect.UseVisualStyleBackColor = True
@@ -275,6 +283,7 @@ Partial Class frmTMXF
         'rdbMP3
         '
         Me.rdbMP3.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbMP3.Enabled = False
         Me.rdbMP3.Location = New System.Drawing.Point(7, 121)
         Me.rdbMP3.Name = "rdbMP3"
         Me.rdbMP3.Size = New System.Drawing.Size(104, 24)
@@ -287,12 +296,13 @@ Partial Class frmTMXF
         'rdbAAC
         '
         Me.rdbAAC.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbAAC.Enabled = False
         Me.rdbAAC.Location = New System.Drawing.Point(7, 89)
         Me.rdbAAC.Name = "rdbAAC"
         Me.rdbAAC.Size = New System.Drawing.Size(104, 24)
         Me.rdbAAC.TabIndex = 2
         Me.rdbAAC.TabStop = True
-        Me.rdbAAC.Text = "AAC"
+        Me.rdbAAC.Text = "AAC_LC"
         Me.rdbAAC.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rdbAAC.UseVisualStyleBackColor = True
         '
@@ -521,6 +531,7 @@ Partial Class frmTMXF
         '
         'TabConfig
         '
+        Me.TabConfig.Controls.Add(Me.lblASRCommand)
         Me.TabConfig.Controls.Add(Me.lblACodecCommand)
         Me.TabConfig.Controls.Add(Me.lblAudioChCommand)
         Me.TabConfig.Controls.Add(Me.lblFileNameCommand)
@@ -538,6 +549,16 @@ Partial Class frmTMXF
         Me.TabConfig.TabIndex = 1
         Me.TabConfig.Text = "Software Config"
         Me.TabConfig.UseVisualStyleBackColor = True
+        '
+        'lblACodecCommand
+        '
+        Me.lblACodecCommand.AutoSize = True
+        Me.lblACodecCommand.Location = New System.Drawing.Point(17, 158)
+        Me.lblACodecCommand.Margin = New System.Windows.Forms.Padding(3)
+        Me.lblACodecCommand.Name = "lblACodecCommand"
+        Me.lblACodecCommand.Size = New System.Drawing.Size(68, 13)
+        Me.lblACodecCommand.TabIndex = 16
+        Me.lblACodecCommand.Text = "Audio Codec"
         '
         'lblAudioChCommand
         '
@@ -774,15 +795,6 @@ Partial Class frmTMXF
         Me.lblOutName.TabIndex = 11
         Me.lblOutName.Text = "Output File Name"
         '
-        'lblACodecCommand
-        '
-        Me.lblACodecCommand.AutoSize = True
-        Me.lblACodecCommand.Location = New System.Drawing.Point(17, 155)
-        Me.lblACodecCommand.Name = "lblACodecCommand"
-        Me.lblACodecCommand.Size = New System.Drawing.Size(68, 13)
-        Me.lblACodecCommand.TabIndex = 16
-        Me.lblACodecCommand.Text = "Audio Codec"
-        '
         'txtNameDate
         '
         Me.txtNameDate.AutoSize = True
@@ -792,11 +804,42 @@ Partial Class frmTMXF
         Me.txtNameDate.TabIndex = 12
         Me.txtNameDate.Text = "Data e Hora"
         '
+        'lblASRCommand
+        '
+        Me.lblASRCommand.AutoSize = True
+        Me.lblASRCommand.Location = New System.Drawing.Point(17, 177)
+        Me.lblASRCommand.Margin = New System.Windows.Forms.Padding(3)
+        Me.lblASRCommand.Name = "lblASRCommand"
+        Me.lblASRCommand.Size = New System.Drawing.Size(98, 13)
+        Me.lblASRCommand.TabIndex = 17
+        Me.lblASRCommand.Text = "Audio Sample Rate"
+        '
+        'txtFFoutput
+        '
+        Me.txtFFoutput.BackColor = System.Drawing.SystemColors.Window
+        Me.txtFFoutput.Enabled = False
+        Me.txtFFoutput.ForeColor = System.Drawing.SystemColors.WindowText
+        Me.txtFFoutput.Location = New System.Drawing.Point(7, 169)
+        Me.txtFFoutput.Multiline = True
+        Me.txtFFoutput.Name = "txtFFoutput"
+        Me.txtFFoutput.Size = New System.Drawing.Size(938, 250)
+        Me.txtFFoutput.TabIndex = 6
+        '
+        'lblFFarguments
+        '
+        Me.lblFFarguments.AutoSize = True
+        Me.lblFFarguments.Location = New System.Drawing.Point(97, 598)
+        Me.lblFFarguments.Name = "lblFFarguments"
+        Me.lblFFarguments.Size = New System.Drawing.Size(63, 13)
+        Me.lblFFarguments.TabIndex = 13
+        Me.lblFFarguments.Text = "Argumentes"
+        '
         'frmTMXF
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(984, 662)
+        Me.Controls.Add(Me.lblFFarguments)
         Me.Controls.Add(Me.txtNameDate)
         Me.Controls.Add(Me.lblOutName)
         Me.Controls.Add(Me.txtOutFilename)
@@ -820,6 +863,7 @@ Partial Class frmTMXF
         Me.Text = "T MXF Converter"
         Me.tabsMain.ResumeLayout(False)
         Me.TabCodec.ResumeLayout(False)
+        Me.TabCodec.PerformLayout()
         Me.grpSRate.ResumeLayout(False)
         Me.grpACodec.ResumeLayout(False)
         Me.grpACh.ResumeLayout(False)
@@ -835,7 +879,7 @@ Partial Class frmTMXF
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents Process1 As System.Diagnostics.Process
+    Friend WithEvents ProcessFFmpeg As System.Diagnostics.Process
     Friend WithEvents lblVersion As System.Windows.Forms.Label
     Friend WithEvents lblAuthor As System.Windows.Forms.Label
     Friend WithEvents txtMXFpath As System.Windows.Forms.Label
@@ -898,5 +942,8 @@ Partial Class frmTMXF
     Friend WithEvents rdb96 As System.Windows.Forms.RadioButton
     Friend WithEvents lblACodecCommand As System.Windows.Forms.Label
     Friend WithEvents txtNameDate As System.Windows.Forms.Label
+    Friend WithEvents lblASRCommand As System.Windows.Forms.Label
+    Friend WithEvents txtFFoutput As System.Windows.Forms.TextBox
+    Friend WithEvents lblFFarguments As System.Windows.Forms.Label
 
 End Class

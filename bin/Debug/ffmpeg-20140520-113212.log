@@ -1,0 +1,42 @@
+ffmpeg started on 2014-05-20 at 11:32:12
+Report written to "ffmpeg-20140520-113212.log"
+Command line:
+"C:\\Users\\Thiago\\Desktop\\ffmpeg-20140408-git-b176320-win64-static\\ffmpeg-win64-static\\bin\\ffmpeg.exe" -report -loglevel verbose "C:\\Users\\Thiago\\Desktop\\MXF Samples\\joia rara\\CLIP07097.MXF" -vcodec libx264 -profile:v baseline -tune fastdecode -g 1 -crf 16 -bf 0 -pix_fmt yuv420p -copyts -s 1280x720 -acodec pcm_s24le -map 0 -map -0:d "C:\\Users\\Thiago\\Desktop\\teste-20-5-2014-1115.mov"
+ffmpeg version N-62259-gb176320 Copyright (c) 2000-2014 the FFmpeg developers
+  built on Apr  7 2014 22:08:51 with gcc 4.8.2 (GCC)
+  configuration: --enable-gpl --enable-version3 --disable-w32threads --enable-avisynth --enable-bzlib --enable-fontconfig --enable-frei0r --enable-gnutls --enable-iconv --enable-libass --enable-libbluray --enable-libcaca --enable-libfreetype --enable-libgsm --enable-libilbc --enable-libmodplug --enable-libmp3lame --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libopus --enable-librtmp --enable-libschroedinger --enable-libsoxr --enable-libspeex --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvo-aacenc --enable-libvo-amrwbenc --enable-libvorbis --enable-libvpx --enable-libwavpack --enable-libx264 --enable-libx265 --enable-libxavs --enable-libxvid --enable-zlib
+  libavutil      52. 74.100 / 52. 74.100
+  libavcodec     55. 58.102 / 55. 58.102
+  libavformat    55. 36.102 / 55. 36.102
+  libavdevice    55. 11.100 / 55. 11.100
+  libavfilter     4.  3.100 /  4.  3.100
+  libswscale      2.  6.100 /  2.  6.100
+  libswresample   0. 18.100 /  0. 18.100
+  libpostproc    52.  3.100 / 52.  3.100
+Splitting the commandline.
+Reading option '-report' ... matched as option 'report' (generate a report) with argument '1'.
+Reading option '-loglevel' ... matched as option 'loglevel' (set logging level) with argument 'verbose'.
+Reading option 'C:\Users\Thiago\Desktop\MXF Samples\joia rara\CLIP07097.MXF' ... matched as output file.
+Reading option '-vcodec' ... matched as option 'vcodec' (force video codec ('copy' to copy stream)) with argument 'libx264'.
+Reading option '-profile:v' ... matched as option 'profile' (set profile) with argument 'baseline'.
+Reading option '-tune' ... matched as AVOption 'tune' with argument 'fastdecode'.
+Reading option '-g' ... matched as AVOption 'g' with argument '1'.
+Reading option '-crf' ... matched as AVOption 'crf' with argument '16'.
+Reading option '-bf' ... matched as AVOption 'bf' with argument '0'.
+Reading option '-pix_fmt' ... matched as option 'pix_fmt' (set pixel format) with argument 'yuv420p'.
+Reading option '-copyts' ... matched as option 'copyts' (copy timestamps) with argument '1'.
+Reading option '-s' ... matched as option 's' (set frame size (WxH or abbreviation)) with argument '1280x720'.
+Reading option '-acodec' ... matched as option 'acodec' (force audio codec ('copy' to copy stream)) with argument 'pcm_s24le'.
+Reading option '-map' ... matched as option 'map' (set input stream mapping) with argument '0'.
+Reading option '-map' ... matched as option 'map' (set input stream mapping) with argument '-0:d'.
+Reading option 'C:\Users\Thiago\Desktop\teste-20-5-2014-1115.mov' ... matched as output file.
+Finished splitting the commandline.
+Parsing a group of options: global .
+Applying option report (generate a report) with argument 1.
+Applying option loglevel (set logging level) with argument verbose.
+Applying option copyts (copy timestamps) with argument 1.
+Successfully parsed a group of options.
+Parsing a group of options: output file C:\Users\Thiago\Desktop\MXF Samples\joia rara\CLIP07097.MXF.
+Successfully parsed a group of options.
+Opening an output file: C:\Users\Thiago\Desktop\MXF Samples\joia rara\CLIP07097.MXF.
+Not overwriting - exiting
