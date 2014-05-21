@@ -137,6 +137,18 @@ Namespace My
                 Me("LastSR") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property LastFR() As String
+            Get
+                Return CType(Me("LastFR"),String)
+            End Get
+            Set
+                Me("LastFR") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

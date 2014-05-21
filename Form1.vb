@@ -90,6 +90,7 @@ Public Class frmTMXF
             btnChk1.BackColor = Color.Green
             lblMXFPathCommand.Text = "-i " & txtMXFpath.Text
         End If
+        txtNameDate.Text = DateAndTime.Now.Day & "-" & DateAndTime.Now.Month & "-" & DateAndTime.Now.Year & "-" & DateAndTime.Now.Hour & DateAndTime.Now.Minute
     End Sub
 
     Private Sub btnSaveOut_Click(sender As Object, e As EventArgs) Handles btnSaveOut.Click
@@ -98,6 +99,7 @@ Public Class frmTMXF
             btnChk2.BackColor = Color.Green
         End If
         lblFileNameCommand.Text = txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & ".mov"
+        txtNameDate.Text = DateAndTime.Now.Day & "-" & DateAndTime.Now.Month & "-" & DateAndTime.Now.Year & "-" & DateAndTime.Now.Hour & DateAndTime.Now.Minute
     End Sub
 
     Private Sub btnFFmpeg_Click(sender As Object, e As EventArgs) Handles btnFFmpeg.Click
@@ -213,25 +215,45 @@ Public Class frmTMXF
         End If
     End Sub
 
+    Private Sub rdbFrameRate_CheckedChanged(sender As Object, e As EventArgs) Handles rdb29D.CheckedChanged, rdb29ND.CheckedChanged, rdb23.CheckedChanged, rdbFRdirect.CheckedChanged
+        If rdbFRdirect.Checked = True Then
+            lblFRcommand.Text = "FR Command copy"
+            My.Settings.LastFR = "frdirect"
+        ElseIf rdb23.Checked = True Then
+            lblFRcommand.Text = "FR Command 23"
+            My.Settings.LastFR = "PCM24"
+        ElseIf rdb29D.Checked = True Then
+            lblFRcommand.Text = "FR Command 29D"
+            My.Settings.LastFR = "AAC"
+        ElseIf rdb29ND.Checked = True Then
+            lblFRcommand.Text = "FR Command 29ND"
+            My.Settings.LastFR = "MP3"
+        End If
+
+    End Sub
 
     Private Sub btnConvert_Click(sender As Object, e As EventArgs) Handles btnConvert.Click
+        txtNameDate.Text = DateAndTime.Now.Day & "-" & DateAndTime.Now.Month & "-" & DateAndTime.Now.Year & "-" & DateAndTime.Now.Hour & DateAndTime.Now.Minute
         Dim FFmpegprocess As New Process()
         Dim FFarguments As String
         FFarguments = " -loglevel verbose" & " -i " & txtMXFpath.Text.ToString & " " & lblCodecCommand.Text.ToString & " " & lblRes.Text.ToString & " " & lblACodecCommand.Text.ToString & " " & lblAudioChCommand.Text.ToString & " " & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".mov"
+        MessageBox.Show(FFarguments)
         lblFFarguments.Text = FFarguments.ToString
         FFmpegprocess.StartInfo.FileName = txtFFmpeg.Text.ToString
-        FFmpegprocess.StartInfo.Arguments = "-report" & FFarguments
-        'FFmpegprocess.StartInfo.RedirectStandardOutput = True
-        'FFmpegprocess.StartInfo.UseShellExecute = False
+        FFmpegprocess.StartInfo.Arguments = FFarguments
+        FFmpegprocess.StartInfo.RedirectStandardError = True
+        FFmpegprocess.StartInfo.RedirectStandardOutput = True
+        FFmpegprocess.StartInfo.UseShellExecute = False
         FFmpegprocess.StartInfo.ErrorDialog = True
+        FFmpegprocess.StartInfo.WorkingDirectory = txtTemp.Text.ToString
         FFmpegprocess.Start()
-        'Dim FFStreamReader As StreamReader = FFmpegprocess.StandardOutput
+        Dim FFStreamReadererr As StreamReader = FFmpegprocess.StandardError
+        Dim FFStreamReaderstd As StreamReader = FFmpegprocess.StandardOutput
+        txtFFoutput.Text = FFStreamReadererr.ReadToEnd()
+        Console.WriteLine(FFStreamReaderstd.ReadToEnd())
+        FFmpegprocess.WaitForExit()
 
-        'txtFFoutput.Text = FFStreamReader.ReadToEnd()
-        'Console.WriteLine(FFStreamReader.ReadLineAsync.ToString())
-        'FFmpegprocess.WaitForExit()
-
-
+        '"-report" & 
         'ProcessFFmpeg.StartInfo.FileName = txtFFmpeg.Text.ToString
         'ProcessFFmpeg.StartInfo.Arguments = " -loglevel verbose" & " " & lblMXFPathCommand.Text.ToString & " " & lblCodecCommand.Text.ToString & " " & lblRes.Text.ToString & " " & lblACodecCommand.Text.ToString & " " & lblAudioChCommand.Text.ToString & " " & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".mov"
         'ProcessFFmpeg.Start()
@@ -241,4 +263,5 @@ Public Class frmTMXF
     Private Sub txtFFoutput_TextChanged(sender As Object, e As EventArgs) Handles txtFFoutput.TextChanged
 
     End Sub
+
 End Class
