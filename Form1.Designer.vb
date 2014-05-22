@@ -23,7 +23,7 @@ Partial Class frmTMXF
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.ProcessFFmpeg = New System.Diagnostics.Process()
+        Me.FFmpegprocess = New System.Diagnostics.Process()
         Me.btnLoadMXF = New System.Windows.Forms.Button()
         Me.txtMXFpath = New System.Windows.Forms.Label()
         Me.lblAuthor = New System.Windows.Forms.Label()
@@ -34,6 +34,7 @@ Partial Class frmTMXF
         Me.txtOutPath = New System.Windows.Forms.Label()
         Me.tabsMain = New System.Windows.Forms.TabControl()
         Me.TabCodec = New System.Windows.Forms.TabPage()
+        Me.grpDumb = New System.Windows.Forms.GroupBox()
         Me.grpTCBurn = New System.Windows.Forms.GroupBox()
         Me.chkTCBurn = New System.Windows.Forms.CheckBox()
         Me.grpFrameRate = New System.Windows.Forms.GroupBox()
@@ -97,7 +98,6 @@ Partial Class frmTMXF
         Me.txtOutFilename = New System.Windows.Forms.TextBox()
         Me.lblOutName = New System.Windows.Forms.Label()
         Me.txtNameDate = New System.Windows.Forms.Label()
-        Me.grpDumb = New System.Windows.Forms.GroupBox()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.tabsMain.SuspendLayout()
         Me.TabCodec.SuspendLayout()
@@ -113,20 +113,20 @@ Partial Class frmTMXF
         Me.grpFFmpeg.SuspendLayout()
         Me.SuspendLayout()
         '
-        'ProcessFFmpeg
+        'FFmpegprocess
         '
-        Me.ProcessFFmpeg.StartInfo.CreateNoWindow = True
-        Me.ProcessFFmpeg.StartInfo.Domain = ""
-        Me.ProcessFFmpeg.StartInfo.LoadUserProfile = False
-        Me.ProcessFFmpeg.StartInfo.Password = Nothing
-        Me.ProcessFFmpeg.StartInfo.RedirectStandardError = True
-        Me.ProcessFFmpeg.StartInfo.RedirectStandardInput = True
-        Me.ProcessFFmpeg.StartInfo.RedirectStandardOutput = True
-        Me.ProcessFFmpeg.StartInfo.StandardErrorEncoding = Nothing
-        Me.ProcessFFmpeg.StartInfo.StandardOutputEncoding = Nothing
-        Me.ProcessFFmpeg.StartInfo.UserName = ""
-        Me.ProcessFFmpeg.StartInfo.UseShellExecute = False
-        Me.ProcessFFmpeg.SynchronizingObject = Me
+        Me.FFmpegprocess.StartInfo.CreateNoWindow = True
+        Me.FFmpegprocess.StartInfo.Domain = ""
+        Me.FFmpegprocess.StartInfo.LoadUserProfile = False
+        Me.FFmpegprocess.StartInfo.Password = Nothing
+        Me.FFmpegprocess.StartInfo.RedirectStandardError = True
+        Me.FFmpegprocess.StartInfo.RedirectStandardInput = True
+        Me.FFmpegprocess.StartInfo.RedirectStandardOutput = True
+        Me.FFmpegprocess.StartInfo.StandardErrorEncoding = Nothing
+        Me.FFmpegprocess.StartInfo.StandardOutputEncoding = Nothing
+        Me.FFmpegprocess.StartInfo.UserName = ""
+        Me.FFmpegprocess.StartInfo.UseShellExecute = False
+        Me.FFmpegprocess.SynchronizingObject = Me
         '
         'btnLoadMXF
         '
@@ -222,6 +222,15 @@ Partial Class frmTMXF
         Me.TabCodec.TabIndex = 0
         Me.TabCodec.Text = "Codec Config"
         Me.TabCodec.UseVisualStyleBackColor = True
+        '
+        'grpDumb
+        '
+        Me.grpDumb.Location = New System.Drawing.Point(385, 8)
+        Me.grpDumb.Name = "grpDumb"
+        Me.grpDumb.Size = New System.Drawing.Size(121, 320)
+        Me.grpDumb.TabIndex = 9
+        Me.grpDumb.TabStop = False
+        Me.grpDumb.Text = "Dumb Mode"
         '
         'grpTCBurn
         '
@@ -943,15 +952,6 @@ Partial Class frmTMXF
         Me.txtNameDate.TabIndex = 12
         Me.txtNameDate.Text = "Data e Hora"
         '
-        'grpDumb
-        '
-        Me.grpDumb.Location = New System.Drawing.Point(385, 8)
-        Me.grpDumb.Name = "grpDumb"
-        Me.grpDumb.Size = New System.Drawing.Size(121, 320)
-        Me.grpDumb.TabIndex = 9
-        Me.grpDumb.TabStop = False
-        Me.grpDumb.Text = "Dumb Mode"
-        '
         'ToolTip1
         '
         Me.ToolTip1.IsBalloon = True
@@ -1003,7 +1003,7 @@ Partial Class frmTMXF
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents ProcessFFmpeg As System.Diagnostics.Process
+    Friend WithEvents FFmpegprocess As System.Diagnostics.Process
     Friend WithEvents lblVersion As System.Windows.Forms.Label
     Friend WithEvents lblAuthor As System.Windows.Forms.Label
     Friend WithEvents txtMXFpath As System.Windows.Forms.Label

@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports System.ComponentModel
 
 Public Class frmTMXF
 
@@ -79,6 +80,12 @@ Public Class frmTMXF
         'Set date and time as part of the output name
         txtNameDate.Text = DateAndTime.Now.Day & "-" & DateAndTime.Now.Month & "-" & DateAndTime.Now.Year & "-" & DateAndTime.Now.Hour & DateAndTime.Now.Minute
 
+        If Not My.Settings.LastOutPath.Length = 0 Then
+            txtOutPath.Text = My.Settings.LastOutPath.ToString
+            btnSaveOut.Enabled = True
+
+        End If
+
     End Sub
 
     Private Sub btnLoadMXF_Click(sender As Object, e As EventArgs) Handles btnLoadMXF.Click
@@ -100,6 +107,7 @@ Public Class frmTMXF
         End If
         lblFileNameCommand.Text = txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & ".mov"
         txtNameDate.Text = DateAndTime.Now.Day & "-" & DateAndTime.Now.Month & "-" & DateAndTime.Now.Year & "-" & DateAndTime.Now.Hour & DateAndTime.Now.Minute
+        My.Settings.LastOutPath = txtOutPath.Text
     End Sub
 
     Private Sub btnFFmpeg_Click(sender As Object, e As EventArgs) Handles btnFFmpeg.Click
@@ -234,18 +242,31 @@ Public Class frmTMXF
 
     Private Sub btnConvert_Click(sender As Object, e As EventArgs) Handles btnConvert.Click
         txtNameDate.Text = DateAndTime.Now.Day & "-" & DateAndTime.Now.Month & "-" & DateAndTime.Now.Year & "-" & DateAndTime.Now.Hour & DateAndTime.Now.Minute
+
+        FFthread = New System.Threading.Thread(AddressOf FFmpegthread)
+        FFthread.IsBackground = True
+        FFthread.Start()
+
+    End Sub
+
+    Private FFthread As System.Threading.Thread
+
+
+    Private Sub FFmpegthread()
+
         Dim FFmpegprocess As New Process()
         Dim FFarguments As String
         FFarguments = " -loglevel verbose" & " -i " & txtMXFpath.Text.ToString & " " & lblCodecCommand.Text.ToString & " " & lblRes.Text.ToString & " " & lblACodecCommand.Text.ToString & " " & lblAudioChCommand.Text.ToString & " " & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".mov"
         MessageBox.Show(FFarguments)
         lblFFarguments.Text = FFarguments.ToString
-        FFmpegprocess.StartInfo.FileName = txtFFmpeg.Text.ToString
+        FFmpegprocess.StartInfo.FileName = Me.txtFFmpeg.Text.ToString
         FFmpegprocess.StartInfo.Arguments = FFarguments
         FFmpegprocess.StartInfo.RedirectStandardError = True
         FFmpegprocess.StartInfo.RedirectStandardOutput = True
         FFmpegprocess.StartInfo.UseShellExecute = False
         FFmpegprocess.StartInfo.ErrorDialog = True
-        FFmpegprocess.StartInfo.WorkingDirectory = txtTemp.Text.ToString
+        FFmpegprocess.StartInfo.WorkingDirectory = Me.txtTemp.Text.ToString
+        FFmpegprocess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
         FFmpegprocess.Start()
         Dim FFStreamReadererr As StreamReader = FFmpegprocess.StandardError
         Dim FFStreamReaderstd As StreamReader = FFmpegprocess.StandardOutput
@@ -257,7 +278,7 @@ Public Class frmTMXF
         Do
 
             Application.DoEvents()
-            txtFFoutput.Text += std_out.ReadLine
+            Me.txtFFoutput.Text += std_out.ReadLine
         Loop While (FFmpegprocess.HasExited = True)
         'Do Until FFmpegprocess.HasExited = True
 
@@ -266,11 +287,5 @@ Public Class frmTMXF
         'ProcessFFmpeg.StartInfo.FileName = txtFFmpeg.Text.ToString
         'ProcessFFmpeg.StartInfo.Arguments = " -loglevel verbose" & " " & lblMXFPathCommand.Text.ToString & " " & lblCodecCommand.Text.ToString & " " & lblRes.Text.ToString & " " & lblACodecCommand.Text.ToString & " " & lblAudioChCommand.Text.ToString & " " & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".mov"
         'ProcessFFmpeg.Start()
-
     End Sub
-
-    Private Sub txtFFoutput_TextChanged(sender As Object, e As EventArgs) Handles txtFFoutput.TextChanged
-
-    End Sub
-
 End Class
