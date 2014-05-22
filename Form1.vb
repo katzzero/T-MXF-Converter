@@ -271,21 +271,41 @@ Public Class frmTMXF
         Dim FFStreamReadererr As StreamReader = FFmpegprocess.StandardError
         Dim FFStreamReaderstd As StreamReader = FFmpegprocess.StandardOutput
         'txtFFoutput.Text = FFStreamReadererr.ReadToEnd()
-        Console.WriteLine(FFStreamReaderstd.ReadToEnd())
+        FFmpegprocess.SynchronizingObject = txtFFoutput
         FFmpegprocess.WaitForExit()
+        FFmpegprocess.BeginErrorReadLine()
 
-        Dim std_out As StreamReader = FFmpegprocess.StandardError
-        Do
 
-            Application.DoEvents()
-            Me.txtFFoutput.Text += std_out.ReadLine
-        Loop While (FFmpegprocess.HasExited = True)
+        ' Dim std_out As StreamReader = FFmpegprocess.StandardError
+        'Do
+
+        'Application.DoEvents()
+        'Me.txtFFoutput.Text += std_out.ReadToEnd
+        'Loop While (FFmpegprocess.HasExited = True)
         'Do Until FFmpegprocess.HasExited = True
 
+        AddHandler FFmpegprocess.ErrorDataReceived 
 
         '"-report" & 
         'ProcessFFmpeg.StartInfo.FileName = txtFFmpeg.Text.ToString
         'ProcessFFmpeg.StartInfo.Arguments = " -loglevel verbose" & " " & lblMXFPathCommand.Text.ToString & " " & lblCodecCommand.Text.ToString & " " & lblRes.Text.ToString & " " & lblACodecCommand.Text.ToString & " " & lblAudioChCommand.Text.ToString & " " & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".mov"
         'ProcessFFmpeg.Start()
     End Sub
+
+
+
+    Private Sub OnChanged(source As Object, ByVal e As FileSystemEventArgs)
+        AppendTextBox(Me.txtFFoutput, "[New Text]")
+    End Sub
+
+    Private Delegate Sub AppendTextBoxDelegate(ByVal TB As TextBox, ByVal txt As String)
+
+    Private Sub AppendTextBox(ByVal TB As TextBox, ByVal txt As String)
+        If TB.InvokeRequired Then
+            TB.Invoke(New AppendTextBoxDelegate(AddressOf AppendTextBox), New Object() {TB, txt})
+        Else
+            TB.AppendText(txt)
+        End If
+    End Sub
+
 End Class
