@@ -249,9 +249,18 @@ Public Class frmTMXF
         FFmpegprocess.Start()
         Dim FFStreamReadererr As StreamReader = FFmpegprocess.StandardError
         Dim FFStreamReaderstd As StreamReader = FFmpegprocess.StandardOutput
-        txtFFoutput.Text = FFStreamReadererr.ReadToEnd()
+        'txtFFoutput.Text = FFStreamReadererr.ReadToEnd()
         Console.WriteLine(FFStreamReaderstd.ReadToEnd())
         FFmpegprocess.WaitForExit()
+
+        Dim std_out As StreamReader = FFmpegprocess.StandardError
+        Do
+
+            Application.DoEvents()
+            txtFFoutput.Text += std_out.ReadLine
+        Loop While (FFmpegprocess.HasExited = True)
+        'Do Until FFmpegprocess.HasExited = True
+
 
         '"-report" & 
         'ProcessFFmpeg.StartInfo.FileName = txtFFmpeg.Text.ToString

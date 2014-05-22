@@ -22,6 +22,7 @@ Partial Class frmTMXF
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.ProcessFFmpeg = New System.Diagnostics.Process()
         Me.btnLoadMXF = New System.Windows.Forms.Button()
         Me.txtMXFpath = New System.Windows.Forms.Label()
@@ -68,6 +69,7 @@ Partial Class frmTMXF
         Me.rdbProRes = New System.Windows.Forms.RadioButton()
         Me.rdbH264 = New System.Windows.Forms.RadioButton()
         Me.TabConfig = New System.Windows.Forms.TabPage()
+        Me.lblFRcommand = New System.Windows.Forms.Label()
         Me.lblFFarguments = New System.Windows.Forms.Label()
         Me.lblASRCommand = New System.Windows.Forms.Label()
         Me.lblACodecCommand = New System.Windows.Forms.Label()
@@ -95,7 +97,8 @@ Partial Class frmTMXF
         Me.txtOutFilename = New System.Windows.Forms.TextBox()
         Me.lblOutName = New System.Windows.Forms.Label()
         Me.txtNameDate = New System.Windows.Forms.Label()
-        Me.lblFRcommand = New System.Windows.Forms.Label()
+        Me.grpDumb = New System.Windows.Forms.GroupBox()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.tabsMain.SuspendLayout()
         Me.TabCodec.SuspendLayout()
         Me.grpTCBurn.SuspendLayout()
@@ -202,6 +205,7 @@ Partial Class frmTMXF
         '
         'TabCodec
         '
+        Me.TabCodec.Controls.Add(Me.grpDumb)
         Me.TabCodec.Controls.Add(Me.grpTCBurn)
         Me.TabCodec.Controls.Add(Me.grpFrameRate)
         Me.TabCodec.Controls.Add(Me.txtFFoutput)
@@ -659,6 +663,15 @@ Partial Class frmTMXF
         Me.TabConfig.Text = "Software Config"
         Me.TabConfig.UseVisualStyleBackColor = True
         '
+        'lblFRcommand
+        '
+        Me.lblFRcommand.AutoSize = True
+        Me.lblFRcommand.Location = New System.Drawing.Point(20, 197)
+        Me.lblFRcommand.Name = "lblFRcommand"
+        Me.lblFRcommand.Size = New System.Drawing.Size(62, 13)
+        Me.lblFRcommand.TabIndex = 18
+        Me.lblFRcommand.Text = "Frame Rate"
+        '
         'lblFFarguments
         '
         Me.lblFFarguments.AutoSize = True
@@ -741,15 +754,13 @@ Partial Class frmTMXF
         'chkDumb
         '
         Me.chkDumb.AutoSize = True
-        Me.chkDumb.Checked = True
-        Me.chkDumb.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkDumb.Enabled = False
-        Me.chkDumb.Location = New System.Drawing.Point(6, 6)
+        Me.chkDumb.Location = New System.Drawing.Point(813, 3)
         Me.chkDumb.Name = "chkDumb"
-        Me.chkDumb.Padding = New System.Windows.Forms.Padding(15, 15, 0, 0)
-        Me.chkDumb.Size = New System.Drawing.Size(99, 32)
+        Me.chkDumb.Padding = New System.Windows.Forms.Padding(15)
+        Me.chkDumb.Size = New System.Drawing.Size(135, 47)
         Me.chkDumb.TabIndex = 1
-        Me.chkDumb.Text = "Dumb Mode"
+        Me.chkDumb.Text = "Advanced Mode"
         Me.chkDumb.UseVisualStyleBackColor = True
         '
         'lblFFmpegCommand
@@ -932,14 +943,18 @@ Partial Class frmTMXF
         Me.txtNameDate.TabIndex = 12
         Me.txtNameDate.Text = "Data e Hora"
         '
-        'lblFRcommand
+        'grpDumb
         '
-        Me.lblFRcommand.AutoSize = True
-        Me.lblFRcommand.Location = New System.Drawing.Point(20, 197)
-        Me.lblFRcommand.Name = "lblFRcommand"
-        Me.lblFRcommand.Size = New System.Drawing.Size(62, 13)
-        Me.lblFRcommand.TabIndex = 18
-        Me.lblFRcommand.Text = "Frame Rate"
+        Me.grpDumb.Location = New System.Drawing.Point(385, 8)
+        Me.grpDumb.Name = "grpDumb"
+        Me.grpDumb.Size = New System.Drawing.Size(121, 320)
+        Me.grpDumb.TabIndex = 9
+        Me.grpDumb.TabStop = False
+        Me.grpDumb.Text = "Dumb Mode"
+        '
+        'ToolTip1
+        '
+        Me.ToolTip1.IsBalloon = True
         '
         'frmTMXF
         '
@@ -1062,5 +1077,7 @@ Partial Class frmTMXF
     Friend WithEvents grpTCBurn As System.Windows.Forms.GroupBox
     Friend WithEvents chkTCBurn As System.Windows.Forms.CheckBox
     Friend WithEvents lblFRcommand As System.Windows.Forms.Label
+    Friend WithEvents grpDumb As System.Windows.Forms.GroupBox
+    Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
 
 End Class
