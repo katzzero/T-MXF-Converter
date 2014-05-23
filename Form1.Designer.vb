@@ -34,7 +34,7 @@ Partial Class frmTMXF
         Me.txtOutPath = New System.Windows.Forms.Label()
         Me.tabsMain = New System.Windows.Forms.TabControl()
         Me.TabCodec = New System.Windows.Forms.TabPage()
-        Me.grpDumb = New System.Windows.Forms.GroupBox()
+        Me.grpAdvanced = New System.Windows.Forms.GroupBox()
         Me.grpTCBurn = New System.Windows.Forms.GroupBox()
         Me.chkTCBurn = New System.Windows.Forms.CheckBox()
         Me.grpFrameRate = New System.Windows.Forms.GroupBox()
@@ -79,7 +79,7 @@ Partial Class frmTMXF
         Me.lblRes = New System.Windows.Forms.Label()
         Me.lblCodecCommand = New System.Windows.Forms.Label()
         Me.lblMXFPathCommand = New System.Windows.Forms.Label()
-        Me.chkDumb = New System.Windows.Forms.CheckBox()
+        Me.chkAdvanced = New System.Windows.Forms.CheckBox()
         Me.lblFFmpegCommand = New System.Windows.Forms.Label()
         Me.grpTemp = New System.Windows.Forms.GroupBox()
         Me.btnTempDefault = New System.Windows.Forms.Button()
@@ -205,7 +205,7 @@ Partial Class frmTMXF
         '
         'TabCodec
         '
-        Me.TabCodec.Controls.Add(Me.grpDumb)
+        Me.TabCodec.Controls.Add(Me.grpAdvanced)
         Me.TabCodec.Controls.Add(Me.grpTCBurn)
         Me.TabCodec.Controls.Add(Me.grpFrameRate)
         Me.TabCodec.Controls.Add(Me.txtFFoutput)
@@ -223,14 +223,14 @@ Partial Class frmTMXF
         Me.TabCodec.Text = "Codec Config"
         Me.TabCodec.UseVisualStyleBackColor = True
         '
-        'grpDumb
+        'grpAdvanced
         '
-        Me.grpDumb.Location = New System.Drawing.Point(385, 8)
-        Me.grpDumb.Name = "grpDumb"
-        Me.grpDumb.Size = New System.Drawing.Size(121, 320)
-        Me.grpDumb.TabIndex = 9
-        Me.grpDumb.TabStop = False
-        Me.grpDumb.Text = "Dumb Mode"
+        Me.grpAdvanced.Location = New System.Drawing.Point(385, 8)
+        Me.grpAdvanced.Name = "grpAdvanced"
+        Me.grpAdvanced.Size = New System.Drawing.Size(121, 320)
+        Me.grpAdvanced.TabIndex = 9
+        Me.grpAdvanced.TabStop = False
+        Me.grpAdvanced.Text = "Advanced"
         '
         'grpTCBurn
         '
@@ -319,6 +319,7 @@ Partial Class frmTMXF
         'txtFFoutput
         '
         Me.txtFFoutput.BackColor = System.Drawing.SystemColors.Window
+        Me.txtFFoutput.Cursor = System.Windows.Forms.Cursors.No
         Me.txtFFoutput.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtFFoutput.Location = New System.Drawing.Point(512, 8)
         Me.txtFFoutput.Multiline = True
@@ -660,7 +661,7 @@ Partial Class frmTMXF
         Me.TabConfig.Controls.Add(Me.lblRes)
         Me.TabConfig.Controls.Add(Me.lblCodecCommand)
         Me.TabConfig.Controls.Add(Me.lblMXFPathCommand)
-        Me.TabConfig.Controls.Add(Me.chkDumb)
+        Me.TabConfig.Controls.Add(Me.chkAdvanced)
         Me.TabConfig.Controls.Add(Me.lblFFmpegCommand)
         Me.TabConfig.Controls.Add(Me.grpTemp)
         Me.TabConfig.Controls.Add(Me.grpFFmpeg)
@@ -680,6 +681,7 @@ Partial Class frmTMXF
         Me.lblFRcommand.Size = New System.Drawing.Size(62, 13)
         Me.lblFRcommand.TabIndex = 18
         Me.lblFRcommand.Text = "Frame Rate"
+        Me.lblFRcommand.Visible = False
         '
         'lblFFarguments
         '
@@ -699,6 +701,7 @@ Partial Class frmTMXF
         Me.lblASRCommand.Size = New System.Drawing.Size(98, 13)
         Me.lblASRCommand.TabIndex = 17
         Me.lblASRCommand.Text = "Audio Sample Rate"
+        Me.lblASRCommand.Visible = False
         '
         'lblACodecCommand
         '
@@ -709,6 +712,7 @@ Partial Class frmTMXF
         Me.lblACodecCommand.Size = New System.Drawing.Size(68, 13)
         Me.lblACodecCommand.TabIndex = 16
         Me.lblACodecCommand.Text = "Audio Codec"
+        Me.lblACodecCommand.Visible = False
         '
         'lblAudioChCommand
         '
@@ -719,6 +723,7 @@ Partial Class frmTMXF
         Me.lblAudioChCommand.Size = New System.Drawing.Size(50, 13)
         Me.lblAudioChCommand.TabIndex = 15
         Me.lblAudioChCommand.Text = "Audio Ch"
+        Me.lblAudioChCommand.Visible = False
         '
         'lblFileNameCommand
         '
@@ -729,6 +734,7 @@ Partial Class frmTMXF
         Me.lblFileNameCommand.Size = New System.Drawing.Size(54, 13)
         Me.lblFileNameCommand.TabIndex = 14
         Me.lblFileNameCommand.Text = "File Name"
+        Me.lblFileNameCommand.Visible = False
         '
         'lblRes
         '
@@ -739,6 +745,7 @@ Partial Class frmTMXF
         Me.lblRes.Size = New System.Drawing.Size(57, 13)
         Me.lblRes.TabIndex = 13
         Me.lblRes.Text = "Resolution"
+        Me.lblRes.Visible = False
         '
         'lblCodecCommand
         '
@@ -749,6 +756,7 @@ Partial Class frmTMXF
         Me.lblCodecCommand.Size = New System.Drawing.Size(38, 13)
         Me.lblCodecCommand.TabIndex = 10
         Me.lblCodecCommand.Text = "Codec"
+        Me.lblCodecCommand.Visible = False
         '
         'lblMXFPathCommand
         '
@@ -759,18 +767,19 @@ Partial Class frmTMXF
         Me.lblMXFPathCommand.Size = New System.Drawing.Size(45, 13)
         Me.lblMXFPathCommand.TabIndex = 12
         Me.lblMXFPathCommand.Text = "MXF file"
+        Me.lblMXFPathCommand.Visible = False
         '
-        'chkDumb
+        'chkAdvanced
         '
-        Me.chkDumb.AutoSize = True
-        Me.chkDumb.Enabled = False
-        Me.chkDumb.Location = New System.Drawing.Point(813, 3)
-        Me.chkDumb.Name = "chkDumb"
-        Me.chkDumb.Padding = New System.Windows.Forms.Padding(15)
-        Me.chkDumb.Size = New System.Drawing.Size(135, 47)
-        Me.chkDumb.TabIndex = 1
-        Me.chkDumb.Text = "Advanced Mode"
-        Me.chkDumb.UseVisualStyleBackColor = True
+        Me.chkAdvanced.AutoSize = True
+        Me.chkAdvanced.Enabled = False
+        Me.chkAdvanced.Location = New System.Drawing.Point(813, 3)
+        Me.chkAdvanced.Name = "chkAdvanced"
+        Me.chkAdvanced.Padding = New System.Windows.Forms.Padding(15)
+        Me.chkAdvanced.Size = New System.Drawing.Size(135, 47)
+        Me.chkAdvanced.TabIndex = 1
+        Me.chkAdvanced.Text = "Advanced Mode"
+        Me.chkAdvanced.UseVisualStyleBackColor = True
         '
         'lblFFmpegCommand
         '
@@ -781,6 +790,7 @@ Partial Class frmTMXF
         Me.lblFFmpegCommand.Size = New System.Drawing.Size(70, 13)
         Me.lblFFmpegCommand.TabIndex = 11
         Me.lblFFmpegCommand.Text = "FFmpeg Path"
+        Me.lblFFmpegCommand.Visible = False
         '
         'grpTemp
         '
@@ -869,6 +879,7 @@ Partial Class frmTMXF
         Me.btnChk3.Size = New System.Drawing.Size(10, 15)
         Me.btnChk3.TabIndex = 8
         Me.btnChk3.UseVisualStyleBackColor = False
+        Me.btnChk3.Visible = False
         '
         'btnChk2
         '
@@ -881,6 +892,7 @@ Partial Class frmTMXF
         Me.btnChk2.Size = New System.Drawing.Size(10, 15)
         Me.btnChk2.TabIndex = 8
         Me.btnChk2.UseVisualStyleBackColor = False
+        Me.btnChk2.Visible = False
         '
         'btnChk1
         '
@@ -893,6 +905,7 @@ Partial Class frmTMXF
         Me.btnChk1.Size = New System.Drawing.Size(10, 15)
         Me.btnChk1.TabIndex = 8
         Me.btnChk1.UseVisualStyleBackColor = False
+        Me.btnChk1.Visible = False
         '
         'btnConvert
         '
@@ -914,6 +927,7 @@ Partial Class frmTMXF
         Me.btnChk4.Size = New System.Drawing.Size(10, 15)
         Me.btnChk4.TabIndex = 8
         Me.btnChk4.UseVisualStyleBackColor = False
+        Me.btnChk4.Visible = False
         '
         'btnChk5
         '
@@ -926,6 +940,7 @@ Partial Class frmTMXF
         Me.btnChk5.Size = New System.Drawing.Size(10, 15)
         Me.btnChk5.TabIndex = 8
         Me.btnChk5.UseVisualStyleBackColor = False
+        Me.btnChk5.Visible = False
         '
         'txtOutFilename
         '
@@ -1033,7 +1048,7 @@ Partial Class frmTMXF
     Friend WithEvents rdbDNxHD As System.Windows.Forms.RadioButton
     Friend WithEvents rdbProRes As System.Windows.Forms.RadioButton
     Friend WithEvents rdbH264 As System.Windows.Forms.RadioButton
-    Friend WithEvents chkDumb As System.Windows.Forms.CheckBox
+    Friend WithEvents chkAdvanced As System.Windows.Forms.CheckBox
     Friend WithEvents lblCodecCommand As System.Windows.Forms.Label
     Friend WithEvents lblMXFPathCommand As System.Windows.Forms.Label
     Friend WithEvents lblFFmpegCommand As System.Windows.Forms.Label
@@ -1077,7 +1092,7 @@ Partial Class frmTMXF
     Friend WithEvents grpTCBurn As System.Windows.Forms.GroupBox
     Friend WithEvents chkTCBurn As System.Windows.Forms.CheckBox
     Friend WithEvents lblFRcommand As System.Windows.Forms.Label
-    Friend WithEvents grpDumb As System.Windows.Forms.GroupBox
+    Friend WithEvents grpAdvanced As System.Windows.Forms.GroupBox
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
 
 End Class

@@ -67,6 +67,7 @@ Public Class frmTMXF
             rdbMP3.Checked = True
         End If
 
+        'Check Last used Audio Channels and assign it
         If My.Settings.lastchannels = "direct" Then
             rdbADirect.Checked = True
         ElseIf My.Settings.lastchannels = "2ch" Then
@@ -177,6 +178,7 @@ Public Class frmTMXF
 
     Private Sub txtOutFilename_TextChanged(sender As Object, e As EventArgs) Handles txtOutFilename.TextChanged
         lblFileNameCommand.Text = txtOutFilename.Text.ToString
+        txtOutFilename.Text = txtOutFilename.Text.Trim(IO.Path.GetInvalidFileNameChars)
 
     End Sub
 
@@ -243,69 +245,18 @@ Public Class frmTMXF
     Private Sub btnConvert_Click(sender As Object, e As EventArgs) Handles btnConvert.Click
         txtNameDate.Text = DateAndTime.Now.Day & "-" & DateAndTime.Now.Month & "-" & DateAndTime.Now.Year & "-" & DateAndTime.Now.Hour & DateAndTime.Now.Minute
 
-        FFthread = New System.Threading.Thread(AddressOf FFmpegthread)
-        FFthread.IsBackground = True
-        FFthread.Start()
-
-    End Sub
-
-    Private FFthread As System.Threading.Thread
-
-
-    Private Sub FFmpegthread()
-
         Dim FFmpegprocess As New Process()
         Dim FFarguments As String
-        FFarguments = " -loglevel verbose" & " -i " & txtMXFpath.Text.ToString & " " & lblCodecCommand.Text.ToString & " " & lblRes.Text.ToString & " " & lblACodecCommand.Text.ToString & " " & lblAudioChCommand.Text.ToString & " " & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".mov"
-        MessageBox.Show(FFarguments)
+        FFarguments = "-report" & " -loglevel verbose" & " -i " & txtMXFpath.Text.ToString & " " & lblCodecCommand.Text.ToString & " " & lblRes.Text.ToString & " " & lblACodecCommand.Text.ToString & " " & lblAudioChCommand.Text.ToString & " " & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".mov"
         lblFFarguments.Text = FFarguments.ToString
         FFmpegprocess.StartInfo.FileName = Me.txtFFmpeg.Text.ToString
         FFmpegprocess.StartInfo.Arguments = FFarguments
-        FFmpegprocess.StartInfo.RedirectStandardError = True
-        FFmpegprocess.StartInfo.RedirectStandardOutput = True
-        FFmpegprocess.StartInfo.UseShellExecute = False
         FFmpegprocess.StartInfo.ErrorDialog = True
         FFmpegprocess.StartInfo.WorkingDirectory = Me.txtTemp.Text.ToString
-        FFmpegprocess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+        FFmpegprocess.StartInfo.WindowStyle = ProcessWindowStyle.Maximized
         FFmpegprocess.Start()
-        Dim FFStreamReadererr As StreamReader = FFmpegprocess.StandardError
-        Dim FFStreamReaderstd As StreamReader = FFmpegprocess.StandardOutput
-        'txtFFoutput.Text = FFStreamReadererr.ReadToEnd()
-        FFmpegprocess.SynchronizingObject = txtFFoutput
         FFmpegprocess.WaitForExit()
-        FFmpegprocess.BeginErrorReadLine()
 
-
-        ' Dim std_out As StreamReader = FFmpegprocess.StandardError
-        'Do
-
-        'Application.DoEvents()
-        'Me.txtFFoutput.Text += std_out.ReadToEnd
-        'Loop While (FFmpegprocess.HasExited = True)
-        'Do Until FFmpegprocess.HasExited = True
-
-        AddHandler FFmpegprocess.ErrorDataReceived 
-
-        '"-report" & 
-        'ProcessFFmpeg.StartInfo.FileName = txtFFmpeg.Text.ToString
-        'ProcessFFmpeg.StartInfo.Arguments = " -loglevel verbose" & " " & lblMXFPathCommand.Text.ToString & " " & lblCodecCommand.Text.ToString & " " & lblRes.Text.ToString & " " & lblACodecCommand.Text.ToString & " " & lblAudioChCommand.Text.ToString & " " & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".mov"
-        'ProcessFFmpeg.Start()
-    End Sub
-
-
-
-    Private Sub OnChanged(source As Object, ByVal e As FileSystemEventArgs)
-        AppendTextBox(Me.txtFFoutput, "[New Text]")
-    End Sub
-
-    Private Delegate Sub AppendTextBoxDelegate(ByVal TB As TextBox, ByVal txt As String)
-
-    Private Sub AppendTextBox(ByVal TB As TextBox, ByVal txt As String)
-        If TB.InvokeRequired Then
-            TB.Invoke(New AppendTextBoxDelegate(AddressOf AppendTextBox), New Object() {TB, txt})
-        Else
-            TB.AppendText(txt)
-        End If
     End Sub
 
 End Class
