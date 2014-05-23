@@ -44,7 +44,7 @@ Partial Class frmTMXF
         Me.rdb29D = New System.Windows.Forms.RadioButton()
         Me.txtFFoutput = New System.Windows.Forms.TextBox()
         Me.grpSRate = New System.Windows.Forms.GroupBox()
-        Me.rdb96 = New System.Windows.Forms.RadioButton()
+        Me.rdbSR96 = New System.Windows.Forms.RadioButton()
         Me.rdbSR48 = New System.Windows.Forms.RadioButton()
         Me.rdbSR44 = New System.Windows.Forms.RadioButton()
         Me.rdbSRDirect = New System.Windows.Forms.RadioButton()
@@ -70,6 +70,8 @@ Partial Class frmTMXF
         Me.rdbProRes = New System.Windows.Forms.RadioButton()
         Me.rdbH264 = New System.Windows.Forms.RadioButton()
         Me.TabConfig = New System.Windows.Forms.TabPage()
+        Me.lblLastTempName = New System.Windows.Forms.Label()
+        Me.lblSRcommand = New System.Windows.Forms.Label()
         Me.lblFRcommand = New System.Windows.Forms.Label()
         Me.lblFFarguments = New System.Windows.Forms.Label()
         Me.lblASRCommand = New System.Windows.Forms.Label()
@@ -99,6 +101,7 @@ Partial Class frmTMXF
         Me.lblOutName = New System.Windows.Forms.Label()
         Me.txtNameDate = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.lblTempLessOneSec = New System.Windows.Forms.Label()
         Me.tabsMain.SuspendLayout()
         Me.TabCodec.SuspendLayout()
         Me.grpTCBurn.SuspendLayout()
@@ -245,6 +248,7 @@ Partial Class frmTMXF
         'chkTCBurn
         '
         Me.chkTCBurn.AutoSize = True
+        Me.chkTCBurn.Enabled = False
         Me.chkTCBurn.Location = New System.Drawing.Point(7, 20)
         Me.chkTCBurn.Name = "chkTCBurn"
         Me.chkTCBurn.Size = New System.Drawing.Size(65, 17)
@@ -330,7 +334,7 @@ Partial Class frmTMXF
         '
         'grpSRate
         '
-        Me.grpSRate.Controls.Add(Me.rdb96)
+        Me.grpSRate.Controls.Add(Me.rdbSR96)
         Me.grpSRate.Controls.Add(Me.rdbSR48)
         Me.grpSRate.Controls.Add(Me.rdbSR44)
         Me.grpSRate.Controls.Add(Me.rdbSRDirect)
@@ -341,17 +345,17 @@ Partial Class frmTMXF
         Me.grpSRate.TabStop = False
         Me.grpSRate.Text = "Sample Rate"
         '
-        'rdb96
+        'rdbSR96
         '
-        Me.rdb96.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rdb96.Enabled = False
-        Me.rdb96.Location = New System.Drawing.Point(6, 121)
-        Me.rdb96.Name = "rdb96"
-        Me.rdb96.Size = New System.Drawing.Size(104, 24)
-        Me.rdb96.TabIndex = 3
-        Me.rdb96.Text = "96 KHz"
-        Me.rdb96.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.rdb96.UseVisualStyleBackColor = True
+        Me.rdbSR96.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbSR96.Enabled = False
+        Me.rdbSR96.Location = New System.Drawing.Point(6, 121)
+        Me.rdbSR96.Name = "rdbSR96"
+        Me.rdbSR96.Size = New System.Drawing.Size(104, 24)
+        Me.rdbSR96.TabIndex = 3
+        Me.rdbSR96.Text = "96 KHz"
+        Me.rdbSR96.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdbSR96.UseVisualStyleBackColor = True
         '
         'rdbSR48
         '
@@ -605,6 +609,7 @@ Partial Class frmTMXF
         'rdbWAV
         '
         Me.rdbWAV.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbWAV.Enabled = False
         Me.rdbWAV.Location = New System.Drawing.Point(8, 121)
         Me.rdbWAV.Name = "rdbWAV"
         Me.rdbWAV.Size = New System.Drawing.Size(104, 24)
@@ -652,6 +657,9 @@ Partial Class frmTMXF
         '
         'TabConfig
         '
+        Me.TabConfig.Controls.Add(Me.lblTempLessOneSec)
+        Me.TabConfig.Controls.Add(Me.lblLastTempName)
+        Me.TabConfig.Controls.Add(Me.lblSRcommand)
         Me.TabConfig.Controls.Add(Me.lblFRcommand)
         Me.TabConfig.Controls.Add(Me.lblFFarguments)
         Me.TabConfig.Controls.Add(Me.lblASRCommand)
@@ -673,10 +681,28 @@ Partial Class frmTMXF
         Me.TabConfig.Text = "Software Config"
         Me.TabConfig.UseVisualStyleBackColor = True
         '
+        'lblLastTempName
+        '
+        Me.lblLastTempName.AutoSize = True
+        Me.lblLastTempName.Location = New System.Drawing.Point(17, 284)
+        Me.lblLastTempName.Name = "lblLastTempName"
+        Me.lblLastTempName.Size = New System.Drawing.Size(82, 13)
+        Me.lblLastTempName.TabIndex = 20
+        Me.lblLastTempName.Text = "LastTempName"
+        '
+        'lblSRcommand
+        '
+        Me.lblSRcommand.AutoSize = True
+        Me.lblSRcommand.Location = New System.Drawing.Point(17, 206)
+        Me.lblSRcommand.Name = "lblSRcommand"
+        Me.lblSRcommand.Size = New System.Drawing.Size(68, 13)
+        Me.lblSRcommand.TabIndex = 19
+        Me.lblSRcommand.Text = "Sample Rate"
+        '
         'lblFRcommand
         '
         Me.lblFRcommand.AutoSize = True
-        Me.lblFRcommand.Location = New System.Drawing.Point(20, 197)
+        Me.lblFRcommand.Location = New System.Drawing.Point(17, 193)
         Me.lblFRcommand.Name = "lblFRcommand"
         Me.lblFRcommand.Size = New System.Drawing.Size(62, 13)
         Me.lblFRcommand.TabIndex = 18
@@ -971,6 +997,15 @@ Partial Class frmTMXF
         '
         Me.ToolTip1.IsBalloon = True
         '
+        'lblTempLessOneSec
+        '
+        Me.lblTempLessOneSec.AutoSize = True
+        Me.lblTempLessOneSec.Location = New System.Drawing.Point(20, 265)
+        Me.lblTempLessOneSec.Name = "lblTempLessOneSec"
+        Me.lblTempLessOneSec.Size = New System.Drawing.Size(66, 13)
+        Me.lblTempLessOneSec.TabIndex = 21
+        Me.lblTempLessOneSec.Text = "Temp -1 sec"
+        '
         'frmTMXF
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1078,7 +1113,7 @@ Partial Class frmTMXF
     Friend WithEvents rdbSR44 As System.Windows.Forms.RadioButton
     Friend WithEvents rdbSRDirect As System.Windows.Forms.RadioButton
     Friend WithEvents rdbSR48 As System.Windows.Forms.RadioButton
-    Friend WithEvents rdb96 As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbSR96 As System.Windows.Forms.RadioButton
     Friend WithEvents lblACodecCommand As System.Windows.Forms.Label
     Friend WithEvents txtNameDate As System.Windows.Forms.Label
     Friend WithEvents lblASRCommand As System.Windows.Forms.Label
@@ -1094,5 +1129,8 @@ Partial Class frmTMXF
     Friend WithEvents lblFRcommand As System.Windows.Forms.Label
     Friend WithEvents grpAdvanced As System.Windows.Forms.GroupBox
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
+    Friend WithEvents lblSRcommand As System.Windows.Forms.Label
+    Friend WithEvents lblLastTempName As System.Windows.Forms.Label
+    Friend WithEvents lblTempLessOneSec As System.Windows.Forms.Label
 
 End Class
