@@ -1,5 +1,7 @@
 ﻿Imports System.IO
 Imports System.ComponentModel
+Imports Microsoft.VisualBasic
+Imports System.Security.Permissions
 
 Public Class frmTMXF
 
@@ -9,7 +11,9 @@ Public Class frmTMXF
 
         'Check if FFmpeg path is Ok and if not do this
         If txtFFmpeg.Text = "c:FFmpeg" Then
-            If My.Settings.ffmpegpath.Length = 0 Then
+            If System.IO.File.Exists("\Resources\ffmpeg.exe") Then
+                txtFFmpeg.Text = System.IO.Path.GetFileName("\Resources\ffmpeg.exe")
+            ElseIf My.Settings.ffmpegpath.Length = 0 Then
                 OpenFFmpegDialog.ShowDialog()
                 txtFFmpeg.Text = OpenFFmpegDialog.FileName.ToString
                 My.Settings.ffmpegpath = OpenFFmpegDialog.FileName.ToString
@@ -115,10 +119,12 @@ Public Class frmTMXF
         If OpenMXFDialog.ShowDialog() = Windows.Forms.DialogResult.OK Then
             txtMXFpath.Text = Microsoft.VisualBasic.Chr(34) & OpenMXFDialog.FileName.ToString & Microsoft.VisualBasic.Chr(34)
             btnSaveOut.Enabled = True
-        End If
-        If System.IO.File.Exists(txtMXFpath.Text) Then
-            btnChk1.BackColor = Color.Green
-            lblMXFPathCommand.Text = "-i " & txtMXFpath.Text
+
+            If System.IO.File.Exists(txtMXFpath.Text) Then
+                btnChk1.BackColor = Color.Green
+                lblMXFPathCommand.Text = "-i " & txtMXFpath.Text
+                txtOutFilename.Text = System.IO.Path.GetFileNameWithoutExtension(txtMXFpath.Text)
+            End If
         End If
         txtNameDate.Text = DateAndTime.Now.Day & "-" & DateAndTime.Now.Month & "-" & DateAndTime.Now.Year & "-" & DateAndTime.Now.Hour & DateAndTime.Now.Minute
     End Sub
@@ -293,13 +299,30 @@ Public Class frmTMXF
 
     Private Sub btnConvert_Click(sender As Object, e As EventArgs) Handles btnConvert.Click
 
-        txtNameDate.Text = DateAndTime.Now.Day & "-" & DateAndTime.Now.Month & "-" & DateAndTime.Now.Year & "-" & DateAndTime.Now.Hour & DateAndTime.Now.Minute
-        lblLastTempName.Text = "ffmpeg-" & DateAndTime.Now.Year & DateAndTime.Now.Month & DateAndTime.Now.Day & "-" & DateAndTime.Now.Hour & DateAndTime.Now.Minute & DateAndTime.Now.Second & ".txt"
-        lblLastTempName.Text = "ffmpeg-" & DateAndTime.Now.Year & DateAndTime.Now.Month & DateAndTime.Now.Day & "-" & DateAndTime.Now.Hour & DateAndTime.Now.Minute & (DateAndTime.Now.Second - 1) & ".txt"
+        Dim _timeofthelog As String
+        Dim _date As Integer
+        Dim _time As Integer
         Dim FFmpegprocess As New Process()
         Dim FFarguments As String
+
+        Dim _lastlog As New System.IO.FileSystemWatcher
+        _lastlog.Path = txtTemp.Text
+        _lastlog.NotifyFilter = (NotifyFilters.LastAccess Or NotifyFilters.LastWrite Or NotifyFilters.FileName Or NotifyFilters.DirectoryName)
+        _lastlog.Filter = "*.log"
+        AddHandler _lastlog.Created, AddressOf _lastlog_OnChanged
+        AddHandler _lastlog.Changed, AddressOf _lastlog_OnChanged
+        _lastlog.EnableRaisingEvents = True
+
+        _date = DateAndTime.Now.ToString("yyyyMMdd")
+        _time = DateAndTime.Now.ToString("HHmmss")
+        _timeofthelog = "ffmpeg-" & _date & "-" & _time & ".log"
+        txtFFoutput.Text = "Waiting for the Conversion to Complete." & vbCrLf & " Conversion started at " & DateAndTime.Now.ToString("HH:mm:ss")
+
+        txtNameDate.Text = DateAndTime.Now.ToString("dd") & "-" & DateAndTime.Now.ToString("MM") & "-" & DateAndTime.Now.ToString("yyyy") & "-" & DateAndTime.Now.ToString("HH") & DateAndTime.Now.ToString("mm")
+
         FFarguments = "-report " & "-loglevel verbose" & " -i " & txtMXFpath.Text.ToString & " " & lblCodecCommand.Text.ToString & " " & lblRes.Text.ToString & " " & lblACodecCommand.Text.ToString & " " & lblAudioChCommand.Text.ToString & " " & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".mov"
         lblFFarguments.Text = FFarguments.ToString
+
         FFmpegprocess.StartInfo.FileName = Me.txtFFmpeg.Text.ToString
         FFmpegprocess.StartInfo.Arguments = FFarguments
         FFmpegprocess.StartInfo.ErrorDialog = True
@@ -307,21 +330,32 @@ Public Class frmTMXF
         FFmpegprocess.StartInfo.WindowStyle = ProcessWindowStyle.Maximized
         FFmpegprocess.Start()
         FFmpegprocess.WaitForExit()
+
+        _lastlog.EnableRaisingEvents = False
+
+        Threading.Thread.Sleep(1000)
+
         Dim LogReader As StreamReader
-        If System.IO.File.Exists(txtTemp.Text & "\" & lblLastTempName.Text) Then
-            LogReader = New StreamReader(txtTemp.Text & "\" & lblLastTempName.Text, True)
+        If System.IO.File.Exists(lblLastTempName.Text) Then
+            LogReader = New StreamReader(lblLastTempName.Text, True)
             txtFFoutput.Text = LogReader.ReadToEnd
-        ElseIf System.IO.File.Exists(txtTemp.Text & "\" & lblTempLessOneSec.Text) Then
-            LogReader = New StreamReader(txtTemp.Text & "\" & lblTempLessOneSec.Text, True)
-            txtFFoutput.Text = LogReader.ReadToEnd
-        Else
-            txtFFoutput.Text = "Could not find the Log File" & vbCrLf & txtTemp.Text & "\" & lblLastTempName.Text
         End If
-        
+
     End Sub
 
-    
-    Private Sub lblLastTempName_textchanged(sender As Object, e As EventArgs) Handles lblLastTempName.TextChanged
+    Private Sub _lastlog_OnChanged(source As Object, e As FileSystemEventArgs)
+        'Specify what is done when a file is changed, created, or deleted.
+        lblLastTempName.Text = e.FullPath
+        'MessageBox.Show(e.FullPath)
+    End Sub
 
+    Private Sub txtFFoutput_TextChanged(sender As Object, e As EventArgs) Handles txtFFoutput.TextChanged
+        txtFFoutput.Focus()
+        txtFFoutput.SelectionStart = txtFFoutput.Text.Length
+        txtFFoutput.ScrollToCaret()
+    End Sub
+
+    Private Sub btnAbout_Click(sender As Object, e As EventArgs) Handles btnAbout.Click
+        frmAbout.Show()
     End Sub
 End Class
