@@ -113,6 +113,8 @@ Public Class frmTMXF
 
         End If
 
+        txtFFoutput.Text.PadLeft(-1)
+
     End Sub
 
     Private Sub btnLoadMXF_Click(sender As Object, e As EventArgs) Handles btnLoadMXF.Click
@@ -120,10 +122,10 @@ Public Class frmTMXF
             txtMXFpath.Text = Microsoft.VisualBasic.Chr(34) & OpenMXFDialog.FileName.ToString & Microsoft.VisualBasic.Chr(34)
             btnSaveOut.Enabled = True
 
-            If System.IO.File.Exists(txtMXFpath.Text) Then
+            If System.IO.File.Exists(txtMXFpath.Text.Trim(Microsoft.VisualBasic.Chr(34))) Then
                 btnChk1.BackColor = Color.Green
                 lblMXFPathCommand.Text = "-i " & txtMXFpath.Text
-                txtOutFilename.Text = System.IO.Path.GetFileNameWithoutExtension(txtMXFpath.Text)
+                txtOutFilename.Text = System.IO.Path.GetFileNameWithoutExtension(txtMXFpath.Text.Trim(Microsoft.VisualBasic.Chr(34)))
             End If
         End If
         txtNameDate.Text = DateAndTime.Now.Day & "-" & DateAndTime.Now.Month & "-" & DateAndTime.Now.Year & "-" & DateAndTime.Now.Hour & DateAndTime.Now.Minute
@@ -317,7 +319,7 @@ Public Class frmTMXF
         _time = DateAndTime.Now.ToString("HHmmss")
         _timeofthelog = "ffmpeg-" & _date & "-" & _time & ".log"
         txtFFoutput.Text = "Waiting for the Conversion to Complete." & vbCrLf & " Conversion started at " & DateAndTime.Now.ToString("HH:mm:ss")
-
+        txtFFoutput.Text.PadLeft(1)
         txtNameDate.Text = DateAndTime.Now.ToString("dd") & "-" & DateAndTime.Now.ToString("MM") & "-" & DateAndTime.Now.ToString("yyyy") & "-" & DateAndTime.Now.ToString("HH") & DateAndTime.Now.ToString("mm")
 
         FFarguments = "-report " & "-loglevel verbose" & " -i " & txtMXFpath.Text.ToString & " " & lblCodecCommand.Text.ToString & " " & lblRes.Text.ToString & " " & lblACodecCommand.Text.ToString & " " & lblAudioChCommand.Text.ToString & " " & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".mov"

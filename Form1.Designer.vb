@@ -42,7 +42,6 @@ Partial Class frmTMXF
         Me.rdb23 = New System.Windows.Forms.RadioButton()
         Me.rdb29ND = New System.Windows.Forms.RadioButton()
         Me.rdb29D = New System.Windows.Forms.RadioButton()
-        Me.txtFFoutput = New System.Windows.Forms.TextBox()
         Me.grpSRate = New System.Windows.Forms.GroupBox()
         Me.rdbSR96 = New System.Windows.Forms.RadioButton()
         Me.rdbSR48 = New System.Windows.Forms.RadioButton()
@@ -59,6 +58,7 @@ Partial Class frmTMXF
         Me.rdbA2Ch = New System.Windows.Forms.RadioButton()
         Me.rdbADirect = New System.Windows.Forms.RadioButton()
         Me.grpGlobal = New System.Windows.Forms.GroupBox()
+        Me.chkReport = New System.Windows.Forms.CheckBox()
         Me.grpResolution = New System.Windows.Forms.GroupBox()
         Me.rdb540 = New System.Windows.Forms.RadioButton()
         Me.rdb486 = New System.Windows.Forms.RadioButton()
@@ -90,6 +90,7 @@ Partial Class frmTMXF
         Me.grpFFmpeg = New System.Windows.Forms.GroupBox()
         Me.txtFFmpeg = New System.Windows.Forms.Label()
         Me.btnFFmpeg = New System.Windows.Forms.Button()
+        Me.txtFFoutput = New System.Windows.Forms.TextBox()
         Me.OpenFFmpegDialog = New System.Windows.Forms.OpenFileDialog()
         Me.btnChk3 = New System.Windows.Forms.Button()
         Me.btnChk2 = New System.Windows.Forms.Button()
@@ -101,7 +102,6 @@ Partial Class frmTMXF
         Me.lblOutName = New System.Windows.Forms.Label()
         Me.txtNameDate = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.chkReport = New System.Windows.Forms.CheckBox()
         Me.btnAbout = New System.Windows.Forms.Button()
         Me.tabsMain.SuspendLayout()
         Me.TabCodec.SuspendLayout()
@@ -137,7 +137,7 @@ Partial Class frmTMXF
         '
         Me.btnLoadMXF.Location = New System.Drawing.Point(13, 13)
         Me.btnLoadMXF.Name = "btnLoadMXF"
-        Me.btnLoadMXF.Size = New System.Drawing.Size(75, 75)
+        Me.btnLoadMXF.Size = New System.Drawing.Size(75, 25)
         Me.btnLoadMXF.TabIndex = 0
         Me.btnLoadMXF.Text = "Load MXF"
         Me.btnLoadMXF.UseVisualStyleBackColor = True
@@ -145,7 +145,7 @@ Partial Class frmTMXF
         'txtMXFpath
         '
         Me.txtMXFpath.AutoSize = True
-        Me.txtMXFpath.Location = New System.Drawing.Point(94, 44)
+        Me.txtMXFpath.Location = New System.Drawing.Point(94, 19)
         Me.txtMXFpath.Name = "txtMXFpath"
         Me.txtMXFpath.Size = New System.Drawing.Size(16, 13)
         Me.txtMXFpath.TabIndex = 1
@@ -182,9 +182,9 @@ Partial Class frmTMXF
         'btnSaveOut
         '
         Me.btnSaveOut.Enabled = False
-        Me.btnSaveOut.Location = New System.Drawing.Point(12, 552)
+        Me.btnSaveOut.Location = New System.Drawing.Point(13, 604)
         Me.btnSaveOut.Name = "btnSaveOut"
-        Me.btnSaveOut.Size = New System.Drawing.Size(75, 75)
+        Me.btnSaveOut.Size = New System.Drawing.Size(75, 25)
         Me.btnSaveOut.TabIndex = 4
         Me.btnSaveOut.Text = "Output Path"
         Me.btnSaveOut.UseVisualStyleBackColor = True
@@ -192,7 +192,7 @@ Partial Class frmTMXF
         'txtOutPath
         '
         Me.txtOutPath.AutoSize = True
-        Me.txtOutPath.Location = New System.Drawing.Point(94, 614)
+        Me.txtOutPath.Location = New System.Drawing.Point(94, 610)
         Me.txtOutPath.Name = "txtOutPath"
         Me.txtOutPath.Size = New System.Drawing.Size(16, 13)
         Me.txtOutPath.TabIndex = 6
@@ -202,14 +202,15 @@ Partial Class frmTMXF
         '
         Me.tabsMain.Controls.Add(Me.TabCodec)
         Me.tabsMain.Controls.Add(Me.TabConfig)
-        Me.tabsMain.Location = New System.Drawing.Point(13, 95)
+        Me.tabsMain.Location = New System.Drawing.Point(13, 44)
         Me.tabsMain.Name = "tabsMain"
         Me.tabsMain.SelectedIndex = 0
-        Me.tabsMain.Size = New System.Drawing.Size(519, 451)
+        Me.tabsMain.Size = New System.Drawing.Size(959, 535)
         Me.tabsMain.TabIndex = 7
         '
         'TabCodec
         '
+        Me.TabCodec.Controls.Add(Me.txtFFoutput)
         Me.TabCodec.Controls.Add(Me.grpAdvanced)
         Me.TabCodec.Controls.Add(Me.grpTCBurn)
         Me.TabCodec.Controls.Add(Me.grpFrameRate)
@@ -222,16 +223,16 @@ Partial Class frmTMXF
         Me.TabCodec.Location = New System.Drawing.Point(4, 22)
         Me.TabCodec.Name = "TabCodec"
         Me.TabCodec.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabCodec.Size = New System.Drawing.Size(511, 425)
+        Me.TabCodec.Size = New System.Drawing.Size(951, 509)
         Me.TabCodec.TabIndex = 0
         Me.TabCodec.Text = "Codec Config"
         Me.TabCodec.UseVisualStyleBackColor = True
         '
         'grpAdvanced
         '
-        Me.grpAdvanced.Location = New System.Drawing.Point(385, 8)
+        Me.grpAdvanced.Location = New System.Drawing.Point(259, 330)
         Me.grpAdvanced.Name = "grpAdvanced"
-        Me.grpAdvanced.Size = New System.Drawing.Size(121, 320)
+        Me.grpAdvanced.Size = New System.Drawing.Size(120, 155)
         Me.grpAdvanced.TabIndex = 9
         Me.grpAdvanced.TabStop = False
         Me.grpAdvanced.Text = "Advanced"
@@ -239,9 +240,9 @@ Partial Class frmTMXF
         'grpTCBurn
         '
         Me.grpTCBurn.Controls.Add(Me.chkTCBurn)
-        Me.grpTCBurn.Location = New System.Drawing.Point(259, 330)
+        Me.grpTCBurn.Location = New System.Drawing.Point(6, 416)
         Me.grpTCBurn.Name = "grpTCBurn"
-        Me.grpTCBurn.Size = New System.Drawing.Size(247, 89)
+        Me.grpTCBurn.Size = New System.Drawing.Size(247, 80)
         Me.grpTCBurn.TabIndex = 8
         Me.grpTCBurn.TabStop = False
         Me.grpTCBurn.Text = "Time Code Burn"
@@ -320,22 +321,6 @@ Partial Class frmTMXF
         Me.rdb29D.Text = "29,97 Drop"
         Me.rdb29D.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rdb29D.UseVisualStyleBackColor = True
-        '
-        'txtFFoutput
-        '
-        Me.txtFFoutput.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.txtFFoutput.Cursor = System.Windows.Forms.Cursors.Default
-        Me.txtFFoutput.ForeColor = System.Drawing.SystemColors.Info
-        Me.txtFFoutput.Location = New System.Drawing.Point(534, 117)
-        Me.txtFFoutput.Multiline = True
-        Me.txtFFoutput.Name = "txtFFoutput"
-        Me.txtFFoutput.ReadOnly = True
-        Me.txtFFoutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtFFoutput.Size = New System.Drawing.Size(444, 429)
-        Me.txtFFoutput.TabIndex = 6
-        Me.txtFFoutput.TabStop = False
-        Me.txtFFoutput.Text = "Conversion Report"
-        Me.txtFFoutput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'grpSRate
         '
@@ -533,10 +518,20 @@ Partial Class frmTMXF
         Me.grpGlobal.Controls.Add(Me.chkReport)
         Me.grpGlobal.Location = New System.Drawing.Point(6, 330)
         Me.grpGlobal.Name = "grpGlobal"
-        Me.grpGlobal.Size = New System.Drawing.Size(247, 89)
+        Me.grpGlobal.Size = New System.Drawing.Size(247, 80)
         Me.grpGlobal.TabIndex = 0
         Me.grpGlobal.TabStop = False
         Me.grpGlobal.Text = "Global Options"
+        '
+        'chkReport
+        '
+        Me.chkReport.AutoSize = True
+        Me.chkReport.Location = New System.Drawing.Point(7, 20)
+        Me.chkReport.Name = "chkReport"
+        Me.chkReport.Size = New System.Drawing.Size(105, 17)
+        Me.chkReport.TabIndex = 0
+        Me.chkReport.Text = "Generate Report"
+        Me.chkReport.UseVisualStyleBackColor = True
         '
         'grpResolution
         '
@@ -681,7 +676,7 @@ Partial Class frmTMXF
         Me.TabConfig.Location = New System.Drawing.Point(4, 22)
         Me.TabConfig.Name = "TabConfig"
         Me.TabConfig.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabConfig.Size = New System.Drawing.Size(951, 425)
+        Me.TabConfig.Size = New System.Drawing.Size(951, 509)
         Me.TabConfig.TabIndex = 1
         Me.TabConfig.Text = "Software Config"
         Me.TabConfig.UseVisualStyleBackColor = True
@@ -835,9 +830,9 @@ Partial Class frmTMXF
         Me.grpTemp.Controls.Add(Me.btnTempDefault)
         Me.grpTemp.Controls.Add(Me.txtTemp)
         Me.grpTemp.Controls.Add(Me.btnTemp)
-        Me.grpTemp.Location = New System.Drawing.Point(6, 369)
+        Me.grpTemp.Location = New System.Drawing.Point(6, 453)
         Me.grpTemp.Name = "grpTemp"
-        Me.grpTemp.Size = New System.Drawing.Size(938, 50)
+        Me.grpTemp.Size = New System.Drawing.Size(939, 50)
         Me.grpTemp.TabIndex = 2
         Me.grpTemp.TabStop = False
         Me.grpTemp.Text = "Temporary Folder"
@@ -873,7 +868,7 @@ Partial Class frmTMXF
         '
         Me.grpFFmpeg.Controls.Add(Me.txtFFmpeg)
         Me.grpFFmpeg.Controls.Add(Me.btnFFmpeg)
-        Me.grpFFmpeg.Location = New System.Drawing.Point(6, 313)
+        Me.grpFFmpeg.Location = New System.Drawing.Point(6, 397)
         Me.grpFFmpeg.Name = "grpFFmpeg"
         Me.grpFFmpeg.Size = New System.Drawing.Size(939, 50)
         Me.grpFFmpeg.TabIndex = 1
@@ -897,6 +892,22 @@ Partial Class frmTMXF
         Me.btnFFmpeg.TabIndex = 0
         Me.btnFFmpeg.Text = "Set Path"
         Me.btnFFmpeg.UseVisualStyleBackColor = True
+        '
+        'txtFFoutput
+        '
+        Me.txtFFoutput.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.txtFFoutput.Cursor = System.Windows.Forms.Cursors.Default
+        Me.txtFFoutput.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
+        Me.txtFFoutput.ForeColor = System.Drawing.SystemColors.Info
+        Me.txtFFoutput.Location = New System.Drawing.Point(385, 8)
+        Me.txtFFoutput.Multiline = True
+        Me.txtFFoutput.Name = "txtFFoutput"
+        Me.txtFFoutput.ReadOnly = True
+        Me.txtFFoutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtFFoutput.Size = New System.Drawing.Size(560, 495)
+        Me.txtFFoutput.TabIndex = 6
+        Me.txtFFoutput.TabStop = False
+        Me.txtFFoutput.Text = "Conversion Report"
         '
         'OpenFFmpegDialog
         '
@@ -947,9 +958,9 @@ Partial Class frmTMXF
         '
         'btnConvert
         '
-        Me.btnConvert.Location = New System.Drawing.Point(897, 554)
+        Me.btnConvert.Location = New System.Drawing.Point(897, 604)
         Me.btnConvert.Name = "btnConvert"
-        Me.btnConvert.Size = New System.Drawing.Size(75, 75)
+        Me.btnConvert.Size = New System.Drawing.Size(75, 25)
         Me.btnConvert.TabIndex = 9
         Me.btnConvert.Text = "Convert"
         Me.btnConvert.UseVisualStyleBackColor = True
@@ -969,7 +980,7 @@ Partial Class frmTMXF
         '
         'btnChk5
         '
-        Me.btnChk5.BackColor = System.Drawing.Color.Red
+        Me.btnChk5.BackColor = System.Drawing.Color.Green
         Me.btnChk5.Enabled = False
         Me.btnChk5.FlatAppearance.BorderSize = 0
         Me.btnChk5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -982,7 +993,7 @@ Partial Class frmTMXF
         '
         'txtOutFilename
         '
-        Me.txtOutFilename.Location = New System.Drawing.Point(93, 568)
+        Me.txtOutFilename.Location = New System.Drawing.Point(109, 585)
         Me.txtOutFilename.Name = "txtOutFilename"
         Me.txtOutFilename.Size = New System.Drawing.Size(169, 20)
         Me.txtOutFilename.TabIndex = 10
@@ -990,7 +1001,7 @@ Partial Class frmTMXF
         'lblOutName
         '
         Me.lblOutName.AutoSize = True
-        Me.lblOutName.Location = New System.Drawing.Point(94, 552)
+        Me.lblOutName.Location = New System.Drawing.Point(14, 588)
         Me.lblOutName.Name = "lblOutName"
         Me.lblOutName.Size = New System.Drawing.Size(89, 13)
         Me.lblOutName.TabIndex = 11
@@ -999,7 +1010,7 @@ Partial Class frmTMXF
         'txtNameDate
         '
         Me.txtNameDate.AutoSize = True
-        Me.txtNameDate.Location = New System.Drawing.Point(268, 571)
+        Me.txtNameDate.Location = New System.Drawing.Point(284, 588)
         Me.txtNameDate.Name = "txtNameDate"
         Me.txtNameDate.Size = New System.Drawing.Size(65, 13)
         Me.txtNameDate.TabIndex = 12
@@ -1008,16 +1019,6 @@ Partial Class frmTMXF
         'ToolTip1
         '
         Me.ToolTip1.IsBalloon = True
-        '
-        'chkReport
-        '
-        Me.chkReport.AutoSize = True
-        Me.chkReport.Location = New System.Drawing.Point(7, 20)
-        Me.chkReport.Name = "chkReport"
-        Me.chkReport.Size = New System.Drawing.Size(105, 17)
-        Me.chkReport.TabIndex = 0
-        Me.chkReport.Text = "Generate Report"
-        Me.chkReport.UseVisualStyleBackColor = True
         '
         'btnAbout
         '
@@ -1037,7 +1038,6 @@ Partial Class frmTMXF
         Me.ClientSize = New System.Drawing.Size(984, 662)
         Me.Controls.Add(Me.btnAbout)
         Me.Controls.Add(Me.txtNameDate)
-        Me.Controls.Add(Me.txtFFoutput)
         Me.Controls.Add(Me.lblOutName)
         Me.Controls.Add(Me.txtOutFilename)
         Me.Controls.Add(Me.btnConvert)
@@ -1060,6 +1060,7 @@ Partial Class frmTMXF
         Me.Text = "T MXF Converter"
         Me.tabsMain.ResumeLayout(False)
         Me.TabCodec.ResumeLayout(False)
+        Me.TabCodec.PerformLayout()
         Me.grpTCBurn.ResumeLayout(False)
         Me.grpTCBurn.PerformLayout()
         Me.grpFrameRate.ResumeLayout(False)

@@ -1,8 +1,6 @@
 ﻿Public NotInheritable Class frmAbout
 
-    Dim LabelCompanyName As Object
-
-    Private Sub AboutBox1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub AboutBox_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ' Set the title of the form.
         Dim ApplicationTitle As String
         If My.Application.Info.Title <> "" Then
@@ -25,5 +23,4 @@
         Me.Close()
     End Sub
 
-    
 End Class
