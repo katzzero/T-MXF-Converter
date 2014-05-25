@@ -335,7 +335,6 @@ Partial Class frmTMXF
         Me.txtFFoutput.TabIndex = 6
         Me.txtFFoutput.TabStop = False
         Me.txtFFoutput.Text = "Conversion Report"
-        Me.txtFFoutput.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'grpSRate
         '
