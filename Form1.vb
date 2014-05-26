@@ -113,8 +113,6 @@ Public Class frmTMXF
 
         End If
 
-        txtFFoutput.Text.PadLeft(-1)
-
     End Sub
 
     Private Sub btnLoadMXF_Click(sender As Object, e As EventArgs) Handles btnLoadMXF.Click
@@ -334,8 +332,6 @@ Public Class frmTMXF
         FFmpegprocess.WaitForExit()
 
         _lastlog.EnableRaisingEvents = False
-
-        Threading.Thread.Sleep(1000)
 
         Dim LogReader As StreamReader
         If System.IO.File.Exists(lblLastTempName.Text) Then

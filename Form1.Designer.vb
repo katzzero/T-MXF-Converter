@@ -34,6 +34,7 @@ Partial Class frmTMXF
         Me.txtOutPath = New System.Windows.Forms.Label()
         Me.tabsMain = New System.Windows.Forms.TabControl()
         Me.TabCodec = New System.Windows.Forms.TabPage()
+        Me.txtFFoutput = New System.Windows.Forms.TextBox()
         Me.grpAdvanced = New System.Windows.Forms.GroupBox()
         Me.grpTCBurn = New System.Windows.Forms.GroupBox()
         Me.chkTCBurn = New System.Windows.Forms.CheckBox()
@@ -90,7 +91,6 @@ Partial Class frmTMXF
         Me.grpFFmpeg = New System.Windows.Forms.GroupBox()
         Me.txtFFmpeg = New System.Windows.Forms.Label()
         Me.btnFFmpeg = New System.Windows.Forms.Button()
-        Me.txtFFoutput = New System.Windows.Forms.TextBox()
         Me.OpenFFmpegDialog = New System.Windows.Forms.OpenFileDialog()
         Me.btnChk3 = New System.Windows.Forms.Button()
         Me.btnChk2 = New System.Windows.Forms.Button()
@@ -228,11 +228,27 @@ Partial Class frmTMXF
         Me.TabCodec.Text = "Codec Config"
         Me.TabCodec.UseVisualStyleBackColor = True
         '
+        'txtFFoutput
+        '
+        Me.txtFFoutput.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.txtFFoutput.Cursor = System.Windows.Forms.Cursors.Default
+        Me.txtFFoutput.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
+        Me.txtFFoutput.ForeColor = System.Drawing.SystemColors.Info
+        Me.txtFFoutput.Location = New System.Drawing.Point(385, 8)
+        Me.txtFFoutput.Multiline = True
+        Me.txtFFoutput.Name = "txtFFoutput"
+        Me.txtFFoutput.ReadOnly = True
+        Me.txtFFoutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.txtFFoutput.Size = New System.Drawing.Size(560, 495)
+        Me.txtFFoutput.TabIndex = 6
+        Me.txtFFoutput.TabStop = False
+        Me.txtFFoutput.Text = "Conversion Report"
+        '
         'grpAdvanced
         '
         Me.grpAdvanced.Location = New System.Drawing.Point(259, 330)
         Me.grpAdvanced.Name = "grpAdvanced"
-        Me.grpAdvanced.Size = New System.Drawing.Size(120, 155)
+        Me.grpAdvanced.Size = New System.Drawing.Size(120, 166)
         Me.grpAdvanced.TabIndex = 9
         Me.grpAdvanced.TabStop = False
         Me.grpAdvanced.Text = "Advanced"
@@ -526,6 +542,9 @@ Partial Class frmTMXF
         'chkReport
         '
         Me.chkReport.AutoSize = True
+        Me.chkReport.Checked = True
+        Me.chkReport.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkReport.Enabled = False
         Me.chkReport.Location = New System.Drawing.Point(7, 20)
         Me.chkReport.Name = "chkReport"
         Me.chkReport.Size = New System.Drawing.Size(105, 17)
@@ -892,22 +911,6 @@ Partial Class frmTMXF
         Me.btnFFmpeg.TabIndex = 0
         Me.btnFFmpeg.Text = "Set Path"
         Me.btnFFmpeg.UseVisualStyleBackColor = True
-        '
-        'txtFFoutput
-        '
-        Me.txtFFoutput.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.txtFFoutput.Cursor = System.Windows.Forms.Cursors.Default
-        Me.txtFFoutput.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
-        Me.txtFFoutput.ForeColor = System.Drawing.SystemColors.Info
-        Me.txtFFoutput.Location = New System.Drawing.Point(385, 8)
-        Me.txtFFoutput.Multiline = True
-        Me.txtFFoutput.Name = "txtFFoutput"
-        Me.txtFFoutput.ReadOnly = True
-        Me.txtFFoutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtFFoutput.Size = New System.Drawing.Size(560, 495)
-        Me.txtFFoutput.TabIndex = 6
-        Me.txtFFoutput.TabStop = False
-        Me.txtFFoutput.Text = "Conversion Report"
         '
         'OpenFFmpegDialog
         '
