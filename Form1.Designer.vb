@@ -26,7 +26,6 @@ Partial Class frmTMXF
         Me.FFmpegprocess = New System.Diagnostics.Process()
         Me.btnLoadMXF = New System.Windows.Forms.Button()
         Me.txtMXFpath = New System.Windows.Forms.Label()
-        Me.lblAuthor = New System.Windows.Forms.Label()
         Me.lblVersion = New System.Windows.Forms.Label()
         Me.OpenMXFDialog = New System.Windows.Forms.OpenFileDialog()
         Me.btnSaveOut = New System.Windows.Forms.Button()
@@ -103,6 +102,9 @@ Partial Class frmTMXF
         Me.txtNameDate = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.btnAbout = New System.Windows.Forms.Button()
+        Me.grpFFprobe = New System.Windows.Forms.GroupBox()
+        Me.btnFFprobe = New System.Windows.Forms.Button()
+        Me.txtFFprobe = New System.Windows.Forms.Label()
         Me.tabsMain.SuspendLayout()
         Me.TabCodec.SuspendLayout()
         Me.grpTCBurn.SuspendLayout()
@@ -116,6 +118,7 @@ Partial Class frmTMXF
         Me.TabConfig.SuspendLayout()
         Me.grpTemp.SuspendLayout()
         Me.grpFFmpeg.SuspendLayout()
+        Me.grpFFprobe.SuspendLayout()
         Me.SuspendLayout()
         '
         'FFmpegprocess
@@ -150,16 +153,6 @@ Partial Class frmTMXF
         Me.txtMXFpath.Size = New System.Drawing.Size(16, 13)
         Me.txtMXFpath.TabIndex = 1
         Me.txtMXFpath.Text = "..."
-        '
-        'lblAuthor
-        '
-        Me.lblAuthor.AutoSize = True
-        Me.lblAuthor.Location = New System.Drawing.Point(83, 640)
-        Me.lblAuthor.Name = "lblAuthor"
-        Me.lblAuthor.Size = New System.Drawing.Size(127, 13)
-        Me.lblAuthor.TabIndex = 2
-        Me.lblAuthor.Text = "Thiago de Oliveira Neves"
-        Me.lblAuthor.Visible = False
         '
         'lblVersion
         '
@@ -676,6 +669,7 @@ Partial Class frmTMXF
         '
         'TabConfig
         '
+        Me.TabConfig.Controls.Add(Me.grpFFprobe)
         Me.TabConfig.Controls.Add(Me.lblLastTempName)
         Me.TabConfig.Controls.Add(Me.lblSRcommand)
         Me.TabConfig.Controls.Add(Me.lblFRcommand)
@@ -1036,6 +1030,35 @@ Partial Class frmTMXF
         Me.btnAbout.Text = "About"
         Me.btnAbout.UseVisualStyleBackColor = True
         '
+        'grpFFprobe
+        '
+        Me.grpFFprobe.Controls.Add(Me.txtFFprobe)
+        Me.grpFFprobe.Controls.Add(Me.btnFFprobe)
+        Me.grpFFprobe.Location = New System.Drawing.Point(6, 341)
+        Me.grpFFprobe.Name = "grpFFprobe"
+        Me.grpFFprobe.Size = New System.Drawing.Size(939, 50)
+        Me.grpFFprobe.TabIndex = 21
+        Me.grpFFprobe.TabStop = False
+        Me.grpFFprobe.Text = "FFprobe Path"
+        '
+        'btnFFprobe
+        '
+        Me.btnFFprobe.Location = New System.Drawing.Point(6, 19)
+        Me.btnFFprobe.Name = "btnFFprobe"
+        Me.btnFFprobe.Size = New System.Drawing.Size(75, 23)
+        Me.btnFFprobe.TabIndex = 0
+        Me.btnFFprobe.Text = "Set Path"
+        Me.btnFFprobe.UseVisualStyleBackColor = True
+        '
+        'txtFFprobe
+        '
+        Me.txtFFprobe.AutoSize = True
+        Me.txtFFprobe.Location = New System.Drawing.Point(87, 24)
+        Me.txtFFprobe.Name = "txtFFprobe"
+        Me.txtFFprobe.Size = New System.Drawing.Size(55, 13)
+        Me.txtFFprobe.TabIndex = 1
+        Me.txtFFprobe.Text = "c:FFprobe"
+        '
         'frmTMXF
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1055,7 +1078,6 @@ Partial Class frmTMXF
         Me.Controls.Add(Me.txtOutPath)
         Me.Controls.Add(Me.btnSaveOut)
         Me.Controls.Add(Me.lblVersion)
-        Me.Controls.Add(Me.lblAuthor)
         Me.Controls.Add(Me.txtMXFpath)
         Me.Controls.Add(Me.btnLoadMXF)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
@@ -1082,13 +1104,14 @@ Partial Class frmTMXF
         Me.grpTemp.PerformLayout()
         Me.grpFFmpeg.ResumeLayout(False)
         Me.grpFFmpeg.PerformLayout()
+        Me.grpFFprobe.ResumeLayout(False)
+        Me.grpFFprobe.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
     Friend WithEvents FFmpegprocess As System.Diagnostics.Process
     Friend WithEvents lblVersion As System.Windows.Forms.Label
-    Friend WithEvents lblAuthor As System.Windows.Forms.Label
     Friend WithEvents txtMXFpath As System.Windows.Forms.Label
     Friend WithEvents btnLoadMXF As System.Windows.Forms.Button
     Friend WithEvents OpenMXFDialog As System.Windows.Forms.OpenFileDialog
@@ -1166,5 +1189,8 @@ Partial Class frmTMXF
     Friend WithEvents lblLastTempName As System.Windows.Forms.Label
     Friend WithEvents chkReport As System.Windows.Forms.CheckBox
     Friend WithEvents btnAbout As System.Windows.Forms.Button
+    Friend WithEvents grpFFprobe As System.Windows.Forms.GroupBox
+    Friend WithEvents txtFFprobe As System.Windows.Forms.Label
+    Friend WithEvents btnFFprobe As System.Windows.Forms.Button
 
 End Class

@@ -10,10 +10,9 @@ Public Class frmTMXF
         lblVersion.Text = "V." & Application.ProductVersion
 
         'Check if FFmpeg path is Ok and if not do this
+
         If txtFFmpeg.Text = "c:FFmpeg" Then
-            If System.IO.File.Exists("\Resources\ffmpeg.exe") Then
-                txtFFmpeg.Text = System.IO.Path.GetFileName("\Resources\ffmpeg.exe")
-            ElseIf My.Settings.ffmpegpath.Length = 0 Then
+            If My.Settings.ffmpegpath.Length = 0 Then
                 OpenFFmpegDialog.ShowDialog()
                 txtFFmpeg.Text = OpenFFmpegDialog.FileName.ToString
                 My.Settings.ffmpegpath = OpenFFmpegDialog.FileName.ToString
@@ -24,7 +23,8 @@ Public Class frmTMXF
             Else
                 My.Settings.ffmpegpath = ""
                 txtFFmpeg.Text = "c:FFmpeg"
-                MessageBox.Show("FFmpeg Not Found!" & vbCrLf & "Please check the path in Software Config Tab")
+                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFmpeg path not found! Please check the path in Software Config Tab."
+                'MessageBox.Show(MessageBoxOptions.ServiceNotification, "FFmpeg Not Found!" & vbCrLf & "Please check the path in Software Config Tab")
             End If
         End If
 
@@ -106,7 +106,8 @@ Public Class frmTMXF
 
         'Set date and time as part of the output name
         txtNameDate.Text = DateAndTime.Now.Day & "-" & DateAndTime.Now.Month & "-" & DateAndTime.Now.Year & "-" & DateAndTime.Now.Hour & DateAndTime.Now.Minute
-        txtFFoutput.Text = DateAndTime.Now.ToString("HH:mm:ss") & " Software Started ok !"
+        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Software Started!"
+
         If Not My.Settings.LastOutPath.Length = 0 Then
             txtOutPath.Text = My.Settings.LastOutPath.ToString
             btnSaveOut.Enabled = True
@@ -182,7 +183,8 @@ Public Class frmTMXF
         If txtFFmpeg.Text = "FFmpeg.exe" Then
             My.Settings.ffmpegpath = ""
             txtFFmpeg.Text = "c:FFmpeg"
-            MessageBox.Show("FFmpeg Not Selected" & vbCrLf & "Please, choose a path in Software Config Tab")
+            'MessageBox.Show("FFmpeg Not Selected" & vbCrLf & "Please, choose a path in Software Config Tab")
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFmpeg path not selected! Please check the path in Software Config Tab."
             btnChk3.BackColor = Color.Red
         End If
 
