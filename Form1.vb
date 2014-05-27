@@ -106,7 +106,7 @@ Public Class frmTMXF
 
         'Set date and time as part of the output name
         txtNameDate.Text = DateAndTime.Now.Day & "-" & DateAndTime.Now.Month & "-" & DateAndTime.Now.Year & "-" & DateAndTime.Now.Hour & DateAndTime.Now.Minute
-
+        txtFFoutput.Text = DateAndTime.Now.ToString("HH:mm:ss") & " Software Started ok !"
         If Not My.Settings.LastOutPath.Length = 0 Then
             txtOutPath.Text = My.Settings.LastOutPath.ToString
             btnSaveOut.Enabled = True
@@ -302,10 +302,14 @@ Public Class frmTMXF
         Dim _timeofthelog As String
         Dim _date As Integer
         Dim _time As Integer
+        Dim _timestart As Date
+        Dim _timeend As Date
         Dim FFmpegprocess As New Process()
         Dim FFarguments As String
-
+        Dim _TimeTotal As TimeSpan
         Dim _lastlog As New System.IO.FileSystemWatcher
+
+
         _lastlog.Path = txtTemp.Text
         _lastlog.NotifyFilter = (NotifyFilters.LastAccess Or NotifyFilters.LastWrite Or NotifyFilters.FileName Or NotifyFilters.DirectoryName)
         _lastlog.Filter = "*.log"
@@ -315,9 +319,9 @@ Public Class frmTMXF
 
         _date = DateAndTime.Now.ToString("yyyyMMdd")
         _time = DateAndTime.Now.ToString("HHmmss")
+        _timestart = DateAndTime.Now.ToString("HH:mm:ss")
         _timeofthelog = "ffmpeg-" & _date & "-" & _time & ".log"
-        txtFFoutput.Text = "Waiting for the Conversion to Complete." & vbCrLf & " Conversion started at " & DateAndTime.Now.ToString("HH:mm:ss")
-        txtFFoutput.Text.PadLeft(1)
+        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Waiting for the Conversion to Complete." & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Conversion started ! "
         txtNameDate.Text = DateAndTime.Now.ToString("dd") & "-" & DateAndTime.Now.ToString("MM") & "-" & DateAndTime.Now.ToString("yyyy") & "-" & DateAndTime.Now.ToString("HH") & DateAndTime.Now.ToString("mm")
 
         FFarguments = "-report " & "-loglevel verbose" & " -i " & txtMXFpath.Text.ToString & " " & lblCodecCommand.Text.ToString & " " & lblRes.Text.ToString & " " & lblACodecCommand.Text.ToString & " " & lblAudioChCommand.Text.ToString & " " & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".mov"
@@ -332,12 +336,17 @@ Public Class frmTMXF
         FFmpegprocess.WaitForExit()
 
         _lastlog.EnableRaisingEvents = False
+        _timeend = DateAndTime.Now.ToString("HH:mm:ss")
+        _TimeTotal = _timeend - _timestart
+
 
         Dim LogReader As StreamReader
         If System.IO.File.Exists(lblLastTempName.Text) Then
             LogReader = New StreamReader(lblLastTempName.Text, True)
-            txtFFoutput.Text = LogReader.ReadToEnd
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " " & LogReader.ReadToEnd
         End If
+
+        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & "Conversion to Completed !" & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Conversion Started At " & _timestart & " And Ended at " & _timeend & " Taking " & _TimeTotal.Minutes.ToString & " minutes to finish."
 
     End Sub
 

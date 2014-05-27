@@ -184,7 +184,7 @@ Partial Class frmTMXF
         Me.btnSaveOut.Enabled = False
         Me.btnSaveOut.Location = New System.Drawing.Point(13, 604)
         Me.btnSaveOut.Name = "btnSaveOut"
-        Me.btnSaveOut.Size = New System.Drawing.Size(75, 25)
+        Me.btnSaveOut.Size = New System.Drawing.Size(90, 25)
         Me.btnSaveOut.TabIndex = 4
         Me.btnSaveOut.Text = "Output Path"
         Me.btnSaveOut.UseVisualStyleBackColor = True
@@ -192,7 +192,7 @@ Partial Class frmTMXF
         'txtOutPath
         '
         Me.txtOutPath.AutoSize = True
-        Me.txtOutPath.Location = New System.Drawing.Point(94, 610)
+        Me.txtOutPath.Location = New System.Drawing.Point(109, 610)
         Me.txtOutPath.Name = "txtOutPath"
         Me.txtOutPath.Size = New System.Drawing.Size(16, 13)
         Me.txtOutPath.TabIndex = 6
@@ -242,7 +242,6 @@ Partial Class frmTMXF
         Me.txtFFoutput.Size = New System.Drawing.Size(560, 495)
         Me.txtFFoutput.TabIndex = 6
         Me.txtFFoutput.TabStop = False
-        Me.txtFFoutput.Text = "Conversion Report"
         '
         'grpAdvanced
         '
@@ -961,9 +960,12 @@ Partial Class frmTMXF
         '
         'btnConvert
         '
-        Me.btnConvert.Location = New System.Drawing.Point(897, 604)
+        Me.btnConvert.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.btnConvert.FlatAppearance.BorderSize = 5
+        Me.btnConvert.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.btnConvert.Location = New System.Drawing.Point(897, 589)
         Me.btnConvert.Name = "btnConvert"
-        Me.btnConvert.Size = New System.Drawing.Size(75, 25)
+        Me.btnConvert.Size = New System.Drawing.Size(75, 40)
         Me.btnConvert.TabIndex = 9
         Me.btnConvert.Text = "Convert"
         Me.btnConvert.UseVisualStyleBackColor = True
