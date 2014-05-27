@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="T MXF Converter.exe" size="117248">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="T MXF Converter.exe" size="108032">
       <assemblyIdentity name="T MXF Converter" version="0.1.3.749" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>IP6tUFB+6mFoXZtMd/DXD4g8n9rqUAZe9yTGLCgXYIA=</dsig:DigestValue>
+        <dsig:DigestValue>VE8phoHnO1Eanc5hN9EkbBkORX9CSA2lzrJV8WEIvlY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

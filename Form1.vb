@@ -1,5 +1,7 @@
 ﻿Imports System.IO
 Imports System.ComponentModel
+Imports Microsoft.VisualBasic
+Imports System.Security.Permissions
 
 Public Class frmTMXF
 
@@ -8,6 +10,7 @@ Public Class frmTMXF
         lblVersion.Text = "V." & Application.ProductVersion
 
         'Check if FFmpeg path is Ok and if not do this
+
         If txtFFmpeg.Text = "c:FFmpeg" Then
             If My.Settings.ffmpegpath.Length = 0 Then
                 OpenFFmpegDialog.ShowDialog()
@@ -20,7 +23,8 @@ Public Class frmTMXF
             Else
                 My.Settings.ffmpegpath = ""
                 txtFFmpeg.Text = "c:FFmpeg"
-                MessageBox.Show("FFmpeg Not Found!" & vbCrLf & "Please check the path in Software Config Tab")
+                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFmpeg path not found! Please check the path in Software Config Tab."
+                'MessageBox.Show(MessageBoxOptions.ServiceNotification, "FFmpeg Not Found!" & vbCrLf & "Please check the path in Software Config Tab")
             End If
         End If
 
@@ -67,6 +71,7 @@ Public Class frmTMXF
             rdbMP3.Checked = True
         End If
 
+        'Check Last used Audio Channels and assign it
         If My.Settings.lastchannels = "direct" Then
             rdbADirect.Checked = True
         ElseIf My.Settings.lastchannels = "2ch" Then
@@ -77,8 +82,31 @@ Public Class frmTMXF
             rdbA8Ch.Checked = True
         End If
 
+        'Check Last used Frame Rate and assign it
+        If My.Settings.LastFR = "frdirect" Then
+            rdbFRdirect.Checked = True
+        ElseIf My.Settings.LastFR = "29nd" Then
+            rdb29ND.Checked = True
+        ElseIf My.Settings.LastFR = "29d" Then
+            rdb29D.Checked = True
+        ElseIf My.Settings.LastFR = "23" Then
+            rdb23.Checked = True
+        End If
+
+        'Check Last used Frame Rate and assign it
+        If My.Settings.LastSR = "srdirect" Then
+            rdbSRDirect.Checked = True
+        ElseIf My.Settings.LastSR = "sr44" Then
+            rdbSR44.Checked = True
+        ElseIf My.Settings.LastSR = "sr48" Then
+            rdbSR48.Checked = True
+        ElseIf My.Settings.LastSR = "sr96" Then
+            rdbSR96.Checked = True
+        End If
+
         'Set date and time as part of the output name
         txtNameDate.Text = DateAndTime.Now.Day & "-" & DateAndTime.Now.Month & "-" & DateAndTime.Now.Year & "-" & DateAndTime.Now.Hour & DateAndTime.Now.Minute
+        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Software Started!"
 
         If Not My.Settings.LastOutPath.Length = 0 Then
             txtOutPath.Text = My.Settings.LastOutPath.ToString
@@ -92,10 +120,12 @@ Public Class frmTMXF
         If OpenMXFDialog.ShowDialog() = Windows.Forms.DialogResult.OK Then
             txtMXFpath.Text = Microsoft.VisualBasic.Chr(34) & OpenMXFDialog.FileName.ToString & Microsoft.VisualBasic.Chr(34)
             btnSaveOut.Enabled = True
-        End If
-        If System.IO.File.Exists(txtMXFpath.Text) Then
-            btnChk1.BackColor = Color.Green
-            lblMXFPathCommand.Text = "-i " & txtMXFpath.Text
+
+            If System.IO.File.Exists(txtMXFpath.Text.Trim(Microsoft.VisualBasic.Chr(34))) Then
+                btnChk1.BackColor = Color.Green
+                lblMXFPathCommand.Text = "-i " & txtMXFpath.Text
+                txtOutFilename.Text = System.IO.Path.GetFileNameWithoutExtension(txtMXFpath.Text.Trim(Microsoft.VisualBasic.Chr(34)))
+            End If
         End If
         txtNameDate.Text = DateAndTime.Now.Day & "-" & DateAndTime.Now.Month & "-" & DateAndTime.Now.Year & "-" & DateAndTime.Now.Hour & DateAndTime.Now.Minute
     End Sub
@@ -131,9 +161,37 @@ Public Class frmTMXF
     Private Sub btnTempDefault_Click(sender As Object, e As EventArgs) Handles btnTempDefault.Click
         txtTemp.Text = System.IO.Path.GetTempPath
         My.Settings.temppath = System.IO.Path.GetTempPath
+
+    End Sub
+
+    Private Sub txtFFmpeg_TextChanged(sender As Object, e As EventArgs) Handles txtFFmpeg.TextChanged
+        lblFFmpegCommand.Text = txtFFmpeg.Text
+
+    End Sub
+
+    Private Sub TabConfig_Click(sender As Object, e As EventArgs) Handles TabConfig.Click
+
+    End Sub
+
+    Private Sub txtOutFilename_TextChanged(sender As Object, e As EventArgs) Handles txtOutFilename.TextChanged
+        lblFileNameCommand.Text = txtOutFilename.Text.ToString
+        txtOutFilename.Text = txtOutFilename.Text.Trim(IO.Path.GetInvalidFileNameChars)
+
+    End Sub
+
+    Private Sub btnChk3_BackColorChanged(sender As Object, e As EventArgs) Handles btnChk3.BackColorChanged
+        If txtFFmpeg.Text = "FFmpeg.exe" Then
+            My.Settings.ffmpegpath = ""
+            txtFFmpeg.Text = "c:FFmpeg"
+            'MessageBox.Show("FFmpeg Not Selected" & vbCrLf & "Please, choose a path in Software Config Tab")
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFmpeg path not selected! Please check the path in Software Config Tab."
+            btnChk3.BackColor = Color.Red
+        End If
+
     End Sub
 
     Private Sub codec_CheckedChanged(sender As Object, e As EventArgs) Handles rdbH264.CheckedChanged, rdbDNxHD.CheckedChanged, rdbProRes.CheckedChanged, rdbWAV.CheckedChanged
+
         If rdbH264.Checked = True Then
             lblCodecCommand.Text = "-vcodec libx264 -profile:v baseline -tune fastdecode -g 1 -crf 16 -bf 0 -pix_fmt yuv420p -copyts"
             My.Settings.lastVcodec = "h264"
@@ -147,14 +205,11 @@ Public Class frmTMXF
             lblCodecCommand.Text = "-vn -acodec pcm_s24le -map 0:a -filter_complex " & Microsoft.VisualBasic.Chr(34) & "[0:a] amerge=inputs=8" & Microsoft.VisualBasic.Chr(34) & ""
             My.Settings.lastVcodec = "wav"
         End If
-    End Sub
-
-    Private Sub txtFFmpeg_TextChanged(sender As Object, e As EventArgs) Handles txtFFmpeg.TextChanged
-        lblFFmpegCommand.Text = txtFFmpeg.Text
 
     End Sub
 
     Private Sub resolution_CheckedChanged(sender As Object, e As EventArgs) Handles rdb1080.CheckedChanged, rdb486.CheckedChanged, rdb540.CheckedChanged, rdb720.CheckedChanged
+
         If rdb1080.Checked = True Then
             lblRes.Text = " -s 1920x1080"
             My.Settings.lastres = "1080"
@@ -171,26 +226,26 @@ Public Class frmTMXF
 
     End Sub
 
-    Private Sub TabConfig_Click(sender As Object, e As EventArgs) Handles TabConfig.Click
+    Private Sub rdbSRDirect_CheckedChanged(sender As Object, e As EventArgs) Handles rdbSRDirect.CheckedChanged, rdbSR44.CheckedChanged, rdbSR48.CheckedChanged, rdbSR96.CheckedChanged
 
-    End Sub
-
-    Private Sub txtOutFilename_TextChanged(sender As Object, e As EventArgs) Handles txtOutFilename.TextChanged
-        lblFileNameCommand.Text = txtOutFilename.Text.ToString
-
-    End Sub
-
-    Private Sub btnChk3_BackColorChanged(sender As Object, e As EventArgs) Handles btnChk3.BackColorChanged
-        If txtFFmpeg.Text = "FFmpeg.exe" Then
-            My.Settings.ffmpegpath = ""
-            txtFFmpeg.Text = "c:FFmpeg"
-            MessageBox.Show("FFmpeg Not Selected" & vbCrLf & "Please, choose a path in Software Config Tab")
-            btnChk3.BackColor = Color.Red
+        If rdbSRDirect.Checked = True Then
+            lblSRcommand.Text = "SR Command copy"
+            My.Settings.LastSR = "srdirect"
+        ElseIf rdbSR44.Checked = True Then
+            lblSRcommand.Text = "SR Command 44.1"
+            My.Settings.LastSR = "sr44"
+        ElseIf rdbSR48.Checked = True Then
+            lblSRcommand.Text = "SR Command 48"
+            My.Settings.LastSR = "sr48"
+        ElseIf rdbSR96.Checked = True Then
+            lblSRcommand.Text = "SR Command 96"
+            My.Settings.LastSR = "sr96"
         End If
 
     End Sub
 
     Private Sub rdbAchannels_CheckedChanged(sender As Object, e As EventArgs) Handles rdbADirect.CheckedChanged, rdbA2Ch.CheckedChanged, rdbA4Ch.CheckedChanged, rdbA8Ch.CheckedChanged
+
         If rdbADirect.Checked = True Then
             lblAudioChCommand.Text = "-map 0 -map -0:d"
             My.Settings.lastchannels = "direct"
@@ -204,10 +259,12 @@ Public Class frmTMXF
             lblAudioChCommand.Text = "8 Channels map"
             My.Settings.lastchannels = "8ch"
         End If
+
     End Sub
 
 
     Private Sub rdbACodec_CheckedChanged(sender As Object, e As EventArgs) Handles rdbPCM16.CheckedChanged, rdbPCM24.CheckedChanged, rdbAAC.CheckedChanged, rdbMP3.CheckedChanged
+
         If rdbPCM16.Checked = True Then
             lblACodecCommand.Text = "-acodec pcm_s16le"
             My.Settings.lastAcodec = "PCM16"
@@ -221,91 +278,93 @@ Public Class frmTMXF
             lblACodecCommand.Text = "-acodec libmp3lame -b:a 320k"
             My.Settings.lastAcodec = "MP3"
         End If
+
     End Sub
 
     Private Sub rdbFrameRate_CheckedChanged(sender As Object, e As EventArgs) Handles rdb29D.CheckedChanged, rdb29ND.CheckedChanged, rdb23.CheckedChanged, rdbFRdirect.CheckedChanged
+
         If rdbFRdirect.Checked = True Then
             lblFRcommand.Text = "FR Command copy"
             My.Settings.LastFR = "frdirect"
         ElseIf rdb23.Checked = True Then
             lblFRcommand.Text = "FR Command 23"
-            My.Settings.LastFR = "PCM24"
+            My.Settings.LastFR = "23"
         ElseIf rdb29D.Checked = True Then
             lblFRcommand.Text = "FR Command 29D"
-            My.Settings.LastFR = "AAC"
+            My.Settings.LastFR = "29d"
         ElseIf rdb29ND.Checked = True Then
             lblFRcommand.Text = "FR Command 29ND"
-            My.Settings.LastFR = "MP3"
+            My.Settings.LastFR = "29nd"
         End If
 
     End Sub
 
     Private Sub btnConvert_Click(sender As Object, e As EventArgs) Handles btnConvert.Click
-        txtNameDate.Text = DateAndTime.Now.Day & "-" & DateAndTime.Now.Month & "-" & DateAndTime.Now.Year & "-" & DateAndTime.Now.Hour & DateAndTime.Now.Minute
 
-        FFthread = New System.Threading.Thread(AddressOf FFmpegthread)
-        FFthread.IsBackground = True
-        FFthread.Start()
-
-    End Sub
-
-    Private FFthread As System.Threading.Thread
-
-
-    Private Sub FFmpegthread()
-
+        Dim _timeofthelog As String
+        Dim _date As Integer
+        Dim _time As Integer
+        Dim _timestart As Date
+        Dim _timeend As Date
         Dim FFmpegprocess As New Process()
         Dim FFarguments As String
-        FFarguments = " -loglevel verbose" & " -i " & txtMXFpath.Text.ToString & " " & lblCodecCommand.Text.ToString & " " & lblRes.Text.ToString & " " & lblACodecCommand.Text.ToString & " " & lblAudioChCommand.Text.ToString & " " & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".mov"
-        MessageBox.Show(FFarguments)
+        Dim _TimeTotal As TimeSpan
+        Dim _lastlog As New System.IO.FileSystemWatcher
+
+
+        _lastlog.Path = txtTemp.Text
+        _lastlog.NotifyFilter = (NotifyFilters.LastAccess Or NotifyFilters.LastWrite Or NotifyFilters.FileName Or NotifyFilters.DirectoryName)
+        _lastlog.Filter = "*.log"
+        AddHandler _lastlog.Created, AddressOf _lastlog_OnChanged
+        AddHandler _lastlog.Changed, AddressOf _lastlog_OnChanged
+        _lastlog.EnableRaisingEvents = True
+
+        _date = DateAndTime.Now.ToString("yyyyMMdd")
+        _time = DateAndTime.Now.ToString("HHmmss")
+        _timestart = DateAndTime.Now.ToString("HH:mm:ss")
+        _timeofthelog = "ffmpeg-" & _date & "-" & _time & ".log"
+        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Waiting for the Conversion to Complete." & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Conversion started ! "
+        txtNameDate.Text = DateAndTime.Now.ToString("dd") & "-" & DateAndTime.Now.ToString("MM") & "-" & DateAndTime.Now.ToString("yyyy") & "-" & DateAndTime.Now.ToString("HH") & DateAndTime.Now.ToString("mm")
+
+        FFarguments = "-report " & "-loglevel verbose" & " -i " & txtMXFpath.Text.ToString & " " & lblCodecCommand.Text.ToString & " " & lblRes.Text.ToString & " " & lblACodecCommand.Text.ToString & " " & lblAudioChCommand.Text.ToString & " " & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".mov"
         lblFFarguments.Text = FFarguments.ToString
+
         FFmpegprocess.StartInfo.FileName = Me.txtFFmpeg.Text.ToString
         FFmpegprocess.StartInfo.Arguments = FFarguments
-        FFmpegprocess.StartInfo.RedirectStandardError = True
-        FFmpegprocess.StartInfo.RedirectStandardOutput = True
-        FFmpegprocess.StartInfo.UseShellExecute = False
         FFmpegprocess.StartInfo.ErrorDialog = True
         FFmpegprocess.StartInfo.WorkingDirectory = Me.txtTemp.Text.ToString
-        FFmpegprocess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+        FFmpegprocess.StartInfo.WindowStyle = ProcessWindowStyle.Maximized
         FFmpegprocess.Start()
-        Dim FFStreamReadererr As StreamReader = FFmpegprocess.StandardError
-        Dim FFStreamReaderstd As StreamReader = FFmpegprocess.StandardOutput
-        'txtFFoutput.Text = FFStreamReadererr.ReadToEnd()
-        FFmpegprocess.SynchronizingObject = txtFFoutput
         FFmpegprocess.WaitForExit()
-        FFmpegprocess.BeginErrorReadLine()
+
+        _lastlog.EnableRaisingEvents = False
+        _timeend = DateAndTime.Now.ToString("HH:mm:ss")
+        _TimeTotal = _timeend - _timestart
 
 
-        ' Dim std_out As StreamReader = FFmpegprocess.StandardError
-        'Do
-
-        'Application.DoEvents()
-        'Me.txtFFoutput.Text += std_out.ReadToEnd
-        'Loop While (FFmpegprocess.HasExited = True)
-        'Do Until FFmpegprocess.HasExited = True
-
-        AddHandler FFmpegprocess.ErrorDataReceived 
-
-        '"-report" & 
-        'ProcessFFmpeg.StartInfo.FileName = txtFFmpeg.Text.ToString
-        'ProcessFFmpeg.StartInfo.Arguments = " -loglevel verbose" & " " & lblMXFPathCommand.Text.ToString & " " & lblCodecCommand.Text.ToString & " " & lblRes.Text.ToString & " " & lblACodecCommand.Text.ToString & " " & lblAudioChCommand.Text.ToString & " " & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".mov"
-        'ProcessFFmpeg.Start()
-    End Sub
-
-
-
-    Private Sub OnChanged(source As Object, ByVal e As FileSystemEventArgs)
-        AppendTextBox(Me.txtFFoutput, "[New Text]")
-    End Sub
-
-    Private Delegate Sub AppendTextBoxDelegate(ByVal TB As TextBox, ByVal txt As String)
-
-    Private Sub AppendTextBox(ByVal TB As TextBox, ByVal txt As String)
-        If TB.InvokeRequired Then
-            TB.Invoke(New AppendTextBoxDelegate(AddressOf AppendTextBox), New Object() {TB, txt})
-        Else
-            TB.AppendText(txt)
+        Dim LogReader As StreamReader
+        If System.IO.File.Exists(lblLastTempName.Text) Then
+            LogReader = New StreamReader(lblLastTempName.Text, True)
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " " & LogReader.ReadToEnd
         End If
+
+        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & "Conversion to Completed !" & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Conversion Started At " & _timestart & " And Ended at " & _timeend & " Taking " & _TimeTotal.Minutes.ToString & " minutes to finish."
+
     End Sub
 
+    Private Sub _lastlog_OnChanged(source As Object, e As FileSystemEventArgs)
+        'Specify what is done when a file is changed, created, or deleted.
+        lblLastTempName.Text = e.FullPath
+        'MessageBox.Show(e.FullPath)
+    End Sub
+
+    Private Sub txtFFoutput_TextChanged(sender As Object, e As EventArgs) Handles txtFFoutput.TextChanged
+        txtFFoutput.Focus()
+        txtFFoutput.SelectionStart = txtFFoutput.Text.Length
+        txtFFoutput.ScrollToCaret()
+    End Sub
+
+    Private Sub btnAbout_Click(sender As Object, e As EventArgs) Handles btnAbout.Click
+        frmAbout.Show()
+    End Sub
 End Class
