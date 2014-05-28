@@ -23,6 +23,7 @@ Partial Class frmTMXF
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmTMXF))
         Me.FFmpegprocess = New System.Diagnostics.Process()
         Me.btnLoadMXF = New System.Windows.Forms.Button()
         Me.txtMXFpath = New System.Windows.Forms.Label()
@@ -70,6 +71,9 @@ Partial Class frmTMXF
         Me.rdbProRes = New System.Windows.Forms.RadioButton()
         Me.rdbH264 = New System.Windows.Forms.RadioButton()
         Me.TabConfig = New System.Windows.Forms.TabPage()
+        Me.grpFFprobe = New System.Windows.Forms.GroupBox()
+        Me.txtFFprobe = New System.Windows.Forms.Label()
+        Me.btnFFprobe = New System.Windows.Forms.Button()
         Me.lblLastTempName = New System.Windows.Forms.Label()
         Me.lblSRcommand = New System.Windows.Forms.Label()
         Me.lblFRcommand = New System.Windows.Forms.Label()
@@ -102,9 +106,6 @@ Partial Class frmTMXF
         Me.txtNameDate = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.btnAbout = New System.Windows.Forms.Button()
-        Me.grpFFprobe = New System.Windows.Forms.GroupBox()
-        Me.btnFFprobe = New System.Windows.Forms.Button()
-        Me.txtFFprobe = New System.Windows.Forms.Label()
         Me.tabsMain.SuspendLayout()
         Me.TabCodec.SuspendLayout()
         Me.grpTCBurn.SuspendLayout()
@@ -116,9 +117,9 @@ Partial Class frmTMXF
         Me.grpResolution.SuspendLayout()
         Me.grpDumbCodec.SuspendLayout()
         Me.TabConfig.SuspendLayout()
+        Me.grpFFprobe.SuspendLayout()
         Me.grpTemp.SuspendLayout()
         Me.grpFFmpeg.SuspendLayout()
-        Me.grpFFprobe.SuspendLayout()
         Me.SuspendLayout()
         '
         'FFmpegprocess
@@ -693,6 +694,35 @@ Partial Class frmTMXF
         Me.TabConfig.Text = "Software Config"
         Me.TabConfig.UseVisualStyleBackColor = True
         '
+        'grpFFprobe
+        '
+        Me.grpFFprobe.Controls.Add(Me.txtFFprobe)
+        Me.grpFFprobe.Controls.Add(Me.btnFFprobe)
+        Me.grpFFprobe.Location = New System.Drawing.Point(6, 341)
+        Me.grpFFprobe.Name = "grpFFprobe"
+        Me.grpFFprobe.Size = New System.Drawing.Size(939, 50)
+        Me.grpFFprobe.TabIndex = 21
+        Me.grpFFprobe.TabStop = False
+        Me.grpFFprobe.Text = "FFprobe Path"
+        '
+        'txtFFprobe
+        '
+        Me.txtFFprobe.AutoSize = True
+        Me.txtFFprobe.Location = New System.Drawing.Point(87, 24)
+        Me.txtFFprobe.Name = "txtFFprobe"
+        Me.txtFFprobe.Size = New System.Drawing.Size(55, 13)
+        Me.txtFFprobe.TabIndex = 1
+        Me.txtFFprobe.Text = "c:FFprobe"
+        '
+        'btnFFprobe
+        '
+        Me.btnFFprobe.Location = New System.Drawing.Point(6, 19)
+        Me.btnFFprobe.Name = "btnFFprobe"
+        Me.btnFFprobe.Size = New System.Drawing.Size(75, 23)
+        Me.btnFFprobe.TabIndex = 0
+        Me.btnFFprobe.Text = "Set Path"
+        Me.btnFFprobe.UseVisualStyleBackColor = True
+        '
         'lblLastTempName
         '
         Me.lblLastTempName.AutoSize = True
@@ -1030,35 +1060,6 @@ Partial Class frmTMXF
         Me.btnAbout.Text = "About"
         Me.btnAbout.UseVisualStyleBackColor = True
         '
-        'grpFFprobe
-        '
-        Me.grpFFprobe.Controls.Add(Me.txtFFprobe)
-        Me.grpFFprobe.Controls.Add(Me.btnFFprobe)
-        Me.grpFFprobe.Location = New System.Drawing.Point(6, 341)
-        Me.grpFFprobe.Name = "grpFFprobe"
-        Me.grpFFprobe.Size = New System.Drawing.Size(939, 50)
-        Me.grpFFprobe.TabIndex = 21
-        Me.grpFFprobe.TabStop = False
-        Me.grpFFprobe.Text = "FFprobe Path"
-        '
-        'btnFFprobe
-        '
-        Me.btnFFprobe.Location = New System.Drawing.Point(6, 19)
-        Me.btnFFprobe.Name = "btnFFprobe"
-        Me.btnFFprobe.Size = New System.Drawing.Size(75, 23)
-        Me.btnFFprobe.TabIndex = 0
-        Me.btnFFprobe.Text = "Set Path"
-        Me.btnFFprobe.UseVisualStyleBackColor = True
-        '
-        'txtFFprobe
-        '
-        Me.txtFFprobe.AutoSize = True
-        Me.txtFFprobe.Location = New System.Drawing.Point(87, 24)
-        Me.txtFFprobe.Name = "txtFFprobe"
-        Me.txtFFprobe.Size = New System.Drawing.Size(55, 13)
-        Me.txtFFprobe.TabIndex = 1
-        Me.txtFFprobe.Text = "c:FFprobe"
-        '
         'frmTMXF
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1081,6 +1082,7 @@ Partial Class frmTMXF
         Me.Controls.Add(Me.txtMXFpath)
         Me.Controls.Add(Me.btnLoadMXF)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.Name = "frmTMXF"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -1100,12 +1102,12 @@ Partial Class frmTMXF
         Me.grpDumbCodec.ResumeLayout(False)
         Me.TabConfig.ResumeLayout(False)
         Me.TabConfig.PerformLayout()
+        Me.grpFFprobe.ResumeLayout(False)
+        Me.grpFFprobe.PerformLayout()
         Me.grpTemp.ResumeLayout(False)
         Me.grpTemp.PerformLayout()
         Me.grpFFmpeg.ResumeLayout(False)
         Me.grpFFmpeg.PerformLayout()
-        Me.grpFFprobe.ResumeLayout(False)
-        Me.grpFFprobe.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

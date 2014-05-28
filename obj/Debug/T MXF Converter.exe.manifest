@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="T MXF Converter.exe" version="0.0.1.5" publicKeyToken="0000000000000000" language="en" processorArchitecture="msil" type="win32" />
+  <asmv1:assemblyIdentity name="T MXF Converter.exe" version="0.0.1.7" publicKeyToken="0000000000000000" language="en" processorArchitecture="msil" type="win32" />
   <application />
   <entryPoint>
     <assemblyIdentity name="T MXF Converter" version="0.1.3.749" language="neutral" processorArchitecture="msil" />
@@ -42,24 +42,24 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="T MXF Converter.exe" size="117248">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="T MXF Converter.exe" size="273408">
       <assemblyIdentity name="T MXF Converter" version="0.1.3.749" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>IP6tUFB+6mFoXZtMd/DXD4g8n9rqUAZe9yTGLCgXYIA=</dsig:DigestValue>
+        <dsig:DigestValue>+2H47f/E6imxFtincEN96ELNtwLXvsuhC4/7sJ9Tdgg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="T MXF Converter.exe.config" size="1806">
+  <file name="T MXF Converter.exe.config" size="1920">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>RJw4AVIhwbHDnNZFWc+har2xanNFO3cPywFpgl/WBhs=</dsig:DigestValue>
+      <dsig:DigestValue>Xt5XEulhhI+JgrKguhSViJwNmEFUxE5rosaaDm4ZGFY=</dsig:DigestValue>
     </hash>
   </file>
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">

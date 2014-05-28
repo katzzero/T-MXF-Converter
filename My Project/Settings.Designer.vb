@@ -161,6 +161,18 @@ Namespace My
                 Me("LastOutPath") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property ffprobepath() As String
+            Get
+                Return CType(Me("ffprobepath"),String)
+            End Get
+            Set
+                Me("ffprobepath") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

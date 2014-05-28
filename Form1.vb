@@ -10,6 +10,21 @@ Public Class frmTMXF
         lblVersion.Text = "V." & Application.ProductVersion
 
         'Check if FFmpeg path is Ok and if not do this
+        Try
+            If System.IO.File.Exists(My.Settings.ffprobepath.ToString) Then
+                txtFFprobe.Text = My.Settings.ffprobepath.ToString
+                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFprobe.exe found! "
+            ElseIf My.Settings.ffprobepath = "c:FFprobe" Then
+                OpenFFmpegDialog.ShowDialog()
+                txtFFprobe.Text = OpenFFmpegDialog.FileName
+                My.Settings.ffprobepath = txtFFprobe.Text
+                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFprobe.exe Selected ! "
+            End If
+
+        Catch ex As Exception
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFprobe.exe Not Found - TC Burn Disabled !"
+        End Try
+       
 
         If txtFFmpeg.Text = "c:FFmpeg" Then
             If My.Settings.ffmpegpath.Length = 0 Then
@@ -105,7 +120,7 @@ Public Class frmTMXF
         End If
 
         'Set date and time as part of the output name
-        txtNameDate.Text = DateAndTime.Now.Day & "-" & DateAndTime.Now.Month & "-" & DateAndTime.Now.Year & "-" & DateAndTime.Now.Hour & DateAndTime.Now.Minute
+        txtNameDate.Text = DateAndTime.Now.ToString("dd-MM-yyyy") & "-" & DateAndTime.Now.ToString("HH-mm")
         txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Software Started!"
 
         If Not My.Settings.LastOutPath.Length = 0 Then
@@ -136,7 +151,7 @@ Public Class frmTMXF
             btnChk2.BackColor = Color.Green
         End If
         lblFileNameCommand.Text = txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & ".mov"
-        txtNameDate.Text = DateAndTime.Now.Day & "-" & DateAndTime.Now.Month & "-" & DateAndTime.Now.Year & "-" & DateAndTime.Now.Hour & DateAndTime.Now.Minute
+        txtNameDate.Text = DateAndTime.Now.ToString("dd-MM-yyyy") & "-" & DateAndTime.Now.ToString("HH-mm")
         My.Settings.LastOutPath = txtOutPath.Text
     End Sub
 
@@ -323,10 +338,10 @@ Public Class frmTMXF
         _time = DateAndTime.Now.ToString("HHmmss")
         _timestart = DateAndTime.Now.ToString("HH:mm:ss")
         _timeofthelog = "ffmpeg-" & _date & "-" & _time & ".log"
-        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Waiting for the Conversion to Complete." & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Conversion started ! "
-        txtNameDate.Text = DateAndTime.Now.ToString("dd") & "-" & DateAndTime.Now.ToString("MM") & "-" & DateAndTime.Now.ToString("yyyy") & "-" & DateAndTime.Now.ToString("HH") & DateAndTime.Now.ToString("mm")
+        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Conversion started ! " & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Waiting for the Conversion to Complete."
+        txtNameDate.Text = DateAndTime.Now.ToString("dd-MM-yyyy") & "-" & DateAndTime.Now.ToString("HH-mm")
 
-        FFarguments = "-report " & "-loglevel verbose" & " -i " & txtMXFpath.Text.ToString & " " & lblCodecCommand.Text.ToString & " " & lblRes.Text.ToString & " " & lblACodecCommand.Text.ToString & " " & lblAudioChCommand.Text.ToString & " " & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".mov"
+        FFarguments = "-report " & "-loglevel verbose" & " -i " & txtMXFpath.Text.ToString & " " & lblCodecCommand.Text.ToString & " " & lblRes.Text.ToString & " " & lblACodecCommand.Text.ToString & " " & lblAudioChCommand.Text.ToString & " " & (Microsoft.VisualBasic.Chr(34)) & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".mov" & (Microsoft.VisualBasic.Chr(34))
         lblFFarguments.Text = FFarguments.ToString
 
         FFmpegprocess.StartInfo.FileName = Me.txtFFmpeg.Text.ToString
@@ -348,7 +363,7 @@ Public Class frmTMXF
             txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " " & LogReader.ReadToEnd
         End If
 
-        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & "Conversion to Completed !" & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Conversion Started At " & _timestart & " And Ended at " & _timeend & " Taking " & _TimeTotal.Minutes.ToString & " minutes to finish."
+        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & "Conversion to Completed !" & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Conversion Started At " & _timestart & " And Ended at " & _timeend & " Taking " & _TimeTotal.Minutes.ToString & " minutes to finish." & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " The file was saved as " & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".mov"
 
     End Sub
 
@@ -358,7 +373,7 @@ Public Class frmTMXF
         'MessageBox.Show(e.FullPath)
     End Sub
 
-    Private Sub txtFFoutput_TextChanged(sender As Object, e As EventArgs) Handles txtFFoutput.TextChanged
+    Private Sub txtFFoutput_TextChanged(sender As Object, e As EventArgs) Handles txtFFoutput.TextChanged, txtFFoutput.GotFocus
         txtFFoutput.Focus()
         txtFFoutput.SelectionStart = txtFFoutput.Text.Length
         txtFFoutput.ScrollToCaret()
@@ -366,5 +381,13 @@ Public Class frmTMXF
 
     Private Sub btnAbout_Click(sender As Object, e As EventArgs) Handles btnAbout.Click
         frmAbout.Show()
+    End Sub
+
+    Private Sub btnFFprobe_Click(sender As Object, e As EventArgs) Handles btnFFprobe.Click
+        If OpenFFmpegDialog.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            txtFFprobe.Text = OpenFFmpegDialog.FileName.ToString
+            My.Settings.ffprobepath = txtFFmpeg.Text.ToString
+            btnChk3.BackColor = Color.Green
+        End If
     End Sub
 End Class
