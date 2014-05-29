@@ -9,39 +9,47 @@ Public Class frmTMXF
         'Show version on label
         lblVersion.Text = "V." & Application.ProductVersion
 
-        'Check if FFmpeg path is Ok and if not do this
+
         Try
-            If System.IO.File.Exists(My.Settings.ffprobepath.ToString) Then
+            If System.IO.File.Exists(My.Settings.ffprobepath.ToString) = True Then
                 txtFFprobe.Text = My.Settings.ffprobepath.ToString
                 txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFprobe.exe found! "
-            ElseIf My.Settings.ffprobepath = "c:FFprobe" Then
-                OpenFFmpegDialog.ShowDialog()
-                txtFFprobe.Text = OpenFFmpegDialog.FileName
+            ElseIf My.Settings.ffprobepath = "c:FFprobe" Or My.Settings.ffprobepath.Length <= 0 Then
+                OpenFFprobeDialog.ShowDialog()
+                txtFFprobe.Text = OpenFFprobeDialog.FileName
                 My.Settings.ffprobepath = txtFFprobe.Text
                 txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFprobe.exe Selected ! "
+            ElseIf System.IO.File.Exists(My.Settings.ffprobepath.ToString) = False Then
+                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFprobe.exe found!"
+                txtFFprobe.Text = "c:FFprobe"
+                My.Settings.ffprobepath = "c:FFprobe"
             End If
 
         Catch ex As Exception
             txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFprobe.exe Not Found - TC Burn Disabled !"
         End Try
        
-
-        If txtFFmpeg.Text = "c:FFmpeg" Then
-            If My.Settings.ffmpegpath.Length = 0 Then
-                OpenFFmpegDialog.ShowDialog()
-                txtFFmpeg.Text = OpenFFmpegDialog.FileName.ToString
-                My.Settings.ffmpegpath = OpenFFmpegDialog.FileName.ToString
-                btnChk3.BackColor = Color.Green
-            ElseIf System.IO.File.Exists(My.Settings.ffmpegpath.ToString) Then
-                txtFFmpeg.Text = My.Settings.ffmpegpath.ToString
-                btnChk3.BackColor = Color.Green
-            Else
-                My.Settings.ffmpegpath = ""
-                txtFFmpeg.Text = "c:FFmpeg"
-                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFmpeg path not found! Please check the path in Software Config Tab."
-                'MessageBox.Show(MessageBoxOptions.ServiceNotification, "FFmpeg Not Found!" & vbCrLf & "Please check the path in Software Config Tab")
+        'Check if FFmpeg path is Ok and if not do this
+        Try
+            If txtFFmpeg.Text = "c:FFmpeg" Then
+                If My.Settings.ffmpegpath.Length = 0 Then
+                    OpenFFmpegDialog.ShowDialog()
+                    txtFFmpeg.Text = OpenFFmpegDialog.FileName.ToString
+                    My.Settings.ffmpegpath = OpenFFmpegDialog.FileName.ToString
+                    btnChk3.BackColor = Color.Green
+                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFmpeg executable Selected !! "
+                ElseIf System.IO.File.Exists(My.Settings.ffmpegpath.ToString) = True Then
+                    txtFFmpeg.Text = My.Settings.ffmpegpath.ToString
+                    btnChk3.BackColor = Color.Green
+                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFmpeg.exe found! "
+                End If
             End If
-        End If
+        Catch ex As Exception
+            My.Settings.ffmpegpath = ""
+            txtFFmpeg.Text = "c:FFmpeg"
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFmpeg path not found! Please check the path in Software Config Tab."
+        End Try
+        
 
         'Check if theres is a path for temp if not set default
         If txtTemp.Text = "c:Temp" Then
@@ -82,8 +90,8 @@ Public Class frmTMXF
             rdbPCM24.Checked = True
         ElseIf My.Settings.lastAcodec = "AAC" Then
             rdbAAC.Checked = True
-        ElseIf My.Settings.lastAcodec = "MP3" Then
-            rdbMP3.Checked = True
+        ElseIf My.Settings.lastAcodec = "acdirect" Then
+            rdbACDirect.Checked = True
         End If
 
         'Check Last used Audio Channels and assign it
@@ -132,16 +140,31 @@ Public Class frmTMXF
     End Sub
 
     Private Sub btnLoadMXF_Click(sender As Object, e As EventArgs) Handles btnLoadMXF.Click
-        If OpenMXFDialog.ShowDialog() = Windows.Forms.DialogResult.OK Then
-            txtMXFpath.Text = Microsoft.VisualBasic.Chr(34) & OpenMXFDialog.FileName.ToString & Microsoft.VisualBasic.Chr(34)
-            btnSaveOut.Enabled = True
+        Dim _mxfinfo As FileInfo
+        Dim _mxfsize As Integer
+        Dim _mxfsize_ok As String
+        _mxfsize_ok = " ## Error Parsing MXF Size ## "
+        Try
+            If OpenMXFDialog.ShowDialog() = Windows.Forms.DialogResult.OK Then
+                txtMXFpath.Text = Microsoft.VisualBasic.Chr(34) & OpenMXFDialog.FileName.ToString & Microsoft.VisualBasic.Chr(34)
+                btnSaveOut.Enabled = True
 
-            If System.IO.File.Exists(txtMXFpath.Text.Trim(Microsoft.VisualBasic.Chr(34))) Then
-                btnChk1.BackColor = Color.Green
-                lblMXFPathCommand.Text = "-i " & txtMXFpath.Text
-                txtOutFilename.Text = System.IO.Path.GetFileNameWithoutExtension(txtMXFpath.Text.Trim(Microsoft.VisualBasic.Chr(34)))
+                If System.IO.File.Exists(txtMXFpath.Text.Trim(Microsoft.VisualBasic.Chr(34))) Then
+                    btnChk1.BackColor = Color.Green
+                    lblMXFPathCommand.Text = "-i " & txtMXFpath.Text
+                    _mxfinfo = My.Computer.FileSystem.GetFileInfo(txtMXFpath.Text.Trim(Microsoft.VisualBasic.Chr(34)))
+                    _mxfsize = CDec((_mxfinfo.Length.ToString / 1024) / 1024)
+                    If _mxfsize > 999 Then
+                        _mxfsize_ok = _mxfsize.ToString("###,###")
+                    End If
+                    txtOutFilename.Text = System.IO.Path.GetFileNameWithoutExtension(txtMXFpath.Text.Trim(Microsoft.VisualBasic.Chr(34)))
+                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " MXF file loaded sucessfully ! The MXF have " & _mxfsize_ok.ToString & " MBytes of data!"
+                End If
             End If
-        End If
+        Catch ex As Exception
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Problem Loading MXF file . Please Try again. "
+        End Try
+
         txtNameDate.Text = DateAndTime.Now.Day & "-" & DateAndTime.Now.Month & "-" & DateAndTime.Now.Year & "-" & DateAndTime.Now.Hour & DateAndTime.Now.Minute
     End Sub
 
@@ -278,7 +301,7 @@ Public Class frmTMXF
     End Sub
 
 
-    Private Sub rdbACodec_CheckedChanged(sender As Object, e As EventArgs) Handles rdbPCM16.CheckedChanged, rdbPCM24.CheckedChanged, rdbAAC.CheckedChanged, rdbMP3.CheckedChanged
+    Private Sub rdbACodec_CheckedChanged(sender As Object, e As EventArgs) Handles rdbPCM16.CheckedChanged, rdbPCM24.CheckedChanged, rdbAAC.CheckedChanged, rdbACDirect.CheckedChanged
 
         If rdbPCM16.Checked = True Then
             lblACodecCommand.Text = "-acodec pcm_s16le"
@@ -289,9 +312,9 @@ Public Class frmTMXF
         ElseIf rdbAAC.Checked = True Then
             lblACodecCommand.Text = "-acodec libfdk_aac -vbr 5"
             My.Settings.lastchannels = "AAC"
-        ElseIf rdbMP3.Checked = True Then
-            lblACodecCommand.Text = "-acodec libmp3lame -b:a 320k"
-            My.Settings.lastAcodec = "MP3"
+        ElseIf rdbACDirect.Checked = True Then
+            lblACodecCommand.Text = "-acodec copy"
+            My.Settings.lastAcodec = "acdirect"
         End If
 
     End Sub
@@ -363,7 +386,7 @@ Public Class frmTMXF
             txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " " & LogReader.ReadToEnd
         End If
 
-        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & "Conversion to Completed !" & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Conversion Started At " & _timestart & " And Ended at " & _timeend & " Taking " & _TimeTotal.Minutes.ToString & " minutes to finish." & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " The file was saved as " & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".mov"
+        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Conversion to Completed !" & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Conversion Started At " & _timestart & " And Ended at " & _timeend & " Taking " & _TimeTotal.Minutes.ToString & " minutes to finish." & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " The file was saved as " & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".mov"
 
     End Sub
 
@@ -384,8 +407,8 @@ Public Class frmTMXF
     End Sub
 
     Private Sub btnFFprobe_Click(sender As Object, e As EventArgs) Handles btnFFprobe.Click
-        If OpenFFmpegDialog.ShowDialog() = Windows.Forms.DialogResult.OK Then
-            txtFFprobe.Text = OpenFFmpegDialog.FileName.ToString
+        If OpenFFprobeDialog.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            txtFFprobe.Text = OpenFFprobeDialog.FileName.ToString
             My.Settings.ffprobepath = txtFFmpeg.Text.ToString
             btnChk3.BackColor = Color.Green
         End If

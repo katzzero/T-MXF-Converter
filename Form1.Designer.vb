@@ -49,7 +49,7 @@ Partial Class frmTMXF
         Me.rdbSR44 = New System.Windows.Forms.RadioButton()
         Me.rdbSRDirect = New System.Windows.Forms.RadioButton()
         Me.grpACodec = New System.Windows.Forms.GroupBox()
-        Me.rdbMP3 = New System.Windows.Forms.RadioButton()
+        Me.rdbACDirect = New System.Windows.Forms.RadioButton()
         Me.rdbAAC = New System.Windows.Forms.RadioButton()
         Me.rdbPCM24 = New System.Windows.Forms.RadioButton()
         Me.rdbPCM16 = New System.Windows.Forms.RadioButton()
@@ -106,6 +106,7 @@ Partial Class frmTMXF
         Me.txtNameDate = New System.Windows.Forms.Label()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.btnAbout = New System.Windows.Forms.Button()
+        Me.OpenFFprobeDialog = New System.Windows.Forms.OpenFileDialog()
         Me.tabsMain.SuspendLayout()
         Me.TabCodec.SuspendLayout()
         Me.grpTCBurn.SuspendLayout()
@@ -393,7 +394,7 @@ Partial Class frmTMXF
         '
         'grpACodec
         '
-        Me.grpACodec.Controls.Add(Me.rdbMP3)
+        Me.grpACodec.Controls.Add(Me.rdbACDirect)
         Me.grpACodec.Controls.Add(Me.rdbAAC)
         Me.grpACodec.Controls.Add(Me.rdbPCM24)
         Me.grpACodec.Controls.Add(Me.rdbPCM16)
@@ -404,24 +405,23 @@ Partial Class frmTMXF
         Me.grpACodec.TabStop = False
         Me.grpACodec.Text = "Audio Codec"
         '
-        'rdbMP3
+        'rdbACDirect
         '
-        Me.rdbMP3.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rdbMP3.Enabled = False
-        Me.rdbMP3.Location = New System.Drawing.Point(7, 121)
-        Me.rdbMP3.Name = "rdbMP3"
-        Me.rdbMP3.Size = New System.Drawing.Size(104, 24)
-        Me.rdbMP3.TabIndex = 3
-        Me.rdbMP3.TabStop = True
-        Me.rdbMP3.Text = "MP3 320 kbps"
-        Me.rdbMP3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.rdbMP3.UseVisualStyleBackColor = True
+        Me.rdbACDirect.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbACDirect.Location = New System.Drawing.Point(6, 21)
+        Me.rdbACDirect.Name = "rdbACDirect"
+        Me.rdbACDirect.Size = New System.Drawing.Size(104, 24)
+        Me.rdbACDirect.TabIndex = 3
+        Me.rdbACDirect.TabStop = True
+        Me.rdbACDirect.Text = "Direct"
+        Me.rdbACDirect.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdbACDirect.UseVisualStyleBackColor = True
         '
         'rdbAAC
         '
         Me.rdbAAC.Appearance = System.Windows.Forms.Appearance.Button
         Me.rdbAAC.Enabled = False
-        Me.rdbAAC.Location = New System.Drawing.Point(7, 89)
+        Me.rdbAAC.Location = New System.Drawing.Point(6, 121)
         Me.rdbAAC.Name = "rdbAAC"
         Me.rdbAAC.Size = New System.Drawing.Size(104, 24)
         Me.rdbAAC.TabIndex = 2
@@ -433,7 +433,7 @@ Partial Class frmTMXF
         'rdbPCM24
         '
         Me.rdbPCM24.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rdbPCM24.Location = New System.Drawing.Point(6, 55)
+        Me.rdbPCM24.Location = New System.Drawing.Point(6, 87)
         Me.rdbPCM24.Name = "rdbPCM24"
         Me.rdbPCM24.Size = New System.Drawing.Size(104, 24)
         Me.rdbPCM24.TabIndex = 1
@@ -445,7 +445,7 @@ Partial Class frmTMXF
         'rdbPCM16
         '
         Me.rdbPCM16.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rdbPCM16.Location = New System.Drawing.Point(7, 21)
+        Me.rdbPCM16.Location = New System.Drawing.Point(6, 55)
         Me.rdbPCM16.Name = "rdbPCM16"
         Me.rdbPCM16.Size = New System.Drawing.Size(104, 24)
         Me.rdbPCM16.TabIndex = 0
@@ -939,9 +939,9 @@ Partial Class frmTMXF
         '
         Me.OpenFFmpegDialog.DefaultExt = "exe"
         Me.OpenFFmpegDialog.FileName = "FFmpeg.exe"
-        Me.OpenFFmpegDialog.Filter = "Executable | *.exe"
+        Me.OpenFFmpegDialog.Filter = """FFmpeg.exe"" | *.exe"
         Me.OpenFFmpegDialog.InitialDirectory = "computer"
-        Me.OpenFFmpegDialog.Title = "Find FFmpeg EXE"
+        Me.OpenFFmpegDialog.Title = "Find FFmpeg executable"
         '
         'btnChk3
         '
@@ -1060,6 +1060,13 @@ Partial Class frmTMXF
         Me.btnAbout.Text = "About"
         Me.btnAbout.UseVisualStyleBackColor = True
         '
+        'OpenFFprobeDialog
+        '
+        Me.OpenFFprobeDialog.DefaultExt = "exe"
+        Me.OpenFFprobeDialog.FileName = "FFprobe.exe"
+        Me.OpenFFprobeDialog.Filter = """FFprobe""| FFprobe.exe"
+        Me.OpenFFprobeDialog.Title = "Find FFprobe Executable"
+        '
         'frmTMXF
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1163,7 +1170,7 @@ Partial Class frmTMXF
     Friend WithEvents rdbA2Ch As System.Windows.Forms.RadioButton
     Friend WithEvents rdbADirect As System.Windows.Forms.RadioButton
     Friend WithEvents lblAudioChCommand As System.Windows.Forms.Label
-    Friend WithEvents rdbMP3 As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbACDirect As System.Windows.Forms.RadioButton
     Friend WithEvents rdbAAC As System.Windows.Forms.RadioButton
     Friend WithEvents rdbPCM24 As System.Windows.Forms.RadioButton
     Friend WithEvents rdbPCM16 As System.Windows.Forms.RadioButton
@@ -1194,5 +1201,6 @@ Partial Class frmTMXF
     Friend WithEvents grpFFprobe As System.Windows.Forms.GroupBox
     Friend WithEvents txtFFprobe As System.Windows.Forms.Label
     Friend WithEvents btnFFprobe As System.Windows.Forms.Button
+    Friend WithEvents OpenFFprobeDialog As System.Windows.Forms.OpenFileDialog
 
 End Class
