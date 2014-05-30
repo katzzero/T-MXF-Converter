@@ -107,6 +107,8 @@ Partial Class frmTMXF
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.btnAbout = New System.Windows.Forms.Button()
         Me.OpenFFprobeDialog = New System.Windows.Forms.OpenFileDialog()
+        Me.btnTCanalize = New System.Windows.Forms.Button()
+        Me.chkOverwrite = New System.Windows.Forms.CheckBox()
         Me.tabsMain.SuspendLayout()
         Me.TabCodec.SuspendLayout()
         Me.grpTCBurn.SuspendLayout()
@@ -249,6 +251,7 @@ Partial Class frmTMXF
         '
         'grpTCBurn
         '
+        Me.grpTCBurn.Controls.Add(Me.btnTCanalize)
         Me.grpTCBurn.Controls.Add(Me.chkTCBurn)
         Me.grpTCBurn.Location = New System.Drawing.Point(6, 416)
         Me.grpTCBurn.Name = "grpTCBurn"
@@ -524,6 +527,7 @@ Partial Class frmTMXF
         '
         'grpGlobal
         '
+        Me.grpGlobal.Controls.Add(Me.chkOverwrite)
         Me.grpGlobal.Controls.Add(Me.chkReport)
         Me.grpGlobal.Location = New System.Drawing.Point(6, 330)
         Me.grpGlobal.Name = "grpGlobal"
@@ -537,7 +541,6 @@ Partial Class frmTMXF
         Me.chkReport.AutoSize = True
         Me.chkReport.Checked = True
         Me.chkReport.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkReport.Enabled = False
         Me.chkReport.Location = New System.Drawing.Point(7, 20)
         Me.chkReport.Name = "chkReport"
         Me.chkReport.Size = New System.Drawing.Size(105, 17)
@@ -622,7 +625,6 @@ Partial Class frmTMXF
         'rdbWAV
         '
         Me.rdbWAV.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rdbWAV.Enabled = False
         Me.rdbWAV.Location = New System.Drawing.Point(8, 121)
         Me.rdbWAV.Name = "rdbWAV"
         Me.rdbWAV.Size = New System.Drawing.Size(104, 24)
@@ -1067,6 +1069,29 @@ Partial Class frmTMXF
         Me.OpenFFprobeDialog.Filter = """FFprobe""| FFprobe.exe"
         Me.OpenFFprobeDialog.Title = "Find FFprobe Executable"
         '
+        'btnTCanalize
+        '
+        Me.btnTCanalize.Enabled = False
+        Me.btnTCanalize.Location = New System.Drawing.Point(166, 14)
+        Me.btnTCanalize.Name = "btnTCanalize"
+        Me.btnTCanalize.Size = New System.Drawing.Size(75, 23)
+        Me.btnTCanalize.TabIndex = 1
+        Me.btnTCanalize.Text = "Analyze"
+        Me.btnTCanalize.UseVisualStyleBackColor = True
+        '
+        'chkOverwrite
+        '
+        Me.chkOverwrite.AutoSize = True
+        Me.chkOverwrite.Checked = True
+        Me.chkOverwrite.CheckState = System.Windows.Forms.CheckState.Indeterminate
+        Me.chkOverwrite.Enabled = False
+        Me.chkOverwrite.Location = New System.Drawing.Point(8, 44)
+        Me.chkOverwrite.Name = "chkOverwrite"
+        Me.chkOverwrite.Size = New System.Drawing.Size(106, 17)
+        Me.chkOverwrite.TabIndex = 1
+        Me.chkOverwrite.Text = "Overwrite Output"
+        Me.chkOverwrite.UseVisualStyleBackColor = True
+        '
         'frmTMXF
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1088,6 +1113,7 @@ Partial Class frmTMXF
         Me.Controls.Add(Me.lblVersion)
         Me.Controls.Add(Me.txtMXFpath)
         Me.Controls.Add(Me.btnLoadMXF)
+        Me.ForeColor = System.Drawing.SystemColors.ControlText
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -1202,5 +1228,7 @@ Partial Class frmTMXF
     Friend WithEvents txtFFprobe As System.Windows.Forms.Label
     Friend WithEvents btnFFprobe As System.Windows.Forms.Button
     Friend WithEvents OpenFFprobeDialog As System.Windows.Forms.OpenFileDialog
+    Friend WithEvents btnTCanalize As System.Windows.Forms.Button
+    Friend WithEvents chkOverwrite As System.Windows.Forms.CheckBox
 
 End Class
