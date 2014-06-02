@@ -37,6 +37,7 @@ Partial Class frmTMXF
         Me.txtFFoutput = New System.Windows.Forms.TextBox()
         Me.grpAdvanced = New System.Windows.Forms.GroupBox()
         Me.grpTCBurn = New System.Windows.Forms.GroupBox()
+        Me.btnTCanalize = New System.Windows.Forms.Button()
         Me.chkTCBurn = New System.Windows.Forms.CheckBox()
         Me.grpFrameRate = New System.Windows.Forms.GroupBox()
         Me.rdbFRdirect = New System.Windows.Forms.RadioButton()
@@ -59,6 +60,7 @@ Partial Class frmTMXF
         Me.rdbA2Ch = New System.Windows.Forms.RadioButton()
         Me.rdbADirect = New System.Windows.Forms.RadioButton()
         Me.grpGlobal = New System.Windows.Forms.GroupBox()
+        Me.chkOverwrite = New System.Windows.Forms.CheckBox()
         Me.chkReport = New System.Windows.Forms.CheckBox()
         Me.grpResolution = New System.Windows.Forms.GroupBox()
         Me.rdb540 = New System.Windows.Forms.RadioButton()
@@ -107,8 +109,6 @@ Partial Class frmTMXF
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.btnAbout = New System.Windows.Forms.Button()
         Me.OpenFFprobeDialog = New System.Windows.Forms.OpenFileDialog()
-        Me.btnTCanalize = New System.Windows.Forms.Button()
-        Me.chkOverwrite = New System.Windows.Forms.CheckBox()
         Me.tabsMain.SuspendLayout()
         Me.TabCodec.SuspendLayout()
         Me.grpTCBurn.SuspendLayout()
@@ -227,7 +227,7 @@ Partial Class frmTMXF
         '
         'txtFFoutput
         '
-        Me.txtFFoutput.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.txtFFoutput.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.txtFFoutput.Cursor = System.Windows.Forms.Cursors.Default
         Me.txtFFoutput.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
         Me.txtFFoutput.ForeColor = System.Drawing.SystemColors.Info
@@ -253,12 +253,23 @@ Partial Class frmTMXF
         '
         Me.grpTCBurn.Controls.Add(Me.btnTCanalize)
         Me.grpTCBurn.Controls.Add(Me.chkTCBurn)
+        Me.grpTCBurn.Enabled = False
         Me.grpTCBurn.Location = New System.Drawing.Point(6, 416)
         Me.grpTCBurn.Name = "grpTCBurn"
         Me.grpTCBurn.Size = New System.Drawing.Size(247, 80)
         Me.grpTCBurn.TabIndex = 8
         Me.grpTCBurn.TabStop = False
         Me.grpTCBurn.Text = "Time Code Burn"
+        '
+        'btnTCanalize
+        '
+        Me.btnTCanalize.Enabled = False
+        Me.btnTCanalize.Location = New System.Drawing.Point(166, 14)
+        Me.btnTCanalize.Name = "btnTCanalize"
+        Me.btnTCanalize.Size = New System.Drawing.Size(75, 23)
+        Me.btnTCanalize.TabIndex = 1
+        Me.btnTCanalize.Text = "Analyze"
+        Me.btnTCanalize.UseVisualStyleBackColor = True
         '
         'chkTCBurn
         '
@@ -535,6 +546,19 @@ Partial Class frmTMXF
         Me.grpGlobal.TabIndex = 0
         Me.grpGlobal.TabStop = False
         Me.grpGlobal.Text = "Global Options"
+        '
+        'chkOverwrite
+        '
+        Me.chkOverwrite.AutoSize = True
+        Me.chkOverwrite.Checked = True
+        Me.chkOverwrite.CheckState = System.Windows.Forms.CheckState.Indeterminate
+        Me.chkOverwrite.Enabled = False
+        Me.chkOverwrite.Location = New System.Drawing.Point(8, 44)
+        Me.chkOverwrite.Name = "chkOverwrite"
+        Me.chkOverwrite.Size = New System.Drawing.Size(106, 17)
+        Me.chkOverwrite.TabIndex = 1
+        Me.chkOverwrite.Text = "Overwrite Output"
+        Me.chkOverwrite.UseVisualStyleBackColor = True
         '
         'chkReport
         '
@@ -1068,29 +1092,6 @@ Partial Class frmTMXF
         Me.OpenFFprobeDialog.FileName = "FFprobe.exe"
         Me.OpenFFprobeDialog.Filter = """FFprobe""| FFprobe.exe"
         Me.OpenFFprobeDialog.Title = "Find FFprobe Executable"
-        '
-        'btnTCanalize
-        '
-        Me.btnTCanalize.Enabled = False
-        Me.btnTCanalize.Location = New System.Drawing.Point(166, 14)
-        Me.btnTCanalize.Name = "btnTCanalize"
-        Me.btnTCanalize.Size = New System.Drawing.Size(75, 23)
-        Me.btnTCanalize.TabIndex = 1
-        Me.btnTCanalize.Text = "Analyze"
-        Me.btnTCanalize.UseVisualStyleBackColor = True
-        '
-        'chkOverwrite
-        '
-        Me.chkOverwrite.AutoSize = True
-        Me.chkOverwrite.Checked = True
-        Me.chkOverwrite.CheckState = System.Windows.Forms.CheckState.Indeterminate
-        Me.chkOverwrite.Enabled = False
-        Me.chkOverwrite.Location = New System.Drawing.Point(8, 44)
-        Me.chkOverwrite.Name = "chkOverwrite"
-        Me.chkOverwrite.Size = New System.Drawing.Size(106, 17)
-        Me.chkOverwrite.TabIndex = 1
-        Me.chkOverwrite.Text = "Overwrite Output"
-        Me.chkOverwrite.UseVisualStyleBackColor = True
         '
         'frmTMXF
         '

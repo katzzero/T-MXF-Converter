@@ -10,20 +10,3 @@ C:\Users\Katz\Documents\GitHub\T-MXF-Converter\bin\Debug\T MXF Converter.exe.Cod
 C:\Users\Katz\Documents\GitHub\T-MXF-Converter\bin\Debug\T MXF Converter.exe.lastcodeanalysissucceeded
 C:\Users\Katz\Documents\GitHub\T-MXF-Converter\obj\Debug\T_MXF_Converter.frmTMXF.resources
 C:\Users\Katz\Documents\GitHub\T-MXF-Converter\obj\Debug\T_MXF_Converter.Resources.resources
-C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\bin\Debug\T MXF Converter.exe.config
-C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\bin\Debug\T MXF Converter.exe.manifest
-C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\bin\Debug\T MXF Converter.application
-C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\bin\Debug\T MXF Converter.exe
-C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\bin\Debug\T MXF Converter.pdb
-C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\bin\Debug\T MXF Converter.xml
-C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\bin\Debug\T MXF Converter.exe.CodeAnalysisLog.xml
-C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\bin\Debug\T MXF Converter.exe.lastcodeanalysissucceeded
-C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\obj\Debug\T_MXF_Converter.frmTMXF.resources
-C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\obj\Debug\T_MXF_Converter.Resources.resources
-C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\obj\Debug\T_MXF_Converter.frmAbout.resources
-C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\obj\Debug\T MXF Converter.vbproj.GenerateResource.Cache
-C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\obj\Debug\T MXF Converter.exe.manifest
-C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\obj\Debug\T MXF Converter.application
-C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\obj\Debug\T MXF Converter.exe
-C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\obj\Debug\T MXF Converter.xml
-C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\obj\Debug\T MXF Converter.pdb

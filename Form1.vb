@@ -6,6 +6,10 @@ Imports System.Security.Permissions
 Public Class frmTMXF
 
     Private Sub frmTMXF_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        txtFFoutput.Text = DateAndTime.Now.ToString("HH:mm:ss") & " Initializing Systems ... "
+        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Hello " & Environment.UserName & "!"
+
         'Show version on label
         lblVersion.Text = "V." & Application.ProductVersion
         Try
@@ -19,13 +23,12 @@ Public Class frmTMXF
 
             End If
         Catch ex As Exception
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " System exception error parsing system file!"
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " System Critical error parsing system file!"
         End Try
 
         Try
             If System.IO.File.Exists(My.Settings.ffprobepath.ToString) = True Then
                 txtFFprobe.Text = My.Settings.ffprobepath.ToString
-                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFprobe.exe found! "
             ElseIf My.Settings.ffprobepath = "c:FFprobe" Or My.Settings.ffprobepath.Length <= 0 Then
                 OpenFFprobeDialog.ShowDialog()
                 txtFFprobe.Text = OpenFFprobeDialog.FileName
@@ -38,9 +41,9 @@ Public Class frmTMXF
             End If
 
         Catch ex As Exception
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFprobe.exe Not Found - TC Burn Disabled !"
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## FFprobe.exe Error ## - TC Burn Disabled !"
         End Try
-       
+
         'Check if FFmpeg path is Ok and if not do this
         Try
             If txtFFmpeg.Text = "c:FFmpeg" Then
@@ -61,17 +64,21 @@ Public Class frmTMXF
             txtFFmpeg.Text = "c:FFmpeg"
             txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## FFmpeg path not found!! ## Please check the path in Software Config Tab or the software will be unable to convert!"
         End Try
-        
+
 
         'Check if theres is a path for temp if not set default
         If txtTemp.Text = "c:Temp" Then
             If My.Settings.temppath.Length = 0 Then
                 txtTemp.Text = System.IO.Path.GetTempPath
                 My.Settings.temppath = txtTemp.Text.ToString
+                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Using system's default temporary folder."
             Else
                 txtTemp.Text = My.Settings.temppath
+                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Using custom temporary folder."
             End If
         End If
+
+        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Recalling last used settings ..."
 
         'Check last used codec and assign it
         If My.Settings.lastVcodec = "h264" Then
@@ -93,6 +100,17 @@ Public Class frmTMXF
             rdb486.Checked = True
         ElseIf My.Settings.lastres = "540" Then
             rdb540.Checked = True
+        End If
+
+        'Check Last used Frame Rate and assign it
+        If My.Settings.LastFR = "frdirect" Then
+            rdbFRdirect.Checked = True
+        ElseIf My.Settings.LastFR = "29nd" Then
+            rdb29ND.Checked = True
+        ElseIf My.Settings.LastFR = "29d" Then
+            rdb29D.Checked = True
+        ElseIf My.Settings.LastFR = "23" Then
+            rdb23.Checked = True
         End If
 
         'Check Last used Audio Codec and assign it
@@ -118,17 +136,6 @@ Public Class frmTMXF
         End If
 
         'Check Last used Frame Rate and assign it
-        If My.Settings.LastFR = "frdirect" Then
-            rdbFRdirect.Checked = True
-        ElseIf My.Settings.LastFR = "29nd" Then
-            rdb29ND.Checked = True
-        ElseIf My.Settings.LastFR = "29d" Then
-            rdb29D.Checked = True
-        ElseIf My.Settings.LastFR = "23" Then
-            rdb23.Checked = True
-        End If
-
-        'Check Last used Frame Rate and assign it
         If My.Settings.LastSR = "srdirect" Then
             rdbSRDirect.Checked = True
         ElseIf My.Settings.LastSR = "sr44" Then
@@ -139,9 +146,11 @@ Public Class frmTMXF
             rdbSR96.Checked = True
         End If
 
+        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Settings Loaded OK."
+
         'Set date and time as part of the output name
         txtNameDate.Text = DateAndTime.Now.ToString("dd-MM-yyyy") & "-" & DateAndTime.Now.ToString("HH-mm")
-        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Software Started!"
+        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Software Started Successfully!"
 
         If Not My.Settings.LastOutPath.Length = 0 Then
             txtOutPath.Text = My.Settings.LastOutPath.ToString
@@ -212,8 +221,19 @@ Public Class frmTMXF
     End Sub
 
     Private Sub txtFFmpeg_TextChanged(sender As Object, e As EventArgs) Handles txtFFmpeg.TextChanged
+        Dim _ffmpegcheck As String
+        If System.IO.File.Exists(txtFFmpeg.Text.ToString) = True Then
+            _ffmpegcheck = System.IO.Path.GetDirectoryName(txtFFmpeg.Text.ToString)
+            ' MessageBox.Show(_ffprobecheck.ToString & "\ffprobe.exe")
+            If txtFFmpeg.Text.ToString = _ffmpegcheck & "\ffmpeg.exe" Then
+                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFmpeg path is OK."
+            ElseIf System.IO.File.Exists(_ffmpegcheck.ToString & "\ffmpeg.exe") = True Then
+                txtFFmpeg.Text = _ffmpegcheck.ToString & "\ffmpeg.exe"
+                My.Settings.ffprobepath = txtFFmpeg.Text.ToString
+                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFmpeg path wrong but was able to be corrected."
+            End If
+        End If
         lblFFmpegCommand.Text = txtFFmpeg.Text
-
     End Sub
 
     Private Sub TabConfig_Click(sender As Object, e As EventArgs) Handles TabConfig.Click
@@ -459,5 +479,77 @@ Public Class frmTMXF
         End If
 
 
+    End Sub
+
+    Private Sub lblCodecCommand_TextChanged(sender As Object, e As EventArgs) Handles lblCodecCommand.TextChanged
+        If rdbH264.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Codec H.264 Selected."
+        ElseIf rdbProRes.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Codec ProRes Selected."
+        ElseIf rdbDNxHD.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Codec DNxHD Selected."
+        ElseIf rdbWAV.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Codec WAV Selected."
+        End If
+    End Sub
+
+    Private Sub lblRes_TextChanged(sender As Object, e As EventArgs) Handles lblRes.TextChanged
+        If rdb1080.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 1920x1080 Resolution, 16:9 aspect ratio, square pixel."
+        ElseIf rdb720.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 1280x720 Resolution, 16:9 aspect ratio, square pixel."
+        ElseIf rdb486.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 864x486 Resolution, 16:9 aspect ratio, square pixel."
+        ElseIf rdb540.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 720x540 Resolution, 4:3 aspect ratio, square pixel."
+        End If
+    End Sub
+
+    Private Sub lblAudioChCommand_TextChanged(sender As Object, e As EventArgs) Handles lblAudioChCommand.TextChanged
+        If rdbADirect.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Audio channels selected for Direct mapping."
+        ElseIf rdbA2Ch.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Audio channels selected for Stereo mapping."
+        ElseIf rdbA4Ch.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Audio channels selected for Quad mapping."
+        ElseIf rdbA8Ch.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Audio channels selected for 8 Channels mapping."
+        End If
+    End Sub
+
+    Private Sub lblACodecCommand_TextChanged(sender As Object, e As EventArgs) Handles lblACodecCommand.TextChanged
+        If rdbPCM16.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " PCM 16bits Audio codec selected."
+        ElseIf rdbPCM24.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " PCM 24bits Audio codec selected."
+        ElseIf rdbAAC.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " AAC Low Complexity Audio codec selected."
+        ElseIf rdbACDirect.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Audio Codec selected for direct stream copy mode."
+        End If
+    End Sub
+
+    Private Sub lblFRcommand_TextChanged(sender As Object, e As EventArgs) Handles lblFRcommand.TextChanged
+        If rdbFRdirect.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Frame Rate keep/copy selected."
+        ElseIf rdb23.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 23,976 FPS selected."
+        ElseIf rdb29D.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 29,97 FPS selected. Drop for TC purpose only."
+        ElseIf rdb29ND.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 29,97 FPS selected. Non-Drop for TC purpose only."
+        End If
+    End Sub
+
+    Private Sub lblSRcommand_TextChanged(sender As Object, e As EventArgs) Handles lblSRcommand.TextChanged
+        If rdbSRDirect.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Sample Rate keep/copy selected."
+        ElseIf rdbSR44.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 44.100Hz selected."
+        ElseIf rdbSR48.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 48.000Hz selected."
+        ElseIf rdbSR96.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 96.000Hz selected."
+        End If
     End Sub
 End Class
