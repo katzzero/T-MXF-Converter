@@ -179,7 +179,7 @@ Partial Class frmTMXF
         'btnSaveOut
         '
         Me.btnSaveOut.Enabled = False
-        Me.btnSaveOut.Location = New System.Drawing.Point(13, 604)
+        Me.btnSaveOut.Location = New System.Drawing.Point(12, 610)
         Me.btnSaveOut.Name = "btnSaveOut"
         Me.btnSaveOut.Size = New System.Drawing.Size(90, 25)
         Me.btnSaveOut.TabIndex = 4
@@ -189,7 +189,7 @@ Partial Class frmTMXF
         'txtOutPath
         '
         Me.txtOutPath.AutoSize = True
-        Me.txtOutPath.Location = New System.Drawing.Point(109, 610)
+        Me.txtOutPath.Location = New System.Drawing.Point(108, 616)
         Me.txtOutPath.Name = "txtOutPath"
         Me.txtOutPath.Size = New System.Drawing.Size(16, 13)
         Me.txtOutPath.TabIndex = 6
@@ -231,20 +231,20 @@ Partial Class frmTMXF
         Me.txtFFoutput.Cursor = System.Windows.Forms.Cursors.Default
         Me.txtFFoutput.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
         Me.txtFFoutput.ForeColor = System.Drawing.SystemColors.Info
-        Me.txtFFoutput.Location = New System.Drawing.Point(385, 8)
+        Me.txtFFoutput.Location = New System.Drawing.Point(338, 8)
         Me.txtFFoutput.Multiline = True
         Me.txtFFoutput.Name = "txtFFoutput"
         Me.txtFFoutput.ReadOnly = True
         Me.txtFFoutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtFFoutput.Size = New System.Drawing.Size(560, 495)
+        Me.txtFFoutput.Size = New System.Drawing.Size(607, 495)
         Me.txtFFoutput.TabIndex = 6
         Me.txtFFoutput.TabStop = False
         '
         'grpAdvanced
         '
-        Me.grpAdvanced.Location = New System.Drawing.Point(259, 330)
+        Me.grpAdvanced.Location = New System.Drawing.Point(3, 333)
         Me.grpAdvanced.Name = "grpAdvanced"
-        Me.grpAdvanced.Size = New System.Drawing.Size(120, 166)
+        Me.grpAdvanced.Size = New System.Drawing.Size(298, 80)
         Me.grpAdvanced.TabIndex = 9
         Me.grpAdvanced.TabStop = False
         Me.grpAdvanced.Text = "Advanced"
@@ -253,18 +253,16 @@ Partial Class frmTMXF
         '
         Me.grpTCBurn.Controls.Add(Me.btnTCanalize)
         Me.grpTCBurn.Controls.Add(Me.chkTCBurn)
-        Me.grpTCBurn.Enabled = False
-        Me.grpTCBurn.Location = New System.Drawing.Point(6, 416)
+        Me.grpTCBurn.Location = New System.Drawing.Point(3, 419)
         Me.grpTCBurn.Name = "grpTCBurn"
-        Me.grpTCBurn.Size = New System.Drawing.Size(247, 80)
+        Me.grpTCBurn.Size = New System.Drawing.Size(295, 80)
         Me.grpTCBurn.TabIndex = 8
         Me.grpTCBurn.TabStop = False
         Me.grpTCBurn.Text = "Time Code Burn"
         '
         'btnTCanalize
         '
-        Me.btnTCanalize.Enabled = False
-        Me.btnTCanalize.Location = New System.Drawing.Point(166, 14)
+        Me.btnTCanalize.Location = New System.Drawing.Point(214, 14)
         Me.btnTCanalize.Name = "btnTCanalize"
         Me.btnTCanalize.Size = New System.Drawing.Size(75, 23)
         Me.btnTCanalize.TabIndex = 1
@@ -288,62 +286,58 @@ Partial Class frmTMXF
         Me.grpFrameRate.Controls.Add(Me.rdb23)
         Me.grpFrameRate.Controls.Add(Me.rdb29ND)
         Me.grpFrameRate.Controls.Add(Me.rdb29D)
-        Me.grpFrameRate.Location = New System.Drawing.Point(259, 8)
+        Me.grpFrameRate.Location = New System.Drawing.Point(253, 8)
         Me.grpFrameRate.Name = "grpFrameRate"
-        Me.grpFrameRate.Size = New System.Drawing.Size(120, 155)
+        Me.grpFrameRate.Size = New System.Drawing.Size(79, 114)
         Me.grpFrameRate.TabIndex = 7
         Me.grpFrameRate.TabStop = False
         Me.grpFrameRate.Text = "Frame Rate"
         '
         'rdbFRdirect
         '
-        Me.rdbFRdirect.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbFRdirect.AutoSize = True
         Me.rdbFRdirect.Location = New System.Drawing.Point(6, 21)
         Me.rdbFRdirect.Name = "rdbFRdirect"
-        Me.rdbFRdirect.Size = New System.Drawing.Size(104, 24)
+        Me.rdbFRdirect.Size = New System.Drawing.Size(53, 17)
         Me.rdbFRdirect.TabIndex = 0
         Me.rdbFRdirect.TabStop = True
         Me.rdbFRdirect.Text = "Direct"
-        Me.rdbFRdirect.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rdbFRdirect.UseVisualStyleBackColor = True
         '
         'rdb23
         '
-        Me.rdb23.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdb23.AutoSize = True
         Me.rdb23.Enabled = False
-        Me.rdb23.Location = New System.Drawing.Point(6, 119)
+        Me.rdb23.Location = New System.Drawing.Point(6, 90)
         Me.rdb23.Name = "rdb23"
-        Me.rdb23.Size = New System.Drawing.Size(104, 24)
+        Me.rdb23.Size = New System.Drawing.Size(58, 17)
         Me.rdb23.TabIndex = 0
         Me.rdb23.TabStop = True
         Me.rdb23.Text = "23,976"
-        Me.rdb23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rdb23.UseVisualStyleBackColor = True
         '
         'rdb29ND
         '
-        Me.rdb29ND.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdb29ND.AutoSize = True
         Me.rdb29ND.Enabled = False
-        Me.rdb29ND.Location = New System.Drawing.Point(6, 89)
+        Me.rdb29ND.Location = New System.Drawing.Point(6, 67)
         Me.rdb29ND.Name = "rdb29ND"
-        Me.rdb29ND.Size = New System.Drawing.Size(104, 24)
+        Me.rdb29ND.Size = New System.Drawing.Size(71, 17)
         Me.rdb29ND.TabIndex = 0
         Me.rdb29ND.TabStop = True
-        Me.rdb29ND.Text = "29,97 Non Drop"
-        Me.rdb29ND.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdb29ND.Text = "29,97 ND"
         Me.rdb29ND.UseVisualStyleBackColor = True
         '
         'rdb29D
         '
-        Me.rdb29D.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdb29D.AutoSize = True
         Me.rdb29D.Enabled = False
-        Me.rdb29D.Location = New System.Drawing.Point(6, 55)
+        Me.rdb29D.Location = New System.Drawing.Point(6, 44)
         Me.rdb29D.Name = "rdb29D"
-        Me.rdb29D.Size = New System.Drawing.Size(104, 24)
+        Me.rdb29D.Size = New System.Drawing.Size(63, 17)
         Me.rdb29D.TabIndex = 0
         Me.rdb29D.TabStop = True
-        Me.rdb29D.Text = "29,97 Drop"
-        Me.rdb29D.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdb29D.Text = "29,97 D"
         Me.rdb29D.UseVisualStyleBackColor = True
         '
         'grpSRate
@@ -352,20 +346,20 @@ Partial Class frmTMXF
         Me.grpSRate.Controls.Add(Me.rdbSR48)
         Me.grpSRate.Controls.Add(Me.rdbSR44)
         Me.grpSRate.Controls.Add(Me.rdbSRDirect)
-        Me.grpSRate.Location = New System.Drawing.Point(259, 169)
+        Me.grpSRate.Location = New System.Drawing.Point(247, 128)
         Me.grpSRate.Name = "grpSRate"
-        Me.grpSRate.Size = New System.Drawing.Size(120, 155)
+        Me.grpSRate.Size = New System.Drawing.Size(85, 113)
         Me.grpSRate.TabIndex = 5
         Me.grpSRate.TabStop = False
         Me.grpSRate.Text = "Sample Rate"
         '
         'rdbSR96
         '
-        Me.rdbSR96.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbSR96.AutoSize = True
         Me.rdbSR96.Enabled = False
-        Me.rdbSR96.Location = New System.Drawing.Point(6, 121)
+        Me.rdbSR96.Location = New System.Drawing.Point(6, 88)
         Me.rdbSR96.Name = "rdbSR96"
-        Me.rdbSR96.Size = New System.Drawing.Size(104, 24)
+        Me.rdbSR96.Size = New System.Drawing.Size(60, 17)
         Me.rdbSR96.TabIndex = 3
         Me.rdbSR96.Text = "96 KHz"
         Me.rdbSR96.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -373,11 +367,11 @@ Partial Class frmTMXF
         '
         'rdbSR48
         '
-        Me.rdbSR48.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbSR48.AutoSize = True
         Me.rdbSR48.Enabled = False
-        Me.rdbSR48.Location = New System.Drawing.Point(6, 89)
+        Me.rdbSR48.Location = New System.Drawing.Point(6, 65)
         Me.rdbSR48.Name = "rdbSR48"
-        Me.rdbSR48.Size = New System.Drawing.Size(104, 24)
+        Me.rdbSR48.Size = New System.Drawing.Size(60, 17)
         Me.rdbSR48.TabIndex = 2
         Me.rdbSR48.Text = "48 KHz"
         Me.rdbSR48.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -385,11 +379,11 @@ Partial Class frmTMXF
         '
         'rdbSR44
         '
-        Me.rdbSR44.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbSR44.AutoSize = True
         Me.rdbSR44.Enabled = False
-        Me.rdbSR44.Location = New System.Drawing.Point(6, 55)
+        Me.rdbSR44.Location = New System.Drawing.Point(6, 42)
         Me.rdbSR44.Name = "rdbSR44"
-        Me.rdbSR44.Size = New System.Drawing.Size(104, 24)
+        Me.rdbSR44.Size = New System.Drawing.Size(69, 17)
         Me.rdbSR44.TabIndex = 1
         Me.rdbSR44.Text = "44.1 KHz"
         Me.rdbSR44.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -397,10 +391,10 @@ Partial Class frmTMXF
         '
         'rdbSRDirect
         '
-        Me.rdbSRDirect.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbSRDirect.AutoSize = True
         Me.rdbSRDirect.Location = New System.Drawing.Point(6, 19)
         Me.rdbSRDirect.Name = "rdbSRDirect"
-        Me.rdbSRDirect.Size = New System.Drawing.Size(104, 24)
+        Me.rdbSRDirect.Size = New System.Drawing.Size(53, 17)
         Me.rdbSRDirect.TabIndex = 0
         Me.rdbSRDirect.Text = "Direct"
         Me.rdbSRDirect.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -412,19 +406,19 @@ Partial Class frmTMXF
         Me.grpACodec.Controls.Add(Me.rdbAAC)
         Me.grpACodec.Controls.Add(Me.rdbPCM24)
         Me.grpACodec.Controls.Add(Me.rdbPCM16)
-        Me.grpACodec.Location = New System.Drawing.Point(6, 169)
+        Me.grpACodec.Location = New System.Drawing.Point(3, 128)
         Me.grpACodec.Name = "grpACodec"
-        Me.grpACodec.Size = New System.Drawing.Size(120, 155)
+        Me.grpACodec.Size = New System.Drawing.Size(118, 113)
         Me.grpACodec.TabIndex = 4
         Me.grpACodec.TabStop = False
         Me.grpACodec.Text = "Audio Codec"
         '
         'rdbACDirect
         '
-        Me.rdbACDirect.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rdbACDirect.Location = New System.Drawing.Point(6, 21)
+        Me.rdbACDirect.AutoSize = True
+        Me.rdbACDirect.Location = New System.Drawing.Point(6, 19)
         Me.rdbACDirect.Name = "rdbACDirect"
-        Me.rdbACDirect.Size = New System.Drawing.Size(104, 24)
+        Me.rdbACDirect.Size = New System.Drawing.Size(53, 17)
         Me.rdbACDirect.TabIndex = 3
         Me.rdbACDirect.TabStop = True
         Me.rdbACDirect.Text = "Direct"
@@ -433,11 +427,11 @@ Partial Class frmTMXF
         '
         'rdbAAC
         '
-        Me.rdbAAC.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbAAC.AutoSize = True
         Me.rdbAAC.Enabled = False
-        Me.rdbAAC.Location = New System.Drawing.Point(6, 121)
+        Me.rdbAAC.Location = New System.Drawing.Point(6, 88)
         Me.rdbAAC.Name = "rdbAAC"
-        Me.rdbAAC.Size = New System.Drawing.Size(104, 24)
+        Me.rdbAAC.Size = New System.Drawing.Size(65, 17)
         Me.rdbAAC.TabIndex = 2
         Me.rdbAAC.TabStop = True
         Me.rdbAAC.Text = "AAC_LC"
@@ -446,10 +440,10 @@ Partial Class frmTMXF
         '
         'rdbPCM24
         '
-        Me.rdbPCM24.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rdbPCM24.Location = New System.Drawing.Point(6, 87)
+        Me.rdbPCM24.AutoSize = True
+        Me.rdbPCM24.Location = New System.Drawing.Point(6, 65)
         Me.rdbPCM24.Name = "rdbPCM24"
-        Me.rdbPCM24.Size = New System.Drawing.Size(104, 24)
+        Me.rdbPCM24.Size = New System.Drawing.Size(82, 17)
         Me.rdbPCM24.TabIndex = 1
         Me.rdbPCM24.TabStop = True
         Me.rdbPCM24.Text = "PCM 24 bits"
@@ -458,10 +452,10 @@ Partial Class frmTMXF
         '
         'rdbPCM16
         '
-        Me.rdbPCM16.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rdbPCM16.Location = New System.Drawing.Point(6, 55)
+        Me.rdbPCM16.AutoSize = True
+        Me.rdbPCM16.Location = New System.Drawing.Point(6, 42)
         Me.rdbPCM16.Name = "rdbPCM16"
-        Me.rdbPCM16.Size = New System.Drawing.Size(104, 24)
+        Me.rdbPCM16.Size = New System.Drawing.Size(82, 17)
         Me.rdbPCM16.TabIndex = 0
         Me.rdbPCM16.TabStop = True
         Me.rdbPCM16.Text = "PCM 16 bits"
@@ -474,21 +468,20 @@ Partial Class frmTMXF
         Me.grpACh.Controls.Add(Me.rdbA4Ch)
         Me.grpACh.Controls.Add(Me.rdbA2Ch)
         Me.grpACh.Controls.Add(Me.rdbADirect)
-        Me.grpACh.Location = New System.Drawing.Point(133, 169)
+        Me.grpACh.Location = New System.Drawing.Point(126, 128)
         Me.grpACh.Name = "grpACh"
-        Me.grpACh.Size = New System.Drawing.Size(120, 155)
+        Me.grpACh.Size = New System.Drawing.Size(115, 113)
         Me.grpACh.TabIndex = 3
         Me.grpACh.TabStop = False
         Me.grpACh.Text = "Audio Channels"
         '
         'rdbA8Ch
         '
-        Me.rdbA8Ch.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbA8Ch.AutoSize = True
         Me.rdbA8Ch.Enabled = False
-        Me.rdbA8Ch.Location = New System.Drawing.Point(6, 121)
-        Me.rdbA8Ch.Margin = New System.Windows.Forms.Padding(5)
+        Me.rdbA8Ch.Location = New System.Drawing.Point(6, 88)
         Me.rdbA8Ch.Name = "rdbA8Ch"
-        Me.rdbA8Ch.Size = New System.Drawing.Size(104, 24)
+        Me.rdbA8Ch.Size = New System.Drawing.Size(78, 17)
         Me.rdbA8Ch.TabIndex = 3
         Me.rdbA8Ch.TabStop = True
         Me.rdbA8Ch.Text = "8 Channels"
@@ -497,12 +490,11 @@ Partial Class frmTMXF
         '
         'rdbA4Ch
         '
-        Me.rdbA4Ch.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbA4Ch.AutoSize = True
         Me.rdbA4Ch.Enabled = False
-        Me.rdbA4Ch.Location = New System.Drawing.Point(6, 87)
-        Me.rdbA4Ch.Margin = New System.Windows.Forms.Padding(5)
+        Me.rdbA4Ch.Location = New System.Drawing.Point(6, 65)
         Me.rdbA4Ch.Name = "rdbA4Ch"
-        Me.rdbA4Ch.Size = New System.Drawing.Size(104, 24)
+        Me.rdbA4Ch.Size = New System.Drawing.Size(78, 17)
         Me.rdbA4Ch.TabIndex = 2
         Me.rdbA4Ch.TabStop = True
         Me.rdbA4Ch.Text = "4 Channels"
@@ -511,12 +503,11 @@ Partial Class frmTMXF
         '
         'rdbA2Ch
         '
-        Me.rdbA2Ch.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbA2Ch.AutoSize = True
         Me.rdbA2Ch.Enabled = False
-        Me.rdbA2Ch.Location = New System.Drawing.Point(6, 55)
-        Me.rdbA2Ch.Margin = New System.Windows.Forms.Padding(5)
+        Me.rdbA2Ch.Location = New System.Drawing.Point(6, 42)
         Me.rdbA2Ch.Name = "rdbA2Ch"
-        Me.rdbA2Ch.Size = New System.Drawing.Size(104, 24)
+        Me.rdbA2Ch.Size = New System.Drawing.Size(78, 17)
         Me.rdbA2Ch.TabIndex = 1
         Me.rdbA2Ch.TabStop = True
         Me.rdbA2Ch.Text = "2 Channels"
@@ -525,11 +516,10 @@ Partial Class frmTMXF
         '
         'rdbADirect
         '
-        Me.rdbADirect.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rdbADirect.Location = New System.Drawing.Point(6, 21)
-        Me.rdbADirect.Margin = New System.Windows.Forms.Padding(5)
+        Me.rdbADirect.AutoSize = True
+        Me.rdbADirect.Location = New System.Drawing.Point(6, 19)
         Me.rdbADirect.Name = "rdbADirect"
-        Me.rdbADirect.Size = New System.Drawing.Size(104, 24)
+        Me.rdbADirect.Size = New System.Drawing.Size(53, 17)
         Me.rdbADirect.TabIndex = 0
         Me.rdbADirect.TabStop = True
         Me.rdbADirect.Text = "Direct"
@@ -540,9 +530,9 @@ Partial Class frmTMXF
         '
         Me.grpGlobal.Controls.Add(Me.chkOverwrite)
         Me.grpGlobal.Controls.Add(Me.chkReport)
-        Me.grpGlobal.Location = New System.Drawing.Point(6, 330)
+        Me.grpGlobal.Location = New System.Drawing.Point(3, 247)
         Me.grpGlobal.Name = "grpGlobal"
-        Me.grpGlobal.Size = New System.Drawing.Size(247, 80)
+        Me.grpGlobal.Size = New System.Drawing.Size(295, 80)
         Me.grpGlobal.TabIndex = 0
         Me.grpGlobal.TabStop = False
         Me.grpGlobal.Text = "Global Options"
@@ -578,59 +568,55 @@ Partial Class frmTMXF
         Me.grpResolution.Controls.Add(Me.rdb486)
         Me.grpResolution.Controls.Add(Me.rdb720)
         Me.grpResolution.Controls.Add(Me.rdb1080)
-        Me.grpResolution.Location = New System.Drawing.Point(133, 8)
+        Me.grpResolution.Location = New System.Drawing.Point(127, 8)
         Me.grpResolution.Name = "grpResolution"
-        Me.grpResolution.Size = New System.Drawing.Size(120, 155)
+        Me.grpResolution.Size = New System.Drawing.Size(120, 114)
         Me.grpResolution.TabIndex = 2
         Me.grpResolution.TabStop = False
         Me.grpResolution.Text = "Resolution"
         '
         'rdb540
         '
-        Me.rdb540.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rdb540.Location = New System.Drawing.Point(7, 121)
+        Me.rdb540.AutoSize = True
+        Me.rdb540.Location = New System.Drawing.Point(7, 90)
         Me.rdb540.Name = "rdb540"
-        Me.rdb540.Size = New System.Drawing.Size(104, 24)
+        Me.rdb540.Size = New System.Drawing.Size(92, 17)
         Me.rdb540.TabIndex = 3
         Me.rdb540.TabStop = True
         Me.rdb540.Text = "720 x540 | 4:3"
-        Me.rdb540.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rdb540.UseVisualStyleBackColor = True
         '
         'rdb486
         '
-        Me.rdb486.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rdb486.Location = New System.Drawing.Point(7, 89)
+        Me.rdb486.AutoSize = True
+        Me.rdb486.Location = New System.Drawing.Point(7, 67)
         Me.rdb486.Name = "rdb486"
-        Me.rdb486.Size = New System.Drawing.Size(104, 24)
+        Me.rdb486.Size = New System.Drawing.Size(98, 17)
         Me.rdb486.TabIndex = 2
         Me.rdb486.TabStop = True
         Me.rdb486.Text = "864 x486 | 16:9"
-        Me.rdb486.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rdb486.UseVisualStyleBackColor = True
         '
         'rdb720
         '
-        Me.rdb720.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rdb720.Location = New System.Drawing.Point(7, 55)
+        Me.rdb720.AutoSize = True
+        Me.rdb720.Location = New System.Drawing.Point(7, 44)
         Me.rdb720.Name = "rdb720"
-        Me.rdb720.Size = New System.Drawing.Size(104, 24)
+        Me.rdb720.Size = New System.Drawing.Size(104, 17)
         Me.rdb720.TabIndex = 1
         Me.rdb720.TabStop = True
         Me.rdb720.Text = "1280 x720 | 16:9"
-        Me.rdb720.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rdb720.UseVisualStyleBackColor = True
         '
         'rdb1080
         '
-        Me.rdb1080.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdb1080.AutoSize = True
         Me.rdb1080.Location = New System.Drawing.Point(7, 21)
         Me.rdb1080.Name = "rdb1080"
-        Me.rdb1080.Size = New System.Drawing.Size(104, 24)
+        Me.rdb1080.Size = New System.Drawing.Size(110, 17)
         Me.rdb1080.TabIndex = 0
         Me.rdb1080.TabStop = True
         Me.rdb1080.Text = "1920 x1080 | 16:9"
-        Me.rdb1080.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rdb1080.UseVisualStyleBackColor = True
         '
         'grpDumbCodec
@@ -639,59 +625,52 @@ Partial Class frmTMXF
         Me.grpDumbCodec.Controls.Add(Me.rdbDNxHD)
         Me.grpDumbCodec.Controls.Add(Me.rdbProRes)
         Me.grpDumbCodec.Controls.Add(Me.rdbH264)
-        Me.grpDumbCodec.Location = New System.Drawing.Point(6, 8)
+        Me.grpDumbCodec.Location = New System.Drawing.Point(3, 8)
         Me.grpDumbCodec.Name = "grpDumbCodec"
-        Me.grpDumbCodec.Size = New System.Drawing.Size(120, 155)
+        Me.grpDumbCodec.Size = New System.Drawing.Size(118, 114)
         Me.grpDumbCodec.TabIndex = 1
         Me.grpDumbCodec.TabStop = False
         Me.grpDumbCodec.Text = "Video Codec"
         '
         'rdbWAV
         '
-        Me.rdbWAV.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rdbWAV.Location = New System.Drawing.Point(8, 121)
+        Me.rdbWAV.AutoSize = True
+        Me.rdbWAV.Location = New System.Drawing.Point(6, 88)
         Me.rdbWAV.Name = "rdbWAV"
-        Me.rdbWAV.Size = New System.Drawing.Size(104, 24)
+        Me.rdbWAV.Size = New System.Drawing.Size(110, 17)
         Me.rdbWAV.TabIndex = 3
-        Me.rdbWAV.Text = "WAV"
-        Me.rdbWAV.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.rdbWAV.Text = "WAV - Audio Only"
         Me.rdbWAV.UseVisualStyleBackColor = True
         '
         'rdbDNxHD
         '
-        Me.rdbDNxHD.Appearance = System.Windows.Forms.Appearance.Button
+        Me.rdbDNxHD.AutoSize = True
         Me.rdbDNxHD.Enabled = False
-        Me.rdbDNxHD.Location = New System.Drawing.Point(8, 89)
-        Me.rdbDNxHD.Margin = New System.Windows.Forms.Padding(5)
+        Me.rdbDNxHD.Location = New System.Drawing.Point(6, 65)
         Me.rdbDNxHD.Name = "rdbDNxHD"
-        Me.rdbDNxHD.Size = New System.Drawing.Size(104, 24)
+        Me.rdbDNxHD.Size = New System.Drawing.Size(62, 17)
         Me.rdbDNxHD.TabIndex = 2
         Me.rdbDNxHD.Text = "DNxHD"
-        Me.rdbDNxHD.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rdbDNxHD.UseVisualStyleBackColor = True
         '
         'rdbProRes
         '
-        Me.rdbProRes.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rdbProRes.Location = New System.Drawing.Point(8, 55)
-        Me.rdbProRes.Margin = New System.Windows.Forms.Padding(5)
+        Me.rdbProRes.AutoSize = True
+        Me.rdbProRes.Location = New System.Drawing.Point(6, 42)
         Me.rdbProRes.Name = "rdbProRes"
-        Me.rdbProRes.Size = New System.Drawing.Size(104, 24)
+        Me.rdbProRes.Size = New System.Drawing.Size(60, 17)
         Me.rdbProRes.TabIndex = 1
         Me.rdbProRes.Text = "ProRes"
-        Me.rdbProRes.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rdbProRes.UseVisualStyleBackColor = True
         '
         'rdbH264
         '
-        Me.rdbH264.Appearance = System.Windows.Forms.Appearance.Button
-        Me.rdbH264.Location = New System.Drawing.Point(8, 21)
-        Me.rdbH264.Margin = New System.Windows.Forms.Padding(5)
+        Me.rdbH264.AutoSize = True
+        Me.rdbH264.Location = New System.Drawing.Point(6, 19)
         Me.rdbH264.Name = "rdbH264"
-        Me.rdbH264.Size = New System.Drawing.Size(104, 24)
+        Me.rdbH264.Size = New System.Drawing.Size(89, 17)
         Me.rdbH264.TabIndex = 0
         Me.rdbH264.Text = "H.264 I-frame"
-        Me.rdbH264.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rdbH264.UseVisualStyleBackColor = True
         '
         'TabConfig
@@ -1127,13 +1106,19 @@ Partial Class frmTMXF
         Me.grpTCBurn.ResumeLayout(False)
         Me.grpTCBurn.PerformLayout()
         Me.grpFrameRate.ResumeLayout(False)
+        Me.grpFrameRate.PerformLayout()
         Me.grpSRate.ResumeLayout(False)
+        Me.grpSRate.PerformLayout()
         Me.grpACodec.ResumeLayout(False)
+        Me.grpACodec.PerformLayout()
         Me.grpACh.ResumeLayout(False)
+        Me.grpACh.PerformLayout()
         Me.grpGlobal.ResumeLayout(False)
         Me.grpGlobal.PerformLayout()
         Me.grpResolution.ResumeLayout(False)
+        Me.grpResolution.PerformLayout()
         Me.grpDumbCodec.ResumeLayout(False)
+        Me.grpDumbCodec.PerformLayout()
         Me.TabConfig.ResumeLayout(False)
         Me.TabConfig.PerformLayout()
         Me.grpFFprobe.ResumeLayout(False)

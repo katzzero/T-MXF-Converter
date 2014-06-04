@@ -259,6 +259,7 @@ Public Class frmTMXF
             My.Settings.lastVcodec = "dnxhd"
         ElseIf rdbWAV.Checked = True Then
             lblCodecCommand.Text = "-vn -copyts -map 0:a -filter_complex " & Microsoft.VisualBasic.Chr(34) & "[0:a] amerge=inputs=8" & Microsoft.VisualBasic.Chr(34) & ""
+
             My.Settings.lastVcodec = "wav"
             rdbACDirect.Checked = False
             rdbACDirect.Enabled = False
@@ -361,6 +362,79 @@ Public Class frmTMXF
         End If
 
     End Sub
+
+    Private Sub lblCodecCommand_TextChanged(sender As Object, e As EventArgs) Handles lblCodecCommand.TextChanged
+        If rdbH264.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Codec H.264 Selected."
+        ElseIf rdbProRes.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Codec ProRes Selected."
+        ElseIf rdbDNxHD.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Codec DNxHD Selected."
+        ElseIf rdbWAV.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Codec WAV Selected."
+        End If
+    End Sub
+
+    Private Sub lblRes_TextChanged(sender As Object, e As EventArgs) Handles lblRes.TextChanged
+        If rdb1080.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 1920x1080 Resolution, 16:9 aspect ratio, square pixel."
+        ElseIf rdb720.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 1280x720 Resolution, 16:9 aspect ratio, square pixel."
+        ElseIf rdb486.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 864x486 Resolution, 16:9 aspect ratio, square pixel."
+        ElseIf rdb540.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 720x540 Resolution, 4:3 aspect ratio, square pixel."
+        End If
+    End Sub
+
+    Private Sub lblAudioChCommand_TextChanged(sender As Object, e As EventArgs) Handles lblAudioChCommand.TextChanged
+        If rdbADirect.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Audio channels selected for Direct mapping."
+        ElseIf rdbA2Ch.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Audio channels selected for Stereo mapping."
+        ElseIf rdbA4Ch.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Audio channels selected for Quad mapping."
+        ElseIf rdbA8Ch.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Audio channels selected for 8 Channels mapping."
+        End If
+    End Sub
+
+    Private Sub lblACodecCommand_TextChanged(sender As Object, e As EventArgs) Handles lblACodecCommand.TextChanged
+        If rdbPCM16.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " PCM 16bits Audio codec selected."
+        ElseIf rdbPCM24.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " PCM 24bits Audio codec selected."
+        ElseIf rdbAAC.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " AAC Low Complexity Audio codec selected."
+        ElseIf rdbACDirect.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Audio Codec selected for direct stream copy mode."
+        End If
+    End Sub
+
+    Private Sub lblFRcommand_TextChanged(sender As Object, e As EventArgs) Handles lblFRcommand.TextChanged
+        If rdbFRdirect.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Frame Rate keep/copy selected."
+        ElseIf rdb23.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 23,976 FPS selected."
+        ElseIf rdb29D.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 29,97 FPS selected. Drop for TC purpose only."
+        ElseIf rdb29ND.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 29,97 FPS selected. Non-Drop for TC purpose only."
+        End If
+    End Sub
+
+    Private Sub lblSRcommand_TextChanged(sender As Object, e As EventArgs) Handles lblSRcommand.TextChanged
+        If rdbSRDirect.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Sample Rate keep/copy selected."
+        ElseIf rdbSR44.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 44.100Hz selected."
+        ElseIf rdbSR48.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 48.000Hz selected."
+        ElseIf rdbSR96.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 96.000Hz selected."
+        End If
+    End Sub
+
 
     Private Sub btnConvert_Click(sender As Object, e As EventArgs) Handles btnConvert.Click
 
@@ -481,75 +555,25 @@ Public Class frmTMXF
 
     End Sub
 
-    Private Sub lblCodecCommand_TextChanged(sender As Object, e As EventArgs) Handles lblCodecCommand.TextChanged
-        If rdbH264.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Codec H.264 Selected."
-        ElseIf rdbProRes.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Codec ProRes Selected."
-        ElseIf rdbDNxHD.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Codec DNxHD Selected."
-        ElseIf rdbWAV.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Codec WAV Selected."
-        End If
-    End Sub
 
-    Private Sub lblRes_TextChanged(sender As Object, e As EventArgs) Handles lblRes.TextChanged
-        If rdb1080.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 1920x1080 Resolution, 16:9 aspect ratio, square pixel."
-        ElseIf rdb720.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 1280x720 Resolution, 16:9 aspect ratio, square pixel."
-        ElseIf rdb486.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 864x486 Resolution, 16:9 aspect ratio, square pixel."
-        ElseIf rdb540.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 720x540 Resolution, 4:3 aspect ratio, square pixel."
-        End If
-    End Sub
+    Private Sub btnTCanalize_Click(sender As Object, e As EventArgs) Handles btnTCanalize.Click
+        Dim FFprobeProcess As New Process
+        Dim FFprobe_arguments As String
+        Dim io As StreamReader
 
-    Private Sub lblAudioChCommand_TextChanged(sender As Object, e As EventArgs) Handles lblAudioChCommand.TextChanged
-        If rdbADirect.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Audio channels selected for Direct mapping."
-        ElseIf rdbA2Ch.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Audio channels selected for Stereo mapping."
-        ElseIf rdbA4Ch.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Audio channels selected for Quad mapping."
-        ElseIf rdbA8Ch.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Audio channels selected for 8 Channels mapping."
-        End If
-    End Sub
+        FFprobe_arguments = txtMXFpath.Text.ToString
 
-    Private Sub lblACodecCommand_TextChanged(sender As Object, e As EventArgs) Handles lblACodecCommand.TextChanged
-        If rdbPCM16.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " PCM 16bits Audio codec selected."
-        ElseIf rdbPCM24.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " PCM 24bits Audio codec selected."
-        ElseIf rdbAAC.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " AAC Low Complexity Audio codec selected."
-        ElseIf rdbACDirect.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Audio Codec selected for direct stream copy mode."
-        End If
-    End Sub
+        FFprobeProcess.StartInfo.FileName = Me.txtFFprobe.Text.ToString
+        FFprobeProcess.StartInfo.Arguments = FFprobe_arguments
+        FFprobeProcess.StartInfo.ErrorDialog = True
+        FFprobeProcess.StartInfo.RedirectStandardError = True
+        FFprobeProcess.StartInfo.UseShellExecute = False
+        FFprobeProcess.StartInfo.WorkingDirectory = Me.txtTemp.Text.ToString
+        FFprobeProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+        FFprobeProcess.Start()
+        io = FFprobeProcess.StandardError
+        FFprobeProcess.WaitForExit()
 
-    Private Sub lblFRcommand_TextChanged(sender As Object, e As EventArgs) Handles lblFRcommand.TextChanged
-        If rdbFRdirect.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Frame Rate keep/copy selected."
-        ElseIf rdb23.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 23,976 FPS selected."
-        ElseIf rdb29D.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 29,97 FPS selected. Drop for TC purpose only."
-        ElseIf rdb29ND.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 29,97 FPS selected. Non-Drop for TC purpose only."
-        End If
-    End Sub
-
-    Private Sub lblSRcommand_TextChanged(sender As Object, e As EventArgs) Handles lblSRcommand.TextChanged
-        If rdbSRDirect.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Sample Rate keep/copy selected."
-        ElseIf rdbSR44.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 44.100Hz selected."
-        ElseIf rdbSR48.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 48.000Hz selected."
-        ElseIf rdbSR96.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 96.000Hz selected."
-        End If
+        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & io.ReadToEnd.ToString
     End Sub
 End Class
