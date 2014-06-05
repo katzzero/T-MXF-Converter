@@ -35,7 +35,7 @@ Partial Class frmTMXF
         Me.tabsMain = New System.Windows.Forms.TabControl()
         Me.TabCodec = New System.Windows.Forms.TabPage()
         Me.txtFFoutput = New System.Windows.Forms.TextBox()
-        Me.grpAdvanced = New System.Windows.Forms.GroupBox()
+        Me.grpInfo = New System.Windows.Forms.GroupBox()
         Me.grpTCBurn = New System.Windows.Forms.GroupBox()
         Me.btnTCanalize = New System.Windows.Forms.Button()
         Me.chkTCBurn = New System.Windows.Forms.CheckBox()
@@ -109,8 +109,11 @@ Partial Class frmTMXF
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.btnAbout = New System.Windows.Forms.Button()
         Me.OpenFFprobeDialog = New System.Windows.Forms.OpenFileDialog()
+        Me.lblTC = New System.Windows.Forms.Label()
+        Me.txtTC = New System.Windows.Forms.TextBox()
         Me.tabsMain.SuspendLayout()
         Me.TabCodec.SuspendLayout()
+        Me.grpInfo.SuspendLayout()
         Me.grpTCBurn.SuspendLayout()
         Me.grpFrameRate.SuspendLayout()
         Me.grpSRate.SuspendLayout()
@@ -162,7 +165,7 @@ Partial Class frmTMXF
         '
         Me.lblVersion.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.lblVersion.AutoSize = True
-        Me.lblVersion.Location = New System.Drawing.Point(10, 640)
+        Me.lblVersion.Location = New System.Drawing.Point(12, 640)
         Me.lblVersion.Name = "lblVersion"
         Me.lblVersion.Size = New System.Drawing.Size(67, 13)
         Me.lblVersion.TabIndex = 3
@@ -208,7 +211,7 @@ Partial Class frmTMXF
         'TabCodec
         '
         Me.TabCodec.Controls.Add(Me.txtFFoutput)
-        Me.TabCodec.Controls.Add(Me.grpAdvanced)
+        Me.TabCodec.Controls.Add(Me.grpInfo)
         Me.TabCodec.Controls.Add(Me.grpTCBurn)
         Me.TabCodec.Controls.Add(Me.grpFrameRate)
         Me.TabCodec.Controls.Add(Me.grpSRate)
@@ -240,29 +243,31 @@ Partial Class frmTMXF
         Me.txtFFoutput.TabIndex = 6
         Me.txtFFoutput.TabStop = False
         '
-        'grpAdvanced
+        'grpInfo
         '
-        Me.grpAdvanced.Location = New System.Drawing.Point(3, 333)
-        Me.grpAdvanced.Name = "grpAdvanced"
-        Me.grpAdvanced.Size = New System.Drawing.Size(298, 80)
-        Me.grpAdvanced.TabIndex = 9
-        Me.grpAdvanced.TabStop = False
-        Me.grpAdvanced.Text = "Advanced"
+        Me.grpInfo.Controls.Add(Me.txtTC)
+        Me.grpInfo.Controls.Add(Me.lblTC)
+        Me.grpInfo.Location = New System.Drawing.Point(3, 318)
+        Me.grpInfo.Name = "grpInfo"
+        Me.grpInfo.Size = New System.Drawing.Size(329, 114)
+        Me.grpInfo.TabIndex = 9
+        Me.grpInfo.TabStop = False
+        Me.grpInfo.Text = "Information"
         '
         'grpTCBurn
         '
         Me.grpTCBurn.Controls.Add(Me.btnTCanalize)
         Me.grpTCBurn.Controls.Add(Me.chkTCBurn)
-        Me.grpTCBurn.Location = New System.Drawing.Point(3, 419)
+        Me.grpTCBurn.Location = New System.Drawing.Point(3, 438)
         Me.grpTCBurn.Name = "grpTCBurn"
-        Me.grpTCBurn.Size = New System.Drawing.Size(295, 80)
+        Me.grpTCBurn.Size = New System.Drawing.Size(329, 65)
         Me.grpTCBurn.TabIndex = 8
         Me.grpTCBurn.TabStop = False
         Me.grpTCBurn.Text = "Time Code Burn"
         '
         'btnTCanalize
         '
-        Me.btnTCanalize.Location = New System.Drawing.Point(214, 14)
+        Me.btnTCanalize.Location = New System.Drawing.Point(248, 13)
         Me.btnTCanalize.Name = "btnTCanalize"
         Me.btnTCanalize.Size = New System.Drawing.Size(75, 23)
         Me.btnTCanalize.TabIndex = 1
@@ -273,7 +278,7 @@ Partial Class frmTMXF
         '
         Me.chkTCBurn.AutoSize = True
         Me.chkTCBurn.Enabled = False
-        Me.chkTCBurn.Location = New System.Drawing.Point(7, 20)
+        Me.chkTCBurn.Location = New System.Drawing.Point(6, 19)
         Me.chkTCBurn.Name = "chkTCBurn"
         Me.chkTCBurn.Size = New System.Drawing.Size(65, 17)
         Me.chkTCBurn.TabIndex = 0
@@ -532,7 +537,7 @@ Partial Class frmTMXF
         Me.grpGlobal.Controls.Add(Me.chkReport)
         Me.grpGlobal.Location = New System.Drawing.Point(3, 247)
         Me.grpGlobal.Name = "grpGlobal"
-        Me.grpGlobal.Size = New System.Drawing.Size(295, 80)
+        Me.grpGlobal.Size = New System.Drawing.Size(329, 65)
         Me.grpGlobal.TabIndex = 0
         Me.grpGlobal.TabStop = False
         Me.grpGlobal.Text = "Global Options"
@@ -1058,7 +1063,7 @@ Partial Class frmTMXF
         '
         Me.btnAbout.AutoSize = True
         Me.btnAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnAbout.Location = New System.Drawing.Point(897, 12)
+        Me.btnAbout.Location = New System.Drawing.Point(897, 13)
         Me.btnAbout.Name = "btnAbout"
         Me.btnAbout.Size = New System.Drawing.Size(75, 25)
         Me.btnAbout.TabIndex = 14
@@ -1071,6 +1076,23 @@ Partial Class frmTMXF
         Me.OpenFFprobeDialog.FileName = "FFprobe.exe"
         Me.OpenFFprobeDialog.Filter = """FFprobe""| FFprobe.exe"
         Me.OpenFFprobeDialog.Title = "Find FFprobe Executable"
+        '
+        'lblTC
+        '
+        Me.lblTC.AutoSize = True
+        Me.lblTC.Location = New System.Drawing.Point(6, 21)
+        Me.lblTC.Name = "lblTC"
+        Me.lblTC.Size = New System.Drawing.Size(54, 13)
+        Me.lblTC.TabIndex = 0
+        Me.lblTC.Text = "Timecode"
+        '
+        'txtTC
+        '
+        Me.txtTC.Location = New System.Drawing.Point(6, 37)
+        Me.txtTC.Name = "txtTC"
+        Me.txtTC.Size = New System.Drawing.Size(65, 20)
+        Me.txtTC.TabIndex = 1
+        Me.txtTC.Text = "00:00:00:00"
         '
         'frmTMXF
         '
@@ -1103,6 +1125,8 @@ Partial Class frmTMXF
         Me.tabsMain.ResumeLayout(False)
         Me.TabCodec.ResumeLayout(False)
         Me.TabCodec.PerformLayout()
+        Me.grpInfo.ResumeLayout(False)
+        Me.grpInfo.PerformLayout()
         Me.grpTCBurn.ResumeLayout(False)
         Me.grpTCBurn.PerformLayout()
         Me.grpFrameRate.ResumeLayout(False)
@@ -1204,7 +1228,7 @@ Partial Class frmTMXF
     Friend WithEvents grpTCBurn As System.Windows.Forms.GroupBox
     Friend WithEvents chkTCBurn As System.Windows.Forms.CheckBox
     Friend WithEvents lblFRcommand As System.Windows.Forms.Label
-    Friend WithEvents grpAdvanced As System.Windows.Forms.GroupBox
+    Friend WithEvents grpInfo As System.Windows.Forms.GroupBox
     Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
     Friend WithEvents lblSRcommand As System.Windows.Forms.Label
     Friend WithEvents lblLastTempName As System.Windows.Forms.Label
@@ -1216,5 +1240,7 @@ Partial Class frmTMXF
     Friend WithEvents OpenFFprobeDialog As System.Windows.Forms.OpenFileDialog
     Friend WithEvents btnTCanalize As System.Windows.Forms.Button
     Friend WithEvents chkOverwrite As System.Windows.Forms.CheckBox
+    Friend WithEvents txtTC As System.Windows.Forms.TextBox
+    Friend WithEvents lblTC As System.Windows.Forms.Label
 
 End Class

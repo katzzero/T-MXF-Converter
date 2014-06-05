@@ -561,6 +561,8 @@ Public Class frmTMXF
         Dim FFprobe_arguments As String
         Dim io As StreamReader
 
+
+
         FFprobe_arguments = txtMXFpath.Text.ToString
 
         FFprobeProcess.StartInfo.FileName = Me.txtFFprobe.Text.ToString
@@ -572,8 +574,23 @@ Public Class frmTMXF
         FFprobeProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
         FFprobeProcess.Start()
         io = FFprobeProcess.StandardError
-        FFprobeProcess.WaitForExit()
 
-        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & io.ReadToEnd.ToString
+        FFprobeProcess.WaitForExit()
+        Dim io_temp As String = io.ReadToEnd
+        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & io_temp
+
+        Dim sTC As String = Strings.InStr(io_temp, "timecode") + 18
+        Dim eTC As String = (sTC + 11)
+        Dim MXFTC As String = Strings.Mid(io_temp, sTC, (eTC - sTC))
+        txtTC.Text = MXFTC.ToString
+        '        : 14:49:13:20
+
+
+
+    End Sub
+
+    Private Sub txtTC_TextChanged(sender As Object, e As EventArgs) Handles txtTC.TextChanged
+        txtTC.Text = txtTC.Text.Replace(" ", "")
+        'txtTC.Text = txtTC.Text.Remove(0, 1)
     End Sub
 End Class
