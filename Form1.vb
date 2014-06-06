@@ -105,9 +105,9 @@ Public Class frmTMXF
         'Check Last used Frame Rate and assign it
         If My.Settings.LastFR = "frdirect" Then
             rdbFRdirect.Checked = True
-        ElseIf My.Settings.LastFR = "29nd" Then
-            rdb29ND.Checked = True
-        ElseIf My.Settings.LastFR = "29d" Then
+        ElseIf My.Settings.LastFR = "24" Then
+            rdb24.Checked = True
+        ElseIf My.Settings.LastFR = "29" Then
             rdb29D.Checked = True
         ElseIf My.Settings.LastFR = "23" Then
             rdb23.Checked = True
@@ -345,7 +345,7 @@ Public Class frmTMXF
 
     End Sub
 
-    Private Sub rdbFrameRate_CheckedChanged(sender As Object, e As EventArgs) Handles rdb29D.CheckedChanged, rdb29ND.CheckedChanged, rdb23.CheckedChanged, rdbFRdirect.CheckedChanged
+    Private Sub rdbFrameRate_CheckedChanged(sender As Object, e As EventArgs) Handles rdb29D.CheckedChanged, rdb24.CheckedChanged, rdb23.CheckedChanged, rdbFRdirect.CheckedChanged
 
         If rdbFRdirect.Checked = True Then
             lblFRcommand.Text = "FR Command copy"
@@ -354,11 +354,11 @@ Public Class frmTMXF
             lblFRcommand.Text = "FR Command 23"
             My.Settings.LastFR = "23"
         ElseIf rdb29D.Checked = True Then
-            lblFRcommand.Text = "FR Command 29D"
-            My.Settings.LastFR = "29d"
-        ElseIf rdb29ND.Checked = True Then
-            lblFRcommand.Text = "FR Command 29ND"
-            My.Settings.LastFR = "29nd"
+            lblFRcommand.Text = "FR Command 29"
+            My.Settings.LastFR = "29"
+        ElseIf rdb24.Checked = True Then
+            lblFRcommand.Text = "FR Command 24"
+            My.Settings.LastFR = "24"
         End If
 
     End Sub
@@ -407,7 +407,7 @@ Public Class frmTMXF
         ElseIf rdbAAC.Checked = True Then
             txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " AAC Low Complexity Audio codec selected."
         ElseIf rdbACDirect.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Audio Codec selected for direct stream copy mode."
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Audio Codec selected for direct stream copy."
         End If
     End Sub
 
@@ -417,9 +417,9 @@ Public Class frmTMXF
         ElseIf rdb23.Checked = True Then
             txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 23,976 FPS selected."
         ElseIf rdb29D.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 29,97 FPS selected. Drop for TC purpose only."
-        ElseIf rdb29ND.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 29,97 FPS selected. Non-Drop for TC purpose only."
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 29,97 FPS selected."
+        ElseIf rdb24.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 24 FPS selected."
         End If
     End Sub
 
@@ -560,37 +560,92 @@ Public Class frmTMXF
         Dim FFprobeProcess As New Process
         Dim FFprobe_arguments As String
         Dim io As StreamReader
-
-
-
+        Dim io_temp As String
+        io_temp = Nothing
         FFprobe_arguments = txtMXFpath.Text.ToString
 
-        FFprobeProcess.StartInfo.FileName = Me.txtFFprobe.Text.ToString
-        FFprobeProcess.StartInfo.Arguments = FFprobe_arguments
-        FFprobeProcess.StartInfo.ErrorDialog = True
-        FFprobeProcess.StartInfo.RedirectStandardError = True
-        FFprobeProcess.StartInfo.UseShellExecute = False
-        FFprobeProcess.StartInfo.WorkingDirectory = Me.txtTemp.Text.ToString
-        FFprobeProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-        FFprobeProcess.Start()
-        io = FFprobeProcess.StandardError
+        Try
+            FFprobeProcess.StartInfo.FileName = Me.txtFFprobe.Text.ToString
+            FFprobeProcess.StartInfo.Arguments = FFprobe_arguments
+            FFprobeProcess.StartInfo.ErrorDialog = True
+            FFprobeProcess.StartInfo.RedirectStandardError = True
+            FFprobeProcess.StartInfo.UseShellExecute = False
+            FFprobeProcess.StartInfo.WorkingDirectory = Me.txtTemp.Text.ToString
+            FFprobeProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+            FFprobeProcess.Start()
+            io = FFprobeProcess.StandardError
 
-        FFprobeProcess.WaitForExit()
-        Dim io_temp As String = io.ReadToEnd
-        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & io_temp
+            FFprobeProcess.WaitForExit()
+            io_temp = io.ReadToEnd
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & io_temp
+        Catch ex As Exception
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Retrieving Information Data!! ##"
+        End Try
 
-        Dim sTC As String = Strings.InStr(io_temp, "timecode") + 18
-        Dim eTC As String = (sTC + 11)
-        Dim MXFTC As String = Strings.Mid(io_temp, sTC, (eTC - sTC))
-        txtTC.Text = MXFTC.ToString
-        '        : 14:49:13:20
 
+        Try
+            Dim sTC As String = Strings.InStr(io_temp, "timecode") + 18
+            If sTC = 18 Then
+                txtTC.Text = "## Error ##"
+                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Time Code data!! ##"
+            Else
+                Dim eTC As String = (sTC + 11)
+                Dim MXFTC As String = Strings.Mid(io_temp, sTC, (eTC - sTC))
+                txtTC.Text = MXFTC.ToString
+            End If
+        Catch ex As Exception
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Time Code data!! ##"
+            txtTC.Text = "## Error ##"
+        End Try
+        
+        Try
+            Dim sFR As String = Strings.InStr(io_temp, "fps") - 6
+            Dim eFR As String = (sFR + 9)
+            Dim MXFFR As String = Strings.Mid(io_temp, sFR, (eFR - sFR))
+            txtFR.Text = MXFFR.ToString
+        Catch ex As Exception
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Frame Rate data!! ##"
+            txtFR.Text = "## Error ##"
+        End Try
+
+        Try
+            Dim sVC As String = Strings.InStr(io_temp, "Video:") + 7
+            Dim mVC As String = Strings.Mid(io_temp, sVC, sVC + 30)
+            Dim eVC As String = Strings.InStr(mVC, ",") - 1
+            Dim MXFVC As String = Strings.Mid(mVC, 1, eVC)
+            txtVC.Text = MXFVC.ToString
+
+        Catch ex As Exception
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Video Codec data!! ##"
+            txtVC.Text = "## Error ##"
+        End Try
+
+        Try
+            Dim sAC As String = Strings.InStr(io_temp, "Audio:") + 7
+            Dim mAC As String = Strings.Mid(io_temp, sAC, sAC + 30)
+            'MessageBox.Show(mAC)
+            Dim eAC As String = Strings.InStr(mAC, ",") - 1
+            'MessageBox.Show(eAC)
+            Dim MXFAC As String = Strings.Mid(mAC, 1, eAC)
+            Dim mSR As String = Strings.Mid(mAC, (eAC + 1), 15)
+            Dim eSR As String = Strings.InStr(mSR, "Hz") - 1
+            Dim MXFSR As String = Strings.Mid(mSR, 3, eSR)
+            MessageBox.Show(MXFSR & vbCrLf & mSR)
+            txtAC.Text = MXFAC.ToString
+            txtSR.Text = MXFSR.ToString
+        Catch ex As Exception
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Audio Codec and Sample Rate data!! ##"
+            txtAC.Text = "## Error ##"
+            txtSR.Text = "## Error ##"
+        End Try
+
+       
 
 
     End Sub
 
     Private Sub txtTC_TextChanged(sender As Object, e As EventArgs) Handles txtTC.TextChanged
-        txtTC.Text = txtTC.Text.Replace(" ", "")
+        'txtTC.Text = txtTC.Text.Replace(" ", "")
         'txtTC.Text = txtTC.Text.Remove(0, 1)
     End Sub
 End Class

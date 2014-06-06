@@ -36,13 +36,15 @@ Partial Class frmTMXF
         Me.TabCodec = New System.Windows.Forms.TabPage()
         Me.txtFFoutput = New System.Windows.Forms.TextBox()
         Me.grpInfo = New System.Windows.Forms.GroupBox()
+        Me.txtTC = New System.Windows.Forms.TextBox()
+        Me.lblTC = New System.Windows.Forms.Label()
         Me.grpTCBurn = New System.Windows.Forms.GroupBox()
         Me.btnTCanalize = New System.Windows.Forms.Button()
         Me.chkTCBurn = New System.Windows.Forms.CheckBox()
         Me.grpFrameRate = New System.Windows.Forms.GroupBox()
         Me.rdbFRdirect = New System.Windows.Forms.RadioButton()
         Me.rdb23 = New System.Windows.Forms.RadioButton()
-        Me.rdb29ND = New System.Windows.Forms.RadioButton()
+        Me.rdb24 = New System.Windows.Forms.RadioButton()
         Me.rdb29D = New System.Windows.Forms.RadioButton()
         Me.grpSRate = New System.Windows.Forms.GroupBox()
         Me.rdbSR96 = New System.Windows.Forms.RadioButton()
@@ -109,8 +111,16 @@ Partial Class frmTMXF
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.btnAbout = New System.Windows.Forms.Button()
         Me.OpenFFprobeDialog = New System.Windows.Forms.OpenFileDialog()
-        Me.lblTC = New System.Windows.Forms.Label()
-        Me.txtTC = New System.Windows.Forms.TextBox()
+        Me.lblFR = New System.Windows.Forms.Label()
+        Me.txtFR = New System.Windows.Forms.TextBox()
+        Me.lblVcodecInfo = New System.Windows.Forms.Label()
+        Me.txtVC = New System.Windows.Forms.TextBox()
+        Me.lblAcodecInfo = New System.Windows.Forms.Label()
+        Me.txtAC = New System.Windows.Forms.TextBox()
+        Me.lblSP = New System.Windows.Forms.Label()
+        Me.txtSR = New System.Windows.Forms.TextBox()
+        Me.lblDuration = New System.Windows.Forms.Label()
+        Me.txtDur = New System.Windows.Forms.TextBox()
         Me.tabsMain.SuspendLayout()
         Me.TabCodec.SuspendLayout()
         Me.grpInfo.SuspendLayout()
@@ -245,6 +255,16 @@ Partial Class frmTMXF
         '
         'grpInfo
         '
+        Me.grpInfo.Controls.Add(Me.txtDur)
+        Me.grpInfo.Controls.Add(Me.lblDuration)
+        Me.grpInfo.Controls.Add(Me.txtSR)
+        Me.grpInfo.Controls.Add(Me.lblSP)
+        Me.grpInfo.Controls.Add(Me.txtAC)
+        Me.grpInfo.Controls.Add(Me.lblAcodecInfo)
+        Me.grpInfo.Controls.Add(Me.txtVC)
+        Me.grpInfo.Controls.Add(Me.lblVcodecInfo)
+        Me.grpInfo.Controls.Add(Me.txtFR)
+        Me.grpInfo.Controls.Add(Me.lblFR)
         Me.grpInfo.Controls.Add(Me.txtTC)
         Me.grpInfo.Controls.Add(Me.lblTC)
         Me.grpInfo.Location = New System.Drawing.Point(3, 318)
@@ -253,6 +273,25 @@ Partial Class frmTMXF
         Me.grpInfo.TabIndex = 9
         Me.grpInfo.TabStop = False
         Me.grpInfo.Text = "Information"
+        '
+        'txtTC
+        '
+        Me.txtTC.Location = New System.Drawing.Point(6, 32)
+        Me.txtTC.Name = "txtTC"
+        Me.txtTC.ReadOnly = True
+        Me.txtTC.Size = New System.Drawing.Size(65, 20)
+        Me.txtTC.TabIndex = 1
+        Me.txtTC.Text = "00:00:00:00"
+        Me.txtTC.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblTC
+        '
+        Me.lblTC.AutoSize = True
+        Me.lblTC.Location = New System.Drawing.Point(3, 16)
+        Me.lblTC.Name = "lblTC"
+        Me.lblTC.Size = New System.Drawing.Size(54, 13)
+        Me.lblTC.TabIndex = 0
+        Me.lblTC.Text = "Timecode"
         '
         'grpTCBurn
         '
@@ -289,7 +328,7 @@ Partial Class frmTMXF
         '
         Me.grpFrameRate.Controls.Add(Me.rdbFRdirect)
         Me.grpFrameRate.Controls.Add(Me.rdb23)
-        Me.grpFrameRate.Controls.Add(Me.rdb29ND)
+        Me.grpFrameRate.Controls.Add(Me.rdb24)
         Me.grpFrameRate.Controls.Add(Me.rdb29D)
         Me.grpFrameRate.Location = New System.Drawing.Point(253, 8)
         Me.grpFrameRate.Name = "grpFrameRate"
@@ -321,17 +360,17 @@ Partial Class frmTMXF
         Me.rdb23.Text = "23,976"
         Me.rdb23.UseVisualStyleBackColor = True
         '
-        'rdb29ND
+        'rdb24
         '
-        Me.rdb29ND.AutoSize = True
-        Me.rdb29ND.Enabled = False
-        Me.rdb29ND.Location = New System.Drawing.Point(6, 67)
-        Me.rdb29ND.Name = "rdb29ND"
-        Me.rdb29ND.Size = New System.Drawing.Size(71, 17)
-        Me.rdb29ND.TabIndex = 0
-        Me.rdb29ND.TabStop = True
-        Me.rdb29ND.Text = "29,97 ND"
-        Me.rdb29ND.UseVisualStyleBackColor = True
+        Me.rdb24.AutoSize = True
+        Me.rdb24.Enabled = False
+        Me.rdb24.Location = New System.Drawing.Point(6, 67)
+        Me.rdb24.Name = "rdb24"
+        Me.rdb24.Size = New System.Drawing.Size(37, 17)
+        Me.rdb24.TabIndex = 0
+        Me.rdb24.TabStop = True
+        Me.rdb24.Text = "24"
+        Me.rdb24.UseVisualStyleBackColor = True
         '
         'rdb29D
         '
@@ -1077,22 +1116,94 @@ Partial Class frmTMXF
         Me.OpenFFprobeDialog.Filter = """FFprobe""| FFprobe.exe"
         Me.OpenFFprobeDialog.Title = "Find FFprobe Executable"
         '
-        'lblTC
+        'lblFR
         '
-        Me.lblTC.AutoSize = True
-        Me.lblTC.Location = New System.Drawing.Point(6, 21)
-        Me.lblTC.Name = "lblTC"
-        Me.lblTC.Size = New System.Drawing.Size(54, 13)
-        Me.lblTC.TabIndex = 0
-        Me.lblTC.Text = "Timecode"
+        Me.lblFR.AutoSize = True
+        Me.lblFR.Location = New System.Drawing.Point(196, 16)
+        Me.lblFR.Name = "lblFR"
+        Me.lblFR.Size = New System.Drawing.Size(62, 13)
+        Me.lblFR.TabIndex = 2
+        Me.lblFR.Text = "Frame Rate"
         '
-        'txtTC
+        'txtFR
         '
-        Me.txtTC.Location = New System.Drawing.Point(6, 37)
-        Me.txtTC.Name = "txtTC"
-        Me.txtTC.Size = New System.Drawing.Size(65, 20)
-        Me.txtTC.TabIndex = 1
-        Me.txtTC.Text = "00:00:00:00"
+        Me.txtFR.Location = New System.Drawing.Point(199, 32)
+        Me.txtFR.Name = "txtFR"
+        Me.txtFR.ReadOnly = True
+        Me.txtFR.Size = New System.Drawing.Size(65, 20)
+        Me.txtFR.TabIndex = 3
+        Me.txtFR.Text = "00,00 fps"
+        Me.txtFR.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblVcodecInfo
+        '
+        Me.lblVcodecInfo.AutoSize = True
+        Me.lblVcodecInfo.Location = New System.Drawing.Point(79, 16)
+        Me.lblVcodecInfo.Name = "lblVcodecInfo"
+        Me.lblVcodecInfo.Size = New System.Drawing.Size(68, 13)
+        Me.lblVcodecInfo.TabIndex = 4
+        Me.lblVcodecInfo.Text = "Video Codec"
+        '
+        'txtVC
+        '
+        Me.txtVC.Location = New System.Drawing.Point(82, 32)
+        Me.txtVC.Name = "txtVC"
+        Me.txtVC.ReadOnly = True
+        Me.txtVC.Size = New System.Drawing.Size(100, 20)
+        Me.txtVC.TabIndex = 5
+        Me.txtVC.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblAcodecInfo
+        '
+        Me.lblAcodecInfo.AutoSize = True
+        Me.lblAcodecInfo.Location = New System.Drawing.Point(79, 61)
+        Me.lblAcodecInfo.Name = "lblAcodecInfo"
+        Me.lblAcodecInfo.Size = New System.Drawing.Size(68, 13)
+        Me.lblAcodecInfo.TabIndex = 6
+        Me.lblAcodecInfo.Text = "Audio Codec"
+        '
+        'txtAC
+        '
+        Me.txtAC.Location = New System.Drawing.Point(82, 76)
+        Me.txtAC.Name = "txtAC"
+        Me.txtAC.ReadOnly = True
+        Me.txtAC.Size = New System.Drawing.Size(100, 20)
+        Me.txtAC.TabIndex = 7
+        Me.txtAC.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblSP
+        '
+        Me.lblSP.AutoSize = True
+        Me.lblSP.Location = New System.Drawing.Point(196, 61)
+        Me.lblSP.Name = "lblSP"
+        Me.lblSP.Size = New System.Drawing.Size(68, 13)
+        Me.lblSP.TabIndex = 8
+        Me.lblSP.Text = "Sample Rate"
+        '
+        'txtSR
+        '
+        Me.txtSR.Location = New System.Drawing.Point(199, 77)
+        Me.txtSR.Name = "txtSR"
+        Me.txtSR.ReadOnly = True
+        Me.txtSR.Size = New System.Drawing.Size(65, 20)
+        Me.txtSR.TabIndex = 9
+        '
+        'lblDuration
+        '
+        Me.lblDuration.AutoSize = True
+        Me.lblDuration.Location = New System.Drawing.Point(3, 61)
+        Me.lblDuration.Name = "lblDuration"
+        Me.lblDuration.Size = New System.Drawing.Size(47, 13)
+        Me.lblDuration.TabIndex = 10
+        Me.lblDuration.Text = "Duration"
+        '
+        'txtDur
+        '
+        Me.txtDur.Location = New System.Drawing.Point(6, 77)
+        Me.txtDur.Name = "txtDur"
+        Me.txtDur.ReadOnly = True
+        Me.txtDur.Size = New System.Drawing.Size(64, 20)
+        Me.txtDur.TabIndex = 11
         '
         'frmTMXF
         '
@@ -1223,7 +1334,7 @@ Partial Class frmTMXF
     Friend WithEvents grpFrameRate As System.Windows.Forms.GroupBox
     Friend WithEvents rdbFRdirect As System.Windows.Forms.RadioButton
     Friend WithEvents rdb23 As System.Windows.Forms.RadioButton
-    Friend WithEvents rdb29ND As System.Windows.Forms.RadioButton
+    Friend WithEvents rdb24 As System.Windows.Forms.RadioButton
     Friend WithEvents rdb29D As System.Windows.Forms.RadioButton
     Friend WithEvents grpTCBurn As System.Windows.Forms.GroupBox
     Friend WithEvents chkTCBurn As System.Windows.Forms.CheckBox
@@ -1242,5 +1353,15 @@ Partial Class frmTMXF
     Friend WithEvents chkOverwrite As System.Windows.Forms.CheckBox
     Friend WithEvents txtTC As System.Windows.Forms.TextBox
     Friend WithEvents lblTC As System.Windows.Forms.Label
+    Friend WithEvents txtFR As System.Windows.Forms.TextBox
+    Friend WithEvents lblFR As System.Windows.Forms.Label
+    Friend WithEvents txtVC As System.Windows.Forms.TextBox
+    Friend WithEvents lblVcodecInfo As System.Windows.Forms.Label
+    Friend WithEvents txtAC As System.Windows.Forms.TextBox
+    Friend WithEvents lblAcodecInfo As System.Windows.Forms.Label
+    Friend WithEvents txtDur As System.Windows.Forms.TextBox
+    Friend WithEvents lblDuration As System.Windows.Forms.Label
+    Friend WithEvents txtSR As System.Windows.Forms.TextBox
+    Friend WithEvents lblSP As System.Windows.Forms.Label
 
 End Class
