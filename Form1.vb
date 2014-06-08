@@ -514,7 +514,9 @@ Public Class frmTMXF
 
         If System.IO.File.Exists(lblLastTempName.Text) Then
             LogReader = New StreamReader(lblLastTempName.Text, True)
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " " & LogReader.ReadToEnd
+            If chkVerbose.Checked = True Then
+                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " " & LogReader.ReadToEnd
+            End If
         End If
 
         Try
@@ -527,7 +529,7 @@ Public Class frmTMXF
         Catch ex As Exception
             txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Problem finding the output file. Please check if it's ok."
         End Try
-        
+
     End Sub
 
     Private Sub _lastlog_OnChanged(source As Object, e As FileSystemEventArgs)
@@ -588,20 +590,24 @@ Public Class frmTMXF
             FFprobeProcess.StartInfo.UseShellExecute = False
             FFprobeProcess.StartInfo.WorkingDirectory = Me.txtTemp.Text.ToString
             FFprobeProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+            FFprobeProcess.StartInfo.CreateNoWindow = True
             FFprobeProcess.Start()
             io = FFprobeProcess.StandardError
 
             FFprobeProcess.WaitForExit()
             io_temp = io.ReadToEnd
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & io_temp
-        
+            If chkVerbose.Checked = True Then
+                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & io_temp
+            End If
+
 
 
         Try
             Dim sTC As String = Strings.InStr(io_temp, "timecode") + 18
             If sTC = 18 Then
                 txtTC.Text = "## Error ##"
-                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Time Code data!! ##"
+                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Time Code data!! ##"
+                    chkTCBurn.Enabled = False
             Else
                 Dim eTC As String = (sTC + 11)
                 Dim MXFTC As String = Strings.Mid(io_temp, sTC, (eTC - sTC))
@@ -609,7 +615,8 @@ Public Class frmTMXF
             End If
         Catch ex As Exception
             txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Time Code data!! ##"
-            txtTC.Text = "## Error ##"
+                txtTC.Text = "## Error ##"
+                chkTCBurn.Enabled = False
             End Try
         
         Try
@@ -682,6 +689,7 @@ Public Class frmTMXF
 
         Catch ex As Exception
             txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Retrieving Information Data!! ##"
+            chkTCBurn.Enabled = False
         End Try
 
 
@@ -701,7 +709,47 @@ Public Class frmTMXF
         Else
             lblTCdrop.Text = ":"
         End If
-        'txtTC.Text = txtTC.Text.Replace(" ", "")
-        'txtTC.Text = txtTC.Text.Remove(0, 1)
+
+        If System.IO.File.Exists(txtFFprobe.Text.ToString) Then
+            If txtTC.Text.Length > 0 Then
+                chkTCBurn.Enabled = True
+            Else
+                chkTCBurn.Enabled = False
+            End If
+        Else
+            chkTCBurn.Enabled = False
+        End If
+            'txtTC.Text = txtTC.Text.Replace(" ", "")
+            'txtTC.Text = txtTC.Text.Remove(0, 1)
+    End Sub
+
+    Private Sub chkVerbose_CheckedChanged(sender As Object, e As EventArgs) Handles chkVerbose.CheckedChanged
+        If chkVerbose.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Verbose Mode selected."
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " All Messages will now be displayed."
+        Else
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Verbose Mode off."
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Only essencial Messages will be displayed."
+        End If
+    End Sub
+
+    Private Sub chkTCBurn_chkChanged(sender As Object, e As EventArgs) Handles chkTCBurn.CheckedChanged
+        If chkTCBurn.Checked = True Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Timecode Burn On."
+        Else
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Timecode Burn Off."
+        End If
+    End Sub
+
+    Private Sub chkTCBurn_enbChanged(sender As Object, e As EventArgs) Handles chkTCBurn.EnabledChanged
+        If chkTCBurn.Enabled = False Then
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Timecode Burn Disabled."
+        Else
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Timecode Burn Enabled."
+        End If
+    End Sub
+
+    Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
+        txtFFoutput.Text = DateAndTime.Now.ToString("HH:mm:ss") & " Clear."
     End Sub
 End Class

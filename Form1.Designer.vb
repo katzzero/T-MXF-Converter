@@ -36,6 +36,8 @@ Partial Class frmTMXF
         Me.TabCodec = New System.Windows.Forms.TabPage()
         Me.txtFFoutput = New System.Windows.Forms.TextBox()
         Me.grpInfo = New System.Windows.Forms.GroupBox()
+        Me.txtDrop = New System.Windows.Forms.TextBox()
+        Me.lblDrop = New System.Windows.Forms.Label()
         Me.txtDur = New System.Windows.Forms.TextBox()
         Me.lblDuration = New System.Windows.Forms.Label()
         Me.txtSR = New System.Windows.Forms.TextBox()
@@ -72,6 +74,7 @@ Partial Class frmTMXF
         Me.rdbA2Ch = New System.Windows.Forms.RadioButton()
         Me.rdbADirect = New System.Windows.Forms.RadioButton()
         Me.grpGlobal = New System.Windows.Forms.GroupBox()
+        Me.chkVerbose = New System.Windows.Forms.CheckBox()
         Me.chkOverwrite = New System.Windows.Forms.CheckBox()
         Me.chkReport = New System.Windows.Forms.CheckBox()
         Me.grpResolution = New System.Windows.Forms.GroupBox()
@@ -85,6 +88,12 @@ Partial Class frmTMXF
         Me.rdbProRes = New System.Windows.Forms.RadioButton()
         Me.rdbH264 = New System.Windows.Forms.RadioButton()
         Me.TabConfig = New System.Windows.Forms.TabPage()
+        Me.lblTCdrop = New System.Windows.Forms.Label()
+        Me.LblTCframe = New System.Windows.Forms.Label()
+        Me.lblTCsecond = New System.Windows.Forms.Label()
+        Me.lblTCminute = New System.Windows.Forms.Label()
+        Me.lblTChour = New System.Windows.Forms.Label()
+        Me.lblTCburn = New System.Windows.Forms.Label()
         Me.grpFFprobe = New System.Windows.Forms.GroupBox()
         Me.txtFFprobe = New System.Windows.Forms.Label()
         Me.btnFFprobe = New System.Windows.Forms.Button()
@@ -121,14 +130,7 @@ Partial Class frmTMXF
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.btnAbout = New System.Windows.Forms.Button()
         Me.OpenFFprobeDialog = New System.Windows.Forms.OpenFileDialog()
-        Me.lblDrop = New System.Windows.Forms.Label()
-        Me.txtDrop = New System.Windows.Forms.TextBox()
-        Me.lblTCburn = New System.Windows.Forms.Label()
-        Me.lblTChour = New System.Windows.Forms.Label()
-        Me.lblTCminute = New System.Windows.Forms.Label()
-        Me.lblTCsecond = New System.Windows.Forms.Label()
-        Me.LblTCframe = New System.Windows.Forms.Label()
-        Me.lblTCdrop = New System.Windows.Forms.Label()
+        Me.btnClear = New System.Windows.Forms.Button()
         Me.tabsMain.SuspendLayout()
         Me.TabCodec.SuspendLayout()
         Me.grpInfo.SuspendLayout()
@@ -284,6 +286,24 @@ Partial Class frmTMXF
         Me.grpInfo.TabStop = False
         Me.grpInfo.Text = "Information"
         '
+        'txtDrop
+        '
+        Me.txtDrop.Location = New System.Drawing.Point(252, 31)
+        Me.txtDrop.Name = "txtDrop"
+        Me.txtDrop.ReadOnly = True
+        Me.txtDrop.Size = New System.Drawing.Size(67, 20)
+        Me.txtDrop.TabIndex = 13
+        Me.txtDrop.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblDrop
+        '
+        Me.lblDrop.AutoSize = True
+        Me.lblDrop.Location = New System.Drawing.Point(253, 16)
+        Me.lblDrop.Name = "lblDrop"
+        Me.lblDrop.Size = New System.Drawing.Size(71, 13)
+        Me.lblDrop.TabIndex = 12
+        Me.lblDrop.Text = "Drop Frame ?"
+        '
         'txtDur
         '
         Me.txtDur.Location = New System.Drawing.Point(3, 77)
@@ -415,6 +435,7 @@ Partial Class frmTMXF
         'chkTCBurn
         '
         Me.chkTCBurn.AutoSize = True
+        Me.chkTCBurn.Enabled = False
         Me.chkTCBurn.Location = New System.Drawing.Point(6, 19)
         Me.chkTCBurn.Name = "chkTCBurn"
         Me.chkTCBurn.Size = New System.Drawing.Size(65, 17)
@@ -670,6 +691,8 @@ Partial Class frmTMXF
         '
         'grpGlobal
         '
+        Me.grpGlobal.Controls.Add(Me.btnClear)
+        Me.grpGlobal.Controls.Add(Me.chkVerbose)
         Me.grpGlobal.Controls.Add(Me.chkOverwrite)
         Me.grpGlobal.Controls.Add(Me.chkReport)
         Me.grpGlobal.Location = New System.Drawing.Point(3, 247)
@@ -678,6 +701,16 @@ Partial Class frmTMXF
         Me.grpGlobal.TabIndex = 0
         Me.grpGlobal.TabStop = False
         Me.grpGlobal.Text = "Global Options"
+        '
+        'chkVerbose
+        '
+        Me.chkVerbose.AutoSize = True
+        Me.chkVerbose.Location = New System.Drawing.Point(119, 20)
+        Me.chkVerbose.Name = "chkVerbose"
+        Me.chkVerbose.Size = New System.Drawing.Size(65, 17)
+        Me.chkVerbose.TabIndex = 2
+        Me.chkVerbose.Text = "Verbose"
+        Me.chkVerbose.UseVisualStyleBackColor = True
         '
         'chkOverwrite
         '
@@ -846,6 +879,66 @@ Partial Class frmTMXF
         Me.TabConfig.TabIndex = 1
         Me.TabConfig.Text = "Software Config"
         Me.TabConfig.UseVisualStyleBackColor = True
+        '
+        'lblTCdrop
+        '
+        Me.lblTCdrop.AutoSize = True
+        Me.lblTCdrop.Location = New System.Drawing.Point(204, 290)
+        Me.lblTCdrop.Name = "lblTCdrop"
+        Me.lblTCdrop.Size = New System.Drawing.Size(36, 13)
+        Me.lblTCdrop.TabIndex = 27
+        Me.lblTCdrop.Text = "Drop?"
+        Me.lblTCdrop.Visible = False
+        '
+        'LblTCframe
+        '
+        Me.LblTCframe.AutoSize = True
+        Me.LblTCframe.Location = New System.Drawing.Point(249, 290)
+        Me.LblTCframe.Name = "LblTCframe"
+        Me.LblTCframe.Size = New System.Drawing.Size(50, 13)
+        Me.LblTCframe.TabIndex = 26
+        Me.LblTCframe.Text = "TC frame"
+        Me.LblTCframe.Visible = False
+        '
+        'lblTCsecond
+        '
+        Me.lblTCsecond.AutoSize = True
+        Me.lblTCsecond.Location = New System.Drawing.Point(137, 289)
+        Me.lblTCsecond.Name = "lblTCsecond"
+        Me.lblTCsecond.Size = New System.Drawing.Size(61, 13)
+        Me.lblTCsecond.TabIndex = 25
+        Me.lblTCsecond.Text = "TC Second"
+        Me.lblTCsecond.Visible = False
+        '
+        'lblTCminute
+        '
+        Me.lblTCminute.AutoSize = True
+        Me.lblTCminute.Location = New System.Drawing.Point(74, 290)
+        Me.lblTCminute.Name = "lblTCminute"
+        Me.lblTCminute.Size = New System.Drawing.Size(56, 13)
+        Me.lblTCminute.TabIndex = 24
+        Me.lblTCminute.Text = "TC Minute"
+        Me.lblTCminute.Visible = False
+        '
+        'lblTChour
+        '
+        Me.lblTChour.AutoSize = True
+        Me.lblTChour.Location = New System.Drawing.Point(20, 290)
+        Me.lblTChour.Name = "lblTChour"
+        Me.lblTChour.Size = New System.Drawing.Size(47, 13)
+        Me.lblTChour.TabIndex = 23
+        Me.lblTChour.Text = "TC Hour"
+        Me.lblTChour.Visible = False
+        '
+        'lblTCburn
+        '
+        Me.lblTCburn.AutoSize = True
+        Me.lblTCburn.Location = New System.Drawing.Point(20, 273)
+        Me.lblTCburn.Name = "lblTCburn"
+        Me.lblTCburn.Size = New System.Drawing.Size(95, 13)
+        Me.lblTCburn.TabIndex = 22
+        Me.lblTCburn.Text = "TC burn Command"
+        Me.lblTCburn.Visible = False
         '
         'grpFFprobe
         '
@@ -1220,77 +1313,14 @@ Partial Class frmTMXF
         Me.OpenFFprobeDialog.Filter = """FFprobe""| FFprobe.exe"
         Me.OpenFFprobeDialog.Title = "Find FFprobe Executable"
         '
-        'lblDrop
+        'btnClear
         '
-        Me.lblDrop.AutoSize = True
-        Me.lblDrop.Location = New System.Drawing.Point(253, 16)
-        Me.lblDrop.Name = "lblDrop"
-        Me.lblDrop.Size = New System.Drawing.Size(71, 13)
-        Me.lblDrop.TabIndex = 12
-        Me.lblDrop.Text = "Drop Frame ?"
-        '
-        'txtDrop
-        '
-        Me.txtDrop.Location = New System.Drawing.Point(252, 31)
-        Me.txtDrop.Name = "txtDrop"
-        Me.txtDrop.ReadOnly = True
-        Me.txtDrop.Size = New System.Drawing.Size(67, 20)
-        Me.txtDrop.TabIndex = 13
-        Me.txtDrop.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'lblTCburn
-        '
-        Me.lblTCburn.AutoSize = True
-        Me.lblTCburn.Location = New System.Drawing.Point(20, 273)
-        Me.lblTCburn.Name = "lblTCburn"
-        Me.lblTCburn.Size = New System.Drawing.Size(95, 13)
-        Me.lblTCburn.TabIndex = 22
-        Me.lblTCburn.Text = "TC burn Command"
-        '
-        'lblTChour
-        '
-        Me.lblTChour.AutoSize = True
-        Me.lblTChour.Location = New System.Drawing.Point(20, 290)
-        Me.lblTChour.Name = "lblTChour"
-        Me.lblTChour.Size = New System.Drawing.Size(47, 13)
-        Me.lblTChour.TabIndex = 23
-        Me.lblTChour.Text = "TC Hour"
-        '
-        'lblTCminute
-        '
-        Me.lblTCminute.AutoSize = True
-        Me.lblTCminute.Location = New System.Drawing.Point(74, 290)
-        Me.lblTCminute.Name = "lblTCminute"
-        Me.lblTCminute.Size = New System.Drawing.Size(56, 13)
-        Me.lblTCminute.TabIndex = 24
-        Me.lblTCminute.Text = "TC Minute"
-        '
-        'lblTCsecond
-        '
-        Me.lblTCsecond.AutoSize = True
-        Me.lblTCsecond.Location = New System.Drawing.Point(137, 289)
-        Me.lblTCsecond.Name = "lblTCsecond"
-        Me.lblTCsecond.Size = New System.Drawing.Size(61, 13)
-        Me.lblTCsecond.TabIndex = 25
-        Me.lblTCsecond.Text = "TC Second"
-        '
-        'LblTCframe
-        '
-        Me.LblTCframe.AutoSize = True
-        Me.LblTCframe.Location = New System.Drawing.Point(249, 290)
-        Me.LblTCframe.Name = "LblTCframe"
-        Me.LblTCframe.Size = New System.Drawing.Size(50, 13)
-        Me.LblTCframe.TabIndex = 26
-        Me.LblTCframe.Text = "TC frame"
-        '
-        'lblTCdrop
-        '
-        Me.lblTCdrop.AutoSize = True
-        Me.lblTCdrop.Location = New System.Drawing.Point(204, 290)
-        Me.lblTCdrop.Name = "lblTCdrop"
-        Me.lblTCdrop.Size = New System.Drawing.Size(36, 13)
-        Me.lblTCdrop.TabIndex = 27
-        Me.lblTCdrop.Text = "Drop?"
+        Me.btnClear.Location = New System.Drawing.Point(281, 14)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(45, 45)
+        Me.btnClear.TabIndex = 10
+        Me.btnClear.Text = "Clear"
+        Me.btnClear.UseVisualStyleBackColor = True
         '
         'frmTMXF
         '
@@ -1458,5 +1488,7 @@ Partial Class frmTMXF
     Friend WithEvents lblTCminute As System.Windows.Forms.Label
     Friend WithEvents lblTChour As System.Windows.Forms.Label
     Friend WithEvents lblTCdrop As System.Windows.Forms.Label
+    Friend WithEvents chkVerbose As System.Windows.Forms.CheckBox
+    Friend WithEvents btnClear As System.Windows.Forms.Button
 
 End Class
