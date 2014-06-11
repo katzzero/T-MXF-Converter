@@ -32,7 +32,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.T_MXF_Converter.frmTMXF
+            Me.MainForm = Global.T_MXF_Handler.frmTMXF
         End Sub
     End Class
 End Namespace

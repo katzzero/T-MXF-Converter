@@ -195,10 +195,10 @@ Namespace My
      Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute()>  _
     Friend Module MySettingsProperty
         
-        <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")>  _
-        Friend ReadOnly Property Settings() As Global.T_MXF_Converter.My.MySettings
+        <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")> _
+        Friend ReadOnly Property Settings() As Global.T_MXF_Handler.My.MySettings
             Get
-                Return Global.T_MXF_Converter.My.MySettings.Default
+                Return Global.T_MXF_Handler.My.MySettings.Default
             End Get
         End Property
     End Module

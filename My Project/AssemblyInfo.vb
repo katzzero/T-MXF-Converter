@@ -11,7 +11,7 @@ Imports System.Runtime.InteropServices
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("T MXF Converter")> 
-<Assembly: AssemblyDescription("A VB FFmpeg Gui for MXF files.")> 
+<Assembly: AssemblyDescription("A MXF Handler Tool for conversion.")> 
 <Assembly: AssemblyCompany("")> 
 <Assembly: AssemblyProduct("T MXF Converter")> 
 <Assembly: AssemblyCopyright("GPL 3.0 License")> 

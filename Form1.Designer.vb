@@ -74,6 +74,7 @@ Partial Class frmTMXF
         Me.rdbA2Ch = New System.Windows.Forms.RadioButton()
         Me.rdbADirect = New System.Windows.Forms.RadioButton()
         Me.grpGlobal = New System.Windows.Forms.GroupBox()
+        Me.btnClear = New System.Windows.Forms.Button()
         Me.chkVerbose = New System.Windows.Forms.CheckBox()
         Me.chkOverwrite = New System.Windows.Forms.CheckBox()
         Me.chkReport = New System.Windows.Forms.CheckBox()
@@ -88,6 +89,9 @@ Partial Class frmTMXF
         Me.rdbProRes = New System.Windows.Forms.RadioButton()
         Me.rdbH264 = New System.Windows.Forms.RadioButton()
         Me.TabConfig = New System.Windows.Forms.TabPage()
+        Me.grpSoftOpt = New System.Windows.Forms.GroupBox()
+        Me.chkAdvanced = New System.Windows.Forms.CheckBox()
+        Me.chkToolTip = New System.Windows.Forms.CheckBox()
         Me.lblTCdrop = New System.Windows.Forms.Label()
         Me.LblTCframe = New System.Windows.Forms.Label()
         Me.lblTCsecond = New System.Windows.Forms.Label()
@@ -108,7 +112,6 @@ Partial Class frmTMXF
         Me.lblRes = New System.Windows.Forms.Label()
         Me.lblCodecCommand = New System.Windows.Forms.Label()
         Me.lblMXFPathCommand = New System.Windows.Forms.Label()
-        Me.chkAdvanced = New System.Windows.Forms.CheckBox()
         Me.lblFFmpegCommand = New System.Windows.Forms.Label()
         Me.grpTemp = New System.Windows.Forms.GroupBox()
         Me.btnTempDefault = New System.Windows.Forms.Button()
@@ -127,10 +130,10 @@ Partial Class frmTMXF
         Me.txtOutFilename = New System.Windows.Forms.TextBox()
         Me.lblOutName = New System.Windows.Forms.Label()
         Me.txtNameDate = New System.Windows.Forms.Label()
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
         Me.btnAbout = New System.Windows.Forms.Button()
         Me.OpenFFprobeDialog = New System.Windows.Forms.OpenFileDialog()
-        Me.btnClear = New System.Windows.Forms.Button()
+        Me.lblBeta = New System.Windows.Forms.Label()
         Me.tabsMain.SuspendLayout()
         Me.TabCodec.SuspendLayout()
         Me.grpInfo.SuspendLayout()
@@ -143,6 +146,7 @@ Partial Class frmTMXF
         Me.grpResolution.SuspendLayout()
         Me.grpDumbCodec.SuspendLayout()
         Me.TabConfig.SuspendLayout()
+        Me.grpSoftOpt.SuspendLayout()
         Me.grpFFprobe.SuspendLayout()
         Me.grpTemp.SuspendLayout()
         Me.grpFFmpeg.SuspendLayout()
@@ -170,6 +174,7 @@ Partial Class frmTMXF
         Me.btnLoadMXF.Size = New System.Drawing.Size(75, 25)
         Me.btnLoadMXF.TabIndex = 0
         Me.btnLoadMXF.Text = "Load MXF"
+        Me.ToolTip.SetToolTip(Me.btnLoadMXF, "Choose the MXF file path.")
         Me.btnLoadMXF.UseVisualStyleBackColor = True
         '
         'txtMXFpath
@@ -185,7 +190,7 @@ Partial Class frmTMXF
         '
         Me.lblVersion.Anchor = System.Windows.Forms.AnchorStyles.Right
         Me.lblVersion.AutoSize = True
-        Me.lblVersion.Location = New System.Drawing.Point(12, 640)
+        Me.lblVersion.Location = New System.Drawing.Point(47, 640)
         Me.lblVersion.Name = "lblVersion"
         Me.lblVersion.Size = New System.Drawing.Size(67, 13)
         Me.lblVersion.TabIndex = 3
@@ -262,6 +267,7 @@ Partial Class frmTMXF
         Me.txtFFoutput.Size = New System.Drawing.Size(607, 495)
         Me.txtFFoutput.TabIndex = 6
         Me.txtFFoutput.TabStop = False
+        Me.ToolTip.SetToolTip(Me.txtFFoutput, "Software text output.")
         '
         'grpInfo
         '
@@ -294,6 +300,7 @@ Partial Class frmTMXF
         Me.txtDrop.Size = New System.Drawing.Size(67, 20)
         Me.txtDrop.TabIndex = 13
         Me.txtDrop.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ToolTip.SetToolTip(Me.txtDrop, "MXF timecode mode.")
         '
         'lblDrop
         '
@@ -312,6 +319,7 @@ Partial Class frmTMXF
         Me.txtDur.Size = New System.Drawing.Size(65, 20)
         Me.txtDur.TabIndex = 11
         Me.txtDur.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ToolTip.SetToolTip(Me.txtDur, "MXF file duration.")
         '
         'lblDuration
         '
@@ -330,6 +338,7 @@ Partial Class frmTMXF
         Me.txtSR.Size = New System.Drawing.Size(65, 20)
         Me.txtSR.TabIndex = 9
         Me.txtSR.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ToolTip.SetToolTip(Me.txtSR, "MXF audio track Sample Rate.")
         '
         'lblSP
         '
@@ -348,6 +357,7 @@ Partial Class frmTMXF
         Me.txtAC.Size = New System.Drawing.Size(100, 20)
         Me.txtAC.TabIndex = 7
         Me.txtAC.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ToolTip.SetToolTip(Me.txtAC, "MXF audio tracks codec.")
         '
         'lblAcodecInfo
         '
@@ -366,6 +376,7 @@ Partial Class frmTMXF
         Me.txtVC.Size = New System.Drawing.Size(100, 20)
         Me.txtVC.TabIndex = 5
         Me.txtVC.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ToolTip.SetToolTip(Me.txtVC, "MXF video track codec.")
         '
         'lblVcodecInfo
         '
@@ -384,6 +395,7 @@ Partial Class frmTMXF
         Me.txtFR.Size = New System.Drawing.Size(65, 20)
         Me.txtFR.TabIndex = 3
         Me.txtFR.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ToolTip.SetToolTip(Me.txtFR, "MXF Frame Rate.")
         '
         'lblFR
         '
@@ -402,6 +414,7 @@ Partial Class frmTMXF
         Me.txtTC.Size = New System.Drawing.Size(65, 20)
         Me.txtTC.TabIndex = 1
         Me.txtTC.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.ToolTip.SetToolTip(Me.txtTC, "MXF embed timecode.")
         '
         'lblTC
         '
@@ -430,6 +443,7 @@ Partial Class frmTMXF
         Me.btnTCanalize.Size = New System.Drawing.Size(75, 23)
         Me.btnTCanalize.TabIndex = 1
         Me.btnTCanalize.Text = "Analyze"
+        Me.ToolTip.SetToolTip(Me.btnTCanalize, "Analyze MXF file for information.")
         Me.btnTCanalize.UseVisualStyleBackColor = True
         '
         'chkTCBurn
@@ -441,6 +455,7 @@ Partial Class frmTMXF
         Me.chkTCBurn.Size = New System.Drawing.Size(65, 17)
         Me.chkTCBurn.TabIndex = 0
         Me.chkTCBurn.Text = "Burn TC"
+        Me.ToolTip.SetToolTip(Me.chkTCBurn, "Enable/Disable visual timecode burn.")
         Me.chkTCBurn.UseVisualStyleBackColor = True
         '
         'grpFrameRate
@@ -692,7 +707,6 @@ Partial Class frmTMXF
         'grpGlobal
         '
         Me.grpGlobal.Controls.Add(Me.btnClear)
-        Me.grpGlobal.Controls.Add(Me.chkVerbose)
         Me.grpGlobal.Controls.Add(Me.chkOverwrite)
         Me.grpGlobal.Controls.Add(Me.chkReport)
         Me.grpGlobal.Location = New System.Drawing.Point(3, 247)
@@ -702,14 +716,24 @@ Partial Class frmTMXF
         Me.grpGlobal.TabStop = False
         Me.grpGlobal.Text = "Global Options"
         '
+        'btnClear
+        '
+        Me.btnClear.Location = New System.Drawing.Point(278, 14)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(45, 45)
+        Me.btnClear.TabIndex = 10
+        Me.btnClear.Text = "Clear "
+        Me.btnClear.UseVisualStyleBackColor = True
+        Me.btnClear.Visible = False
+        '
         'chkVerbose
         '
         Me.chkVerbose.AutoSize = True
-        Me.chkVerbose.Location = New System.Drawing.Point(119, 20)
+        Me.chkVerbose.Location = New System.Drawing.Point(6, 65)
         Me.chkVerbose.Name = "chkVerbose"
-        Me.chkVerbose.Size = New System.Drawing.Size(65, 17)
+        Me.chkVerbose.Size = New System.Drawing.Size(95, 17)
         Me.chkVerbose.TabIndex = 2
-        Me.chkVerbose.Text = "Verbose"
+        Me.chkVerbose.Text = "Verbose Mode"
         Me.chkVerbose.UseVisualStyleBackColor = True
         '
         'chkOverwrite
@@ -718,7 +742,7 @@ Partial Class frmTMXF
         Me.chkOverwrite.Checked = True
         Me.chkOverwrite.CheckState = System.Windows.Forms.CheckState.Indeterminate
         Me.chkOverwrite.Enabled = False
-        Me.chkOverwrite.Location = New System.Drawing.Point(8, 44)
+        Me.chkOverwrite.Location = New System.Drawing.Point(7, 42)
         Me.chkOverwrite.Name = "chkOverwrite"
         Me.chkOverwrite.Size = New System.Drawing.Size(106, 17)
         Me.chkOverwrite.TabIndex = 1
@@ -850,6 +874,7 @@ Partial Class frmTMXF
         '
         'TabConfig
         '
+        Me.TabConfig.Controls.Add(Me.grpSoftOpt)
         Me.TabConfig.Controls.Add(Me.lblTCdrop)
         Me.TabConfig.Controls.Add(Me.LblTCframe)
         Me.TabConfig.Controls.Add(Me.lblTCsecond)
@@ -868,7 +893,6 @@ Partial Class frmTMXF
         Me.TabConfig.Controls.Add(Me.lblRes)
         Me.TabConfig.Controls.Add(Me.lblCodecCommand)
         Me.TabConfig.Controls.Add(Me.lblMXFPathCommand)
-        Me.TabConfig.Controls.Add(Me.chkAdvanced)
         Me.TabConfig.Controls.Add(Me.lblFFmpegCommand)
         Me.TabConfig.Controls.Add(Me.grpTemp)
         Me.TabConfig.Controls.Add(Me.grpFFmpeg)
@@ -879,6 +903,39 @@ Partial Class frmTMXF
         Me.TabConfig.TabIndex = 1
         Me.TabConfig.Text = "Software Config"
         Me.TabConfig.UseVisualStyleBackColor = True
+        '
+        'grpSoftOpt
+        '
+        Me.grpSoftOpt.Controls.Add(Me.chkAdvanced)
+        Me.grpSoftOpt.Controls.Add(Me.chkVerbose)
+        Me.grpSoftOpt.Controls.Add(Me.chkToolTip)
+        Me.grpSoftOpt.Location = New System.Drawing.Point(745, 6)
+        Me.grpSoftOpt.Name = "grpSoftOpt"
+        Me.grpSoftOpt.Size = New System.Drawing.Size(200, 100)
+        Me.grpSoftOpt.TabIndex = 28
+        Me.grpSoftOpt.TabStop = False
+        Me.grpSoftOpt.Text = "Software Options"
+        '
+        'chkAdvanced
+        '
+        Me.chkAdvanced.AutoSize = True
+        Me.chkAdvanced.Enabled = False
+        Me.chkAdvanced.Location = New System.Drawing.Point(6, 19)
+        Me.chkAdvanced.Name = "chkAdvanced"
+        Me.chkAdvanced.Size = New System.Drawing.Size(105, 17)
+        Me.chkAdvanced.TabIndex = 1
+        Me.chkAdvanced.Text = "Advanced Mode"
+        Me.chkAdvanced.UseVisualStyleBackColor = True
+        '
+        'chkToolTip
+        '
+        Me.chkToolTip.AutoSize = True
+        Me.chkToolTip.Location = New System.Drawing.Point(6, 42)
+        Me.chkToolTip.Name = "chkToolTip"
+        Me.chkToolTip.Size = New System.Drawing.Size(79, 17)
+        Me.chkToolTip.TabIndex = 11
+        Me.chkToolTip.Text = "Tool Tips ?"
+        Me.chkToolTip.UseVisualStyleBackColor = True
         '
         'lblTCdrop
         '
@@ -1090,18 +1147,6 @@ Partial Class frmTMXF
         Me.lblMXFPathCommand.Text = "MXF file"
         Me.lblMXFPathCommand.Visible = False
         '
-        'chkAdvanced
-        '
-        Me.chkAdvanced.AutoSize = True
-        Me.chkAdvanced.Enabled = False
-        Me.chkAdvanced.Location = New System.Drawing.Point(813, 3)
-        Me.chkAdvanced.Name = "chkAdvanced"
-        Me.chkAdvanced.Padding = New System.Windows.Forms.Padding(15)
-        Me.chkAdvanced.Size = New System.Drawing.Size(135, 47)
-        Me.chkAdvanced.TabIndex = 1
-        Me.chkAdvanced.Text = "Advanced Mode"
-        Me.chkAdvanced.UseVisualStyleBackColor = True
-        '
         'lblFFmpegCommand
         '
         Me.lblFFmpegCommand.AutoSize = True
@@ -1291,9 +1336,10 @@ Partial Class frmTMXF
         Me.txtNameDate.TabIndex = 12
         Me.txtNameDate.Text = "Data e Hora"
         '
-        'ToolTip1
+        'ToolTip
         '
-        Me.ToolTip1.IsBalloon = True
+        Me.ToolTip.Active = False
+        Me.ToolTip.IsBalloon = True
         '
         'btnAbout
         '
@@ -1313,20 +1359,21 @@ Partial Class frmTMXF
         Me.OpenFFprobeDialog.Filter = """FFprobe""| FFprobe.exe"
         Me.OpenFFprobeDialog.Title = "Find FFprobe Executable"
         '
-        'btnClear
+        'lblBeta
         '
-        Me.btnClear.Location = New System.Drawing.Point(281, 14)
-        Me.btnClear.Name = "btnClear"
-        Me.btnClear.Size = New System.Drawing.Size(45, 45)
-        Me.btnClear.TabIndex = 10
-        Me.btnClear.Text = "Clear"
-        Me.btnClear.UseVisualStyleBackColor = True
+        Me.lblBeta.AutoSize = True
+        Me.lblBeta.Location = New System.Drawing.Point(12, 640)
+        Me.lblBeta.Name = "lblBeta"
+        Me.lblBeta.Size = New System.Drawing.Size(29, 13)
+        Me.lblBeta.TabIndex = 15
+        Me.lblBeta.Text = "Beta"
         '
         'frmTMXF
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(984, 662)
+        Me.Controls.Add(Me.lblBeta)
         Me.Controls.Add(Me.btnAbout)
         Me.Controls.Add(Me.txtNameDate)
         Me.Controls.Add(Me.lblOutName)
@@ -1349,7 +1396,7 @@ Partial Class frmTMXF
         Me.MaximizeBox = False
         Me.Name = "frmTMXF"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "T MXF Converter"
+        Me.Text = "T MXF Handler"
         Me.tabsMain.ResumeLayout(False)
         Me.TabCodec.ResumeLayout(False)
         Me.TabCodec.PerformLayout()
@@ -1373,6 +1420,8 @@ Partial Class frmTMXF
         Me.grpDumbCodec.PerformLayout()
         Me.TabConfig.ResumeLayout(False)
         Me.TabConfig.PerformLayout()
+        Me.grpSoftOpt.ResumeLayout(False)
+        Me.grpSoftOpt.PerformLayout()
         Me.grpFFprobe.ResumeLayout(False)
         Me.grpFFprobe.PerformLayout()
         Me.grpTemp.ResumeLayout(False)
@@ -1457,7 +1506,7 @@ Partial Class frmTMXF
     Friend WithEvents chkTCBurn As System.Windows.Forms.CheckBox
     Friend WithEvents lblFRcommand As System.Windows.Forms.Label
     Friend WithEvents grpInfo As System.Windows.Forms.GroupBox
-    Friend WithEvents ToolTip1 As System.Windows.Forms.ToolTip
+    Friend WithEvents ToolTip As System.Windows.Forms.ToolTip
     Friend WithEvents lblSRcommand As System.Windows.Forms.Label
     Friend WithEvents lblLastTempName As System.Windows.Forms.Label
     Friend WithEvents chkReport As System.Windows.Forms.CheckBox
@@ -1490,5 +1539,8 @@ Partial Class frmTMXF
     Friend WithEvents lblTCdrop As System.Windows.Forms.Label
     Friend WithEvents chkVerbose As System.Windows.Forms.CheckBox
     Friend WithEvents btnClear As System.Windows.Forms.Button
+    Friend WithEvents lblBeta As System.Windows.Forms.Label
+    Friend WithEvents chkToolTip As System.Windows.Forms.CheckBox
+    Friend WithEvents grpSoftOpt As System.Windows.Forms.GroupBox
 
 End Class

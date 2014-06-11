@@ -6,9 +6,9 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0B346C91-C5FA-429F-9132-564193AD88A2}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>T_MXF_Converter.My.MyApplication</StartupObject>
-    <RootNamespace>T_MXF_Converter</RootNamespace>
-    <AssemblyName>T MXF Converter</AssemblyName>
+    <StartupObject>T_MXF_Handler.My.MyApplication</StartupObject>
+    <RootNamespace>T_MXF_Handler</RootNamespace>
+    <AssemblyName>T MXF Handler</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -27,8 +27,8 @@
     <ProductName>T MXF Converter</ProductName>
     <PublisherName>Thiago de Oliveira Neves</PublisherName>
     <SuiteName>MXF Tools</SuiteName>
-    <ApplicationRevision>460</ApplicationRevision>
-    <ApplicationVersion>0.2.1.%2a</ApplicationVersion>
+    <ApplicationRevision>654</ApplicationRevision>
+    <ApplicationVersion>0.5.85.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -40,7 +40,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>T MXF Converter.xml</DocumentationFile>
+    <DocumentationFile>T MXF Handler.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
@@ -51,8 +51,10 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>T MXF Converter.xml</DocumentationFile>
+    <DocumentationFile>T MXF Handler.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -76,10 +78,13 @@
     <ManifestKeyFile>T MXF Converter_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />

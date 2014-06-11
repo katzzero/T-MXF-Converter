@@ -478,15 +478,15 @@ Public Class frmTMXF
         txtNameDate.Text = DateAndTime.Now.ToString("dd-MM-yyyy") & "-" & DateAndTime.Now.ToString("HH-mm")
 
         If chkTCBurn.Checked = True Then
-            lblTCburn.Text = " -vf " & (Microsoft.VisualBasic.Chr(34)) & "drawtext=fontfile=/windows/fonts/cour.ttf: fontsize=42: timecode='" & lblTChour.Text.ToString & "\:" & lblTCminute.Text.ToString & "\:" & lblTCsecond.Text.ToString & "\" & lblTCdrop.Text.ToString & LblTCframe.Text.ToString & "': r=" & txtFR.Text.Trim(" ", "f", "p", "s") & ": x=(w-tw)/2: y=h-(2*lh): fontcolor=white: box=1: boxcolor=0x00000099" & (Microsoft.VisualBasic.Chr(34))
+            lblTCburn.Text = " -vf " & (Microsoft.VisualBasic.Chr(34)) & "drawtext=fontfile=/windows/fonts/cour.ttf: fontsize=42: timecode='" & lblTChour.Text.ToString & "\:" & lblTCminute.Text.ToString & "\:" & lblTCsecond.Text.ToString & "\" & lblTCdrop.Text.ToString & LblTCframe.Text.ToString & "': r=" & txtFR.Text.Trim(" ", "f", "p", "s") & ": x=(w-tw)/2: y=h-(2*lh): fontcolor=0xffffff95: shadowcolor=0x00000075 : shadowx=1 :shadowy=1 " & (Microsoft.VisualBasic.Chr(34)) 'box=1: boxcolor=0x00000075
         Else
             lblTCburn.Text = ""
         End If
         '                                                                                                             01\:57\:00\:00
         If chkReport.Checked = True Then
-            _ffargReport = "-report " & "-loglevel verbose -y "
+            _ffargReport = "-report " & "-loglevel verbose -y -hide_banner "
         Else
-            _ffargReport = "-loglevel verbose -y "
+            _ffargReport = "-loglevel verbose -y -hide_banner "
         End If
 
         FFarguments = _ffargReport & " -i " & txtMXFpath.Text.ToString & " " & lblCodecCommand.Text.ToString & " " & lblRes.Text.ToString & " " & lblTCburn.Text.ToString & " " & lblACodecCommand.Text.ToString & " " & lblAudioChCommand.Text.ToString & " " & (Microsoft.VisualBasic.Chr(34)) & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".mov" & (Microsoft.VisualBasic.Chr(34))
@@ -575,123 +575,127 @@ Public Class frmTMXF
 
 
     Private Sub btnTCanalize_Click(sender As Object, e As EventArgs) Handles btnTCanalize.Click
-        Dim FFprobeProcess As New Process
-        Dim FFprobe_arguments As String
-        Dim io As StreamReader
-        Dim io_temp As String
-        io_temp = Nothing
-        FFprobe_arguments = txtMXFpath.Text.ToString
-
-        Try
-            FFprobeProcess.StartInfo.FileName = Me.txtFFprobe.Text.ToString
-            FFprobeProcess.StartInfo.Arguments = FFprobe_arguments
-            FFprobeProcess.StartInfo.ErrorDialog = True
-            FFprobeProcess.StartInfo.RedirectStandardError = True
-            FFprobeProcess.StartInfo.UseShellExecute = False
-            FFprobeProcess.StartInfo.WorkingDirectory = Me.txtTemp.Text.ToString
-            FFprobeProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-            FFprobeProcess.StartInfo.CreateNoWindow = True
-            FFprobeProcess.Start()
-            io = FFprobeProcess.StandardError
-
-            FFprobeProcess.WaitForExit()
-            io_temp = io.ReadToEnd
-            If chkVerbose.Checked = True Then
-                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & io_temp
-            End If
-
-
-
-        Try
-            Dim sTC As String = Strings.InStr(io_temp, "timecode") + 18
-            If sTC = 18 Then
-                txtTC.Text = "## Error ##"
-                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Time Code data!! ##"
-                    chkTCBurn.Enabled = False
-            Else
-                Dim eTC As String = (sTC + 11)
-                Dim MXFTC As String = Strings.Mid(io_temp, sTC, (eTC - sTC))
-                txtTC.Text = MXFTC.ToString
-            End If
-        Catch ex As Exception
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Time Code data!! ##"
-                txtTC.Text = "## Error ##"
-                chkTCBurn.Enabled = False
-            End Try
-        
-        Try
-            Dim fFR As String = Strings.InStr(io_temp, "fps") - 9
-            'MessageBox.Show(FFR & " FFR")
-            Dim mFR As String = Strings.Mid(io_temp, fFR, 12)
-            'MessageBox.Show(mFR & " mfr")
-            Dim sFR As String = Strings.InStr(mFR, ",") + 1
-            Dim eFR As String = Strings.InStrRev(mFR, "fps")
-            'MessageBox.Show(sFR & " sfr")
-            Dim MXFFR As String = Strings.Mid(mFR, sFR, eFR)
-            'MessageBox.Show(MXFFR & " mxffr")
-            txtFR.Text = MXFFR.ToString
-        Catch ex As Exception
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Frame Rate data!! ##"
-            txtFR.Text = "## Error ##"
-        End Try
-
-        Try
-            Dim sVC As String = Strings.InStr(io_temp, "Video:") + 7
-            Dim mVC As String = Strings.Mid(io_temp, sVC, sVC + 30)
-            Dim eVC As String = Strings.InStr(mVC, ",") - 1
-            Dim MXFVC As String = Strings.Mid(mVC, 1, eVC)
-            txtVC.Text = MXFVC.ToString
-
-        Catch ex As Exception
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Video Codec data!! ##"
-            txtVC.Text = "## Error ##"
-        End Try
-
-        Try
-            Dim sAC As String = Strings.InStr(io_temp, "Audio:") + 7
-            Dim mAC As String = Strings.Mid(io_temp, sAC, sAC + 30)
-            'MessageBox.Show(mAC)
-            Dim eAC As String = Strings.InStr(mAC, ",") - 1
-            'MessageBox.Show(eAC)
-            Dim MXFAC As String = Strings.Mid(mAC, 1, eAC)
-            Dim mSR As String = Strings.Mid(mAC, (eAC + 1), 15)
-            Dim eSR As String = Strings.InStr(mSR, "Hz") - 1
-            Dim MXFSR As String = Strings.Mid(mSR, 3, eSR)
-            'MessageBox.Show(MXFSR & vbCrLf & mSR)
-            txtAC.Text = MXFAC.ToString
-            txtSR.Text = MXFSR.ToString
-        Catch ex As Exception
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Audio Codec and Sample Rate data!! ##"
-            txtAC.Text = "## Error ##"
-            txtSR.Text = "## Error ##"
-            End Try
+        If System.IO.File.Exists(txtMXFpath.Text.Trim(Microsoft.VisualBasic.Chr(34))) = True Then
+            Dim FFprobeProcess As New Process
+            Dim FFprobe_arguments As String
+            Dim io As StreamReader
+            Dim io_temp As String
+            io_temp = Nothing
+            FFprobe_arguments = " -hide_banner " & txtMXFpath.Text.ToString
 
             Try
-                Dim sDR As String = Strings.InStr(io_temp, "Duration:") + 10
-                If sDR = 10 Then
-                    txtTC.Text = "## Error ##"
-                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Finding Duration data!! ##"
-                Else
-                    Dim eDR As String = (sDR + 11)
-                    Dim MXFDR As String = Strings.Mid(io_temp, sDR, (eDR - sDR))
-                    txtDur.Text = MXFDR.ToString
+                FFprobeProcess.StartInfo.FileName = Me.txtFFprobe.Text.ToString
+                FFprobeProcess.StartInfo.Arguments = FFprobe_arguments
+                FFprobeProcess.StartInfo.ErrorDialog = True
+                FFprobeProcess.StartInfo.RedirectStandardError = True
+                FFprobeProcess.StartInfo.UseShellExecute = False
+                FFprobeProcess.StartInfo.WorkingDirectory = Me.txtTemp.Text.ToString
+                FFprobeProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+                FFprobeProcess.StartInfo.CreateNoWindow = True
+                FFprobeProcess.Start()
+                io = FFprobeProcess.StandardError
+
+                FFprobeProcess.WaitForExit()
+                io_temp = io.ReadToEnd
+                If chkVerbose.Checked = True Then
+                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & io_temp
                 End If
+
+
+
+                Try
+                    Dim sTC As String = Strings.InStr(io_temp, "timecode") + 18
+                    If sTC = 18 Then
+                        txtTC.Text = "## Error ##"
+                        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Time Code data!! ##"
+                        chkTCBurn.Enabled = False
+                    Else
+                        Dim eTC As String = (sTC + 11)
+                        Dim MXFTC As String = Strings.Mid(io_temp, sTC, (eTC - sTC))
+                        txtTC.Text = MXFTC.ToString
+                    End If
+                Catch ex As Exception
+                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Time Code data!! ##"
+                    txtTC.Text = "## Error ##"
+                    chkTCBurn.Enabled = False
+                End Try
+
+                Try
+                    Dim fFR As String = Strings.InStr(io_temp, "fps") - 9
+                    'MessageBox.Show(FFR & " FFR")
+                    Dim mFR As String = Strings.Mid(io_temp, fFR, 12)
+                    'MessageBox.Show(mFR & " mfr")
+                    Dim sFR As String = Strings.InStr(mFR, ",") + 1
+                    Dim eFR As String = Strings.InStrRev(mFR, "fps")
+                    'MessageBox.Show(sFR & " sfr")
+                    Dim MXFFR As String = Strings.Mid(mFR, sFR, eFR)
+                    'MessageBox.Show(MXFFR & " mxffr")
+                    txtFR.Text = MXFFR.ToString
+                Catch ex As Exception
+                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Frame Rate data!! ##"
+                    txtFR.Text = "## Error ##"
+                End Try
+
+                Try
+                    Dim sVC As String = Strings.InStr(io_temp, "Video:") + 7
+                    Dim mVC As String = Strings.Mid(io_temp, sVC, sVC + 30)
+                    Dim eVC As String = Strings.InStr(mVC, ",") - 1
+                    Dim MXFVC As String = Strings.Mid(mVC, 1, eVC)
+                    txtVC.Text = MXFVC.ToString
+
+                Catch ex As Exception
+                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Video Codec data!! ##"
+                    txtVC.Text = "## Error ##"
+                End Try
+
+                Try
+                    Dim sAC As String = Strings.InStr(io_temp, "Audio:") + 7
+                    Dim mAC As String = Strings.Mid(io_temp, sAC, sAC + 30)
+                    'MessageBox.Show(mAC)
+                    Dim eAC As String = Strings.InStr(mAC, ",") - 1
+                    'MessageBox.Show(eAC)
+                    Dim MXFAC As String = Strings.Mid(mAC, 1, eAC)
+                    Dim mSR As String = Strings.Mid(mAC, (eAC + 1), 15)
+                    Dim eSR As String = Strings.InStr(mSR, "Hz") - 1
+                    Dim MXFSR As String = Strings.Mid(mSR, 3, eSR)
+                    'MessageBox.Show(MXFSR & vbCrLf & mSR)
+                    txtAC.Text = MXFAC.ToString
+                    txtSR.Text = MXFSR.ToString
+                Catch ex As Exception
+                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Audio Codec and Sample Rate data!! ##"
+                    txtAC.Text = "## Error ##"
+                    txtSR.Text = "## Error ##"
+                End Try
+
+                Try
+                    Dim sDR As String = Strings.InStr(io_temp, "Duration:") + 10
+                    If sDR = 10 Then
+                        txtTC.Text = "## Error ##"
+                        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Finding Duration data!! ##"
+                    Else
+                        Dim eDR As String = (sDR + 11)
+                        Dim MXFDR As String = Strings.Mid(io_temp, sDR, (eDR - sDR))
+                        txtDur.Text = MXFDR.ToString
+                    End If
+                Catch ex As Exception
+                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Finding Duration data!! ##"
+                    txtDur.Text = "## Error ##"
+                End Try
+
+                If txtTC.Text.Contains(";") = True Then
+                    txtDrop.Text = "Yes"
+                Else
+                    txtDrop.Text = "No"
+                End If
+
             Catch ex As Exception
-                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Finding Duration data!! ##"
-                txtDur.Text = "## Error ##"
+                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Retrieving Information Data!! ##"
+                chkTCBurn.Enabled = False
             End Try
 
-            If txtTC.Text.Contains(";") = True Then
-                txtDrop.Text = "Yes"
-            Else
-                txtDrop.Text = "No"
-            End If
-
-        Catch ex As Exception
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Retrieving Information Data!! ##"
-            chkTCBurn.Enabled = False
-        End Try
-
+        Else
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Select a MXF file first!! ##"
+        End If
 
     End Sub
 
@@ -750,6 +754,14 @@ Public Class frmTMXF
     End Sub
 
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
-        txtFFoutput.Text = DateAndTime.Now.ToString("HH:mm:ss") & " Clear."
+        txtFFoutput.Text = DateAndTime.Now.ToString("HH:mm:ss") & " Clean!!"
+    End Sub
+
+    Private Sub chkToolTip_CheckedChanged(sender As Object, e As EventArgs) Handles chkToolTip.CheckedChanged
+        If chkToolTip.Checked = True Then
+            ToolTip.Active = True
+        Else
+            ToolTip.Active = False
+        End If
     End Sub
 End Class
