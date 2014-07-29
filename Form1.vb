@@ -6,18 +6,30 @@ Imports System.Security.Permissions
 Public Class frmTMXF
 
     Private Sub frmTMXF_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim _totalmem As Integer = CDec(((My.Computer.Info.TotalPhysicalMemory.ToString) / 1024) / 1024)
+        Dim _avaimem As Integer = CDec(((My.Computer.Info.AvailablePhysicalMemory.ToString) / 1024) / 1024)
 
         txtFFoutput.Text = DateAndTime.Now.ToString("HH:mm:ss") & " Initializing Systems ... "
+        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Computer name: " & Environment.MachineName
+        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Operating system: " & My.Computer.Info.OSFullName & " with " & Environment.ProcessorCount & " Logical Processors."
+        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Operating system version: " & Environment.OSVersion.ToString
+        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " System memory: " & _totalmem.ToString("####,####") & " MBs total with " & _avaimem.ToString("####,####") & " MBs available."
         txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Hello " & Environment.UserName & "!"
 
         'Show version on label
         lblVersion.Text = "V." & Application.ProductVersion
         Try
-            If System.IO.File.Exists("c:\ffmpeg\bin\ffmpeg.exe") = True Then
+            If System.IO.File.Exists(Application.StartupPath & "\bin\ffmpeg.exe") = True Then
+                txtFFmpeg.Text = Application.StartupPath & "\bin\ffmpeg.exe"
+                My.Settings.ffmpegpath = txtFFmpeg.Text
+            ElseIf System.IO.File.Exists("c:\ffmpeg\bin\ffmpeg.exe") = True Then
                 txtFFmpeg.Text = "c:\ffmpeg\bin\ffmpeg.exe"
                 My.Settings.ffmpegpath = txtFFmpeg.Text
             End If
-            If System.IO.File.Exists("c:\ffmpeg\bin\ffprobe.exe") = True Then
+            If System.IO.File.Exists(Application.StartupPath & "\bin\ffprobe.exe") = True Then
+                txtFFprobe.Text = Application.StartupPath & "\bin\ffprobe.exe"
+                My.Settings.ffprobepath = txtFFprobe.Text
+            ElseIf System.IO.File.Exists("c:\ffmpeg\bin\ffprobe.exe") = True Then
                 txtFFprobe.Text = "c:\ffmpeg\bin\ffprobe.exe"
                 My.Settings.ffprobepath = txtFFprobe.Text
 
@@ -163,8 +175,9 @@ Public Class frmTMXF
     Private Sub btnLoadMXF_Click(sender As Object, e As EventArgs) Handles btnLoadMXF.Click
         Dim _mxfinfo As FileInfo
         Dim _mxfsize As Integer
-        Dim _mxfsize_ok As String
-        _mxfsize_ok = " ## Error Parsing MXF Size ## "
+        Dim _mxfsize_ok As String = " ## Error Parsing MXF Size ## "
+
+
         Try
             If OpenMXFDialog.ShowDialog() = Windows.Forms.DialogResult.OK Then
                 txtMXFpath.Text = Microsoft.VisualBasic.Chr(34) & OpenMXFDialog.FileName.ToString & Microsoft.VisualBasic.Chr(34)
@@ -180,6 +193,8 @@ Public Class frmTMXF
                     Else
                         _mxfsize_ok = _mxfsize.ToString
                     End If
+                    Dim _mxfint32
+                    lblInt32 = _mxfinfo.OpenRead.BeginRead(_mxfint32, 0, 32, System.AsyncCallback.Combine, OpenMode.Binary)
                     txtOutFilename.Text = System.IO.Path.GetFileNameWithoutExtension(txtMXFpath.Text.Trim(Microsoft.VisualBasic.Chr(34)))
                     txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " MXF file loaded sucessfully ! The MXF have " & _mxfsize_ok.ToString & " MBs of data!"
                 End If
@@ -187,6 +202,9 @@ Public Class frmTMXF
         Catch ex As Exception
             txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Problem Loading MXF file . Please Try again. "
         End Try
+
+
+
 
         txtAC.Text = ""
         txtDrop.Text = ""

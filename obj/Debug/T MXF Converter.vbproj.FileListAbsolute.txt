@@ -10,3 +10,29 @@ C:\Users\Katz\Documents\GitHub\T-MXF-Converter\bin\Debug\T MXF Converter.exe.Cod
 C:\Users\Katz\Documents\GitHub\T-MXF-Converter\bin\Debug\T MXF Converter.exe.lastcodeanalysissucceeded
 C:\Users\Katz\Documents\GitHub\T-MXF-Converter\obj\Debug\T_MXF_Converter.frmTMXF.resources
 C:\Users\Katz\Documents\GitHub\T-MXF-Converter\obj\Debug\T_MXF_Converter.Resources.resources
+C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\bin\Debug\T MXF Handler.exe.config
+C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\bin\Debug\T MXF Handler.exe
+C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\bin\Debug\T MXF Handler.pdb
+C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\bin\Debug\T MXF Handler.xml
+C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\bin\Debug\T MXF Handler.exe.CodeAnalysisLog.xml
+C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\bin\Debug\T MXF Handler.exe.lastcodeanalysissucceeded
+C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\obj\Debug\T_MXF_Handler.frmTMXF.resources
+C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\obj\Debug\T_MXF_Handler.Resources.resources
+C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\obj\Debug\T_MXF_Handler.frmAbout.resources
+C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\obj\Debug\T MXF Converter.vbproj.GenerateResource.Cache
+C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\obj\Debug\T MXF Handler.exe
+C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\obj\Debug\T MXF Handler.xml
+C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\obj\Debug\T MXF Handler.pdb
+G:\T MXF converter\T MXF Converter\bin\Debug\T MXF Handler.exe.config
+G:\T MXF converter\T MXF Converter\obj\Debug\T MXF Handler.exe
+G:\T MXF converter\T MXF Converter\obj\Debug\T MXF Handler.xml
+G:\T MXF converter\T MXF Converter\obj\Debug\T MXF Handler.pdb
+G:\T MXF converter\T MXF Converter\bin\Debug\T MXF Handler.exe
+G:\T MXF converter\T MXF Converter\bin\Debug\T MXF Handler.pdb
+G:\T MXF converter\T MXF Converter\bin\Debug\T MXF Handler.xml
+G:\T MXF converter\T MXF Converter\bin\Debug\T MXF Handler.exe.CodeAnalysisLog.xml
+G:\T MXF converter\T MXF Converter\bin\Debug\T MXF Handler.exe.lastcodeanalysissucceeded
+G:\T MXF converter\T MXF Converter\obj\Debug\T_MXF_Handler.frmTMXF.resources
+G:\T MXF converter\T MXF Converter\obj\Debug\T_MXF_Handler.Resources.resources
+G:\T MXF converter\T MXF Converter\obj\Debug\T_MXF_Handler.frmAbout.resources
+G:\T MXF converter\T MXF Converter\obj\Debug\T MXF Converter.vbproj.GenerateResource.Cache

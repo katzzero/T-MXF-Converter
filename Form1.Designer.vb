@@ -75,7 +75,6 @@ Partial Class frmTMXF
         Me.rdbADirect = New System.Windows.Forms.RadioButton()
         Me.grpGlobal = New System.Windows.Forms.GroupBox()
         Me.btnClear = New System.Windows.Forms.Button()
-        Me.chkVerbose = New System.Windows.Forms.CheckBox()
         Me.chkOverwrite = New System.Windows.Forms.CheckBox()
         Me.chkReport = New System.Windows.Forms.CheckBox()
         Me.grpResolution = New System.Windows.Forms.GroupBox()
@@ -91,6 +90,7 @@ Partial Class frmTMXF
         Me.TabConfig = New System.Windows.Forms.TabPage()
         Me.grpSoftOpt = New System.Windows.Forms.GroupBox()
         Me.chkAdvanced = New System.Windows.Forms.CheckBox()
+        Me.chkVerbose = New System.Windows.Forms.CheckBox()
         Me.chkToolTip = New System.Windows.Forms.CheckBox()
         Me.lblTCdrop = New System.Windows.Forms.Label()
         Me.LblTCframe = New System.Windows.Forms.Label()
@@ -134,6 +134,7 @@ Partial Class frmTMXF
         Me.btnAbout = New System.Windows.Forms.Button()
         Me.OpenFFprobeDialog = New System.Windows.Forms.OpenFileDialog()
         Me.lblBeta = New System.Windows.Forms.Label()
+        Me.lblInt32 = New System.Windows.Forms.Label()
         Me.tabsMain.SuspendLayout()
         Me.TabCodec.SuspendLayout()
         Me.grpInfo.SuspendLayout()
@@ -726,16 +727,6 @@ Partial Class frmTMXF
         Me.btnClear.UseVisualStyleBackColor = True
         Me.btnClear.Visible = False
         '
-        'chkVerbose
-        '
-        Me.chkVerbose.AutoSize = True
-        Me.chkVerbose.Location = New System.Drawing.Point(6, 65)
-        Me.chkVerbose.Name = "chkVerbose"
-        Me.chkVerbose.Size = New System.Drawing.Size(95, 17)
-        Me.chkVerbose.TabIndex = 2
-        Me.chkVerbose.Text = "Verbose Mode"
-        Me.chkVerbose.UseVisualStyleBackColor = True
-        '
         'chkOverwrite
         '
         Me.chkOverwrite.AutoSize = True
@@ -927,6 +918,16 @@ Partial Class frmTMXF
         Me.chkAdvanced.Text = "Advanced Mode"
         Me.chkAdvanced.UseVisualStyleBackColor = True
         '
+        'chkVerbose
+        '
+        Me.chkVerbose.AutoSize = True
+        Me.chkVerbose.Location = New System.Drawing.Point(6, 65)
+        Me.chkVerbose.Name = "chkVerbose"
+        Me.chkVerbose.Size = New System.Drawing.Size(95, 17)
+        Me.chkVerbose.TabIndex = 2
+        Me.chkVerbose.Text = "Verbose Mode"
+        Me.chkVerbose.UseVisualStyleBackColor = True
+        '
         'chkToolTip
         '
         Me.chkToolTip.AutoSize = True
@@ -940,7 +941,7 @@ Partial Class frmTMXF
         'lblTCdrop
         '
         Me.lblTCdrop.AutoSize = True
-        Me.lblTCdrop.Location = New System.Drawing.Point(204, 290)
+        Me.lblTCdrop.Location = New System.Drawing.Point(174, 244)
         Me.lblTCdrop.Name = "lblTCdrop"
         Me.lblTCdrop.Size = New System.Drawing.Size(36, 13)
         Me.lblTCdrop.TabIndex = 27
@@ -950,7 +951,7 @@ Partial Class frmTMXF
         'LblTCframe
         '
         Me.LblTCframe.AutoSize = True
-        Me.LblTCframe.Location = New System.Drawing.Point(249, 290)
+        Me.LblTCframe.Location = New System.Drawing.Point(216, 244)
         Me.LblTCframe.Name = "LblTCframe"
         Me.LblTCframe.Size = New System.Drawing.Size(50, 13)
         Me.LblTCframe.TabIndex = 26
@@ -960,7 +961,7 @@ Partial Class frmTMXF
         'lblTCsecond
         '
         Me.lblTCsecond.AutoSize = True
-        Me.lblTCsecond.Location = New System.Drawing.Point(137, 289)
+        Me.lblTCsecond.Location = New System.Drawing.Point(107, 244)
         Me.lblTCsecond.Name = "lblTCsecond"
         Me.lblTCsecond.Size = New System.Drawing.Size(61, 13)
         Me.lblTCsecond.TabIndex = 25
@@ -970,7 +971,7 @@ Partial Class frmTMXF
         'lblTCminute
         '
         Me.lblTCminute.AutoSize = True
-        Me.lblTCminute.Location = New System.Drawing.Point(74, 290)
+        Me.lblTCminute.Location = New System.Drawing.Point(45, 244)
         Me.lblTCminute.Name = "lblTCminute"
         Me.lblTCminute.Size = New System.Drawing.Size(56, 13)
         Me.lblTCminute.TabIndex = 24
@@ -980,7 +981,7 @@ Partial Class frmTMXF
         'lblTChour
         '
         Me.lblTChour.AutoSize = True
-        Me.lblTChour.Location = New System.Drawing.Point(20, 290)
+        Me.lblTChour.Location = New System.Drawing.Point(3, 244)
         Me.lblTChour.Name = "lblTChour"
         Me.lblTChour.Size = New System.Drawing.Size(47, 13)
         Me.lblTChour.TabIndex = 23
@@ -990,7 +991,7 @@ Partial Class frmTMXF
         'lblTCburn
         '
         Me.lblTCburn.AutoSize = True
-        Me.lblTCburn.Location = New System.Drawing.Point(20, 273)
+        Me.lblTCburn.Location = New System.Drawing.Point(3, 231)
         Me.lblTCburn.Name = "lblTCburn"
         Me.lblTCburn.Size = New System.Drawing.Size(95, 13)
         Me.lblTCburn.TabIndex = 22
@@ -1029,7 +1030,7 @@ Partial Class frmTMXF
         'lblLastTempName
         '
         Me.lblLastTempName.AutoSize = True
-        Me.lblLastTempName.Location = New System.Drawing.Point(17, 234)
+        Me.lblLastTempName.Location = New System.Drawing.Point(6, 196)
         Me.lblLastTempName.Margin = New System.Windows.Forms.Padding(3)
         Me.lblLastTempName.Name = "lblLastTempName"
         Me.lblLastTempName.Size = New System.Drawing.Size(82, 13)
@@ -1040,7 +1041,7 @@ Partial Class frmTMXF
         'lblSRcommand
         '
         Me.lblSRcommand.AutoSize = True
-        Me.lblSRcommand.Location = New System.Drawing.Point(17, 215)
+        Me.lblSRcommand.Location = New System.Drawing.Point(6, 177)
         Me.lblSRcommand.Margin = New System.Windows.Forms.Padding(3)
         Me.lblSRcommand.Name = "lblSRcommand"
         Me.lblSRcommand.Size = New System.Drawing.Size(68, 13)
@@ -1051,7 +1052,7 @@ Partial Class frmTMXF
         'lblFRcommand
         '
         Me.lblFRcommand.AutoSize = True
-        Me.lblFRcommand.Location = New System.Drawing.Point(17, 196)
+        Me.lblFRcommand.Location = New System.Drawing.Point(6, 158)
         Me.lblFRcommand.Margin = New System.Windows.Forms.Padding(3)
         Me.lblFRcommand.Name = "lblFRcommand"
         Me.lblFRcommand.Size = New System.Drawing.Size(62, 13)
@@ -1062,7 +1063,7 @@ Partial Class frmTMXF
         'lblFFarguments
         '
         Me.lblFFarguments.AutoSize = True
-        Me.lblFFarguments.Location = New System.Drawing.Point(17, 253)
+        Me.lblFFarguments.Location = New System.Drawing.Point(6, 215)
         Me.lblFFarguments.Margin = New System.Windows.Forms.Padding(3)
         Me.lblFFarguments.Name = "lblFFarguments"
         Me.lblFFarguments.Size = New System.Drawing.Size(57, 13)
@@ -1073,7 +1074,7 @@ Partial Class frmTMXF
         'lblASRCommand
         '
         Me.lblASRCommand.AutoSize = True
-        Me.lblASRCommand.Location = New System.Drawing.Point(17, 177)
+        Me.lblASRCommand.Location = New System.Drawing.Point(3, 139)
         Me.lblASRCommand.Margin = New System.Windows.Forms.Padding(3)
         Me.lblASRCommand.Name = "lblASRCommand"
         Me.lblASRCommand.Size = New System.Drawing.Size(98, 13)
@@ -1084,7 +1085,7 @@ Partial Class frmTMXF
         'lblACodecCommand
         '
         Me.lblACodecCommand.AutoSize = True
-        Me.lblACodecCommand.Location = New System.Drawing.Point(17, 158)
+        Me.lblACodecCommand.Location = New System.Drawing.Point(6, 120)
         Me.lblACodecCommand.Margin = New System.Windows.Forms.Padding(3)
         Me.lblACodecCommand.Name = "lblACodecCommand"
         Me.lblACodecCommand.Size = New System.Drawing.Size(68, 13)
@@ -1095,7 +1096,7 @@ Partial Class frmTMXF
         'lblAudioChCommand
         '
         Me.lblAudioChCommand.AutoSize = True
-        Me.lblAudioChCommand.Location = New System.Drawing.Point(17, 139)
+        Me.lblAudioChCommand.Location = New System.Drawing.Point(6, 101)
         Me.lblAudioChCommand.Margin = New System.Windows.Forms.Padding(3)
         Me.lblAudioChCommand.Name = "lblAudioChCommand"
         Me.lblAudioChCommand.Size = New System.Drawing.Size(50, 13)
@@ -1106,7 +1107,7 @@ Partial Class frmTMXF
         'lblFileNameCommand
         '
         Me.lblFileNameCommand.AutoSize = True
-        Me.lblFileNameCommand.Location = New System.Drawing.Point(17, 120)
+        Me.lblFileNameCommand.Location = New System.Drawing.Point(3, 82)
         Me.lblFileNameCommand.Margin = New System.Windows.Forms.Padding(3)
         Me.lblFileNameCommand.Name = "lblFileNameCommand"
         Me.lblFileNameCommand.Size = New System.Drawing.Size(54, 13)
@@ -1117,7 +1118,7 @@ Partial Class frmTMXF
         'lblRes
         '
         Me.lblRes.AutoSize = True
-        Me.lblRes.Location = New System.Drawing.Point(17, 101)
+        Me.lblRes.Location = New System.Drawing.Point(3, 63)
         Me.lblRes.Margin = New System.Windows.Forms.Padding(3)
         Me.lblRes.Name = "lblRes"
         Me.lblRes.Size = New System.Drawing.Size(57, 13)
@@ -1128,7 +1129,7 @@ Partial Class frmTMXF
         'lblCodecCommand
         '
         Me.lblCodecCommand.AutoSize = True
-        Me.lblCodecCommand.Location = New System.Drawing.Point(17, 82)
+        Me.lblCodecCommand.Location = New System.Drawing.Point(3, 44)
         Me.lblCodecCommand.Margin = New System.Windows.Forms.Padding(3)
         Me.lblCodecCommand.Name = "lblCodecCommand"
         Me.lblCodecCommand.Size = New System.Drawing.Size(38, 13)
@@ -1139,7 +1140,7 @@ Partial Class frmTMXF
         'lblMXFPathCommand
         '
         Me.lblMXFPathCommand.AutoSize = True
-        Me.lblMXFPathCommand.Location = New System.Drawing.Point(17, 63)
+        Me.lblMXFPathCommand.Location = New System.Drawing.Point(6, 25)
         Me.lblMXFPathCommand.Margin = New System.Windows.Forms.Padding(3)
         Me.lblMXFPathCommand.Name = "lblMXFPathCommand"
         Me.lblMXFPathCommand.Size = New System.Drawing.Size(45, 13)
@@ -1150,7 +1151,7 @@ Partial Class frmTMXF
         'lblFFmpegCommand
         '
         Me.lblFFmpegCommand.AutoSize = True
-        Me.lblFFmpegCommand.Location = New System.Drawing.Point(17, 44)
+        Me.lblFFmpegCommand.Location = New System.Drawing.Point(6, 6)
         Me.lblFFmpegCommand.Margin = New System.Windows.Forms.Padding(3)
         Me.lblFFmpegCommand.Name = "lblFFmpegCommand"
         Me.lblFFmpegCommand.Size = New System.Drawing.Size(70, 13)
@@ -1368,11 +1369,21 @@ Partial Class frmTMXF
         Me.lblBeta.TabIndex = 15
         Me.lblBeta.Text = "Beta"
         '
+        'lblInt32
+        '
+        Me.lblInt32.AutoSize = True
+        Me.lblInt32.Location = New System.Drawing.Point(120, 640)
+        Me.lblInt32.Name = "lblInt32"
+        Me.lblInt32.Size = New System.Drawing.Size(66, 13)
+        Me.lblInt32.TabIndex = 16
+        Me.lblInt32.Text = "file signature"
+        '
         'frmTMXF
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(984, 662)
+        Me.Controls.Add(Me.lblInt32)
         Me.Controls.Add(Me.lblBeta)
         Me.Controls.Add(Me.btnAbout)
         Me.Controls.Add(Me.txtNameDate)
@@ -1542,5 +1553,6 @@ Partial Class frmTMXF
     Friend WithEvents lblBeta As System.Windows.Forms.Label
     Friend WithEvents chkToolTip As System.Windows.Forms.CheckBox
     Friend WithEvents grpSoftOpt As System.Windows.Forms.GroupBox
+    Friend WithEvents lblInt32 As System.Windows.Forms.Label
 
 End Class
