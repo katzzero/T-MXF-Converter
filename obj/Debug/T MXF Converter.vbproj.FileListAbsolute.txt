@@ -36,3 +36,16 @@ G:\T MXF converter\T MXF Converter\obj\Debug\T_MXF_Handler.frmTMXF.resources
 G:\T MXF converter\T MXF Converter\obj\Debug\T_MXF_Handler.Resources.resources
 G:\T MXF converter\T MXF Converter\obj\Debug\T_MXF_Handler.frmAbout.resources
 G:\T MXF converter\T MXF Converter\obj\Debug\T MXF Converter.vbproj.GenerateResource.Cache
+H:\T MXF converter\T MXF Converter\bin\Debug\T MXF Handler.exe.config
+H:\T MXF converter\T MXF Converter\obj\Debug\T MXF Handler.exe
+H:\T MXF converter\T MXF Converter\obj\Debug\T MXF Handler.xml
+H:\T MXF converter\T MXF Converter\obj\Debug\T MXF Handler.pdb
+H:\T MXF converter\T MXF Converter\bin\Debug\T MXF Handler.exe
+H:\T MXF converter\T MXF Converter\bin\Debug\T MXF Handler.pdb
+H:\T MXF converter\T MXF Converter\bin\Debug\T MXF Handler.xml
+H:\T MXF converter\T MXF Converter\bin\Debug\T MXF Handler.exe.CodeAnalysisLog.xml
+H:\T MXF converter\T MXF Converter\bin\Debug\T MXF Handler.exe.lastcodeanalysissucceeded
+H:\T MXF converter\T MXF Converter\obj\Debug\T_MXF_Handler.frmTMXF.resources
+H:\T MXF converter\T MXF Converter\obj\Debug\T_MXF_Handler.Resources.resources
+H:\T MXF converter\T MXF Converter\obj\Debug\T_MXF_Handler.frmAbout.resources
+H:\T MXF converter\T MXF Converter\obj\Debug\T MXF Converter.vbproj.GenerateResource.Cache

@@ -6,7 +6,15 @@ TMXFHandler
 </name>
 </assembly>
 <members>
-<member name="P:T_MXF_Handler.My.Resources.Resources.ResourceManager">
+<member name="M:T_MXF_Handler.UserControl1.InitializeComponent">
+	<summary>
+InitializeComponent
+</summary>
+</member><member name="T:T_MXF_Handler.UserControl1">
+	<summary>
+UserControl1
+</summary>
+</member><member name="P:T_MXF_Handler.My.Resources.Resources.ResourceManager">
 	<summary>
   Returns the cached ResourceManager instance used by this class.
 </summary>

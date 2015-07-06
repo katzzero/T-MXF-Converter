@@ -33,7 +33,6 @@ Partial Class frmAbout
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAbout))
         Me.TableLayoutPanel = New System.Windows.Forms.TableLayoutPanel()
-        Me.lblAuthor = New System.Windows.Forms.Label()
         Me.LogoPictureBox = New System.Windows.Forms.PictureBox()
         Me.LabelProductName = New System.Windows.Forms.Label()
         Me.LabelVersion = New System.Windows.Forms.Label()
@@ -41,6 +40,7 @@ Partial Class frmAbout
         Me.LabelCompanyName = New System.Windows.Forms.Label()
         Me.TextBoxDescription = New System.Windows.Forms.TextBox()
         Me.OKButton = New System.Windows.Forms.Button()
+        Me.lblAuthor = New System.Windows.Forms.Label()
         Me.TableLayoutPanel.SuspendLayout()
         CType(Me.LogoPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -71,16 +71,6 @@ Partial Class frmAbout
         Me.TableLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30.0!))
         Me.TableLayoutPanel.Size = New System.Drawing.Size(473, 290)
         Me.TableLayoutPanel.TabIndex = 0
-        '
-        'lblAuthor
-        '
-        Me.lblAuthor.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblAuthor.Location = New System.Drawing.Point(136, 258)
-        Me.lblAuthor.Name = "lblAuthor"
-        Me.lblAuthor.Size = New System.Drawing.Size(337, 32)
-        Me.lblAuthor.TabIndex = 3
-        Me.lblAuthor.Text = "Thiago de Oliveira Neves"
-        Me.lblAuthor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'LogoPictureBox
         '
@@ -165,6 +155,16 @@ Partial Class frmAbout
         Me.OKButton.Size = New System.Drawing.Size(75, 23)
         Me.OKButton.TabIndex = 0
         Me.OKButton.Text = "&OK"
+        '
+        'lblAuthor
+        '
+        Me.lblAuthor.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblAuthor.Location = New System.Drawing.Point(136, 258)
+        Me.lblAuthor.Name = "lblAuthor"
+        Me.lblAuthor.Size = New System.Drawing.Size(337, 32)
+        Me.lblAuthor.TabIndex = 3
+        Me.lblAuthor.Text = "Por Thiago de Oliveira Neves"
+        Me.lblAuthor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'frmAbout
         '

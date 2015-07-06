@@ -34,8 +34,15 @@ Partial Class frmTMXF
         Me.txtOutPath = New System.Windows.Forms.Label()
         Me.tabsMain = New System.Windows.Forms.TabControl()
         Me.TabCodec = New System.Windows.Forms.TabPage()
+        Me._chk2 = New System.Windows.Forms.CheckBox()
+        Me.grpGlobal = New System.Windows.Forms.GroupBox()
+        Me.chkReport = New System.Windows.Forms.CheckBox()
+        Me.chkToolTip = New System.Windows.Forms.CheckBox()
+        Me.chkOverwrite = New System.Windows.Forms.CheckBox()
         Me.txtFFoutput = New System.Windows.Forms.TextBox()
         Me.grpInfo = New System.Windows.Forms.GroupBox()
+        Me.lblCFR = New System.Windows.Forms.Label()
+        Me.txtCFR = New System.Windows.Forms.TextBox()
         Me.txtDrop = New System.Windows.Forms.TextBox()
         Me.lblDrop = New System.Windows.Forms.Label()
         Me.txtDur = New System.Windows.Forms.TextBox()
@@ -64,8 +71,8 @@ Partial Class frmTMXF
         Me.rdbSR44 = New System.Windows.Forms.RadioButton()
         Me.rdbSRDirect = New System.Windows.Forms.RadioButton()
         Me.grpACodec = New System.Windows.Forms.GroupBox()
+        Me.rdbWAV = New System.Windows.Forms.RadioButton()
         Me.rdbACDirect = New System.Windows.Forms.RadioButton()
-        Me.rdbAAC = New System.Windows.Forms.RadioButton()
         Me.rdbPCM24 = New System.Windows.Forms.RadioButton()
         Me.rdbPCM16 = New System.Windows.Forms.RadioButton()
         Me.grpACh = New System.Windows.Forms.GroupBox()
@@ -73,25 +80,27 @@ Partial Class frmTMXF
         Me.rdbA4Ch = New System.Windows.Forms.RadioButton()
         Me.rdbA2Ch = New System.Windows.Forms.RadioButton()
         Me.rdbADirect = New System.Windows.Forms.RadioButton()
-        Me.grpGlobal = New System.Windows.Forms.GroupBox()
+        Me.grpOther = New System.Windows.Forms.GroupBox()
+        Me.chkHWaccel = New System.Windows.Forms.CheckBox()
+        Me.chkCorrect = New System.Windows.Forms.CheckBox()
         Me.btnClear = New System.Windows.Forms.Button()
-        Me.chkOverwrite = New System.Windows.Forms.CheckBox()
-        Me.chkReport = New System.Windows.Forms.CheckBox()
         Me.grpResolution = New System.Windows.Forms.GroupBox()
-        Me.rdb540 = New System.Windows.Forms.RadioButton()
+        Me.rdb360 = New System.Windows.Forms.RadioButton()
         Me.rdb486 = New System.Windows.Forms.RadioButton()
         Me.rdb720 = New System.Windows.Forms.RadioButton()
         Me.rdb1080 = New System.Windows.Forms.RadioButton()
-        Me.grpDumbCodec = New System.Windows.Forms.GroupBox()
-        Me.rdbWAV = New System.Windows.Forms.RadioButton()
+        Me.grpVCodec = New System.Windows.Forms.GroupBox()
+        Me.rdbVCcopy = New System.Windows.Forms.RadioButton()
         Me.rdbDNxHD = New System.Windows.Forms.RadioButton()
         Me.rdbProRes = New System.Windows.Forms.RadioButton()
         Me.rdbH264 = New System.Windows.Forms.RadioButton()
         Me.TabConfig = New System.Windows.Forms.TabPage()
-        Me.grpSoftOpt = New System.Windows.Forms.GroupBox()
+        Me.lblCustom = New System.Windows.Forms.Label()
+        Me.txtCustom = New System.Windows.Forms.TextBox()
         Me.chkAdvanced = New System.Windows.Forms.CheckBox()
+        Me.grpSoftOpt = New System.Windows.Forms.GroupBox()
+        Me.chkCustom = New System.Windows.Forms.CheckBox()
         Me.chkVerbose = New System.Windows.Forms.CheckBox()
-        Me.chkToolTip = New System.Windows.Forms.CheckBox()
         Me.lblTCdrop = New System.Windows.Forms.Label()
         Me.LblTCframe = New System.Windows.Forms.Label()
         Me.lblTCsecond = New System.Windows.Forms.Label()
@@ -114,6 +123,7 @@ Partial Class frmTMXF
         Me.lblMXFPathCommand = New System.Windows.Forms.Label()
         Me.lblFFmpegCommand = New System.Windows.Forms.Label()
         Me.grpTemp = New System.Windows.Forms.GroupBox()
+        Me._chk = New System.Windows.Forms.CheckBox()
         Me.btnTempDefault = New System.Windows.Forms.Button()
         Me.txtTemp = New System.Windows.Forms.Label()
         Me.btnTemp = New System.Windows.Forms.Button()
@@ -134,18 +144,20 @@ Partial Class frmTMXF
         Me.btnAbout = New System.Windows.Forms.Button()
         Me.OpenFFprobeDialog = New System.Windows.Forms.OpenFileDialog()
         Me.lblBeta = New System.Windows.Forms.Label()
-        Me.lblInt32 = New System.Windows.Forms.Label()
+        Me.lblCodecn = New System.Windows.Forms.Label()
+        Me.lblNameRes = New System.Windows.Forms.Label()
         Me.tabsMain.SuspendLayout()
         Me.TabCodec.SuspendLayout()
+        Me.grpGlobal.SuspendLayout()
         Me.grpInfo.SuspendLayout()
         Me.grpTCBurn.SuspendLayout()
         Me.grpFrameRate.SuspendLayout()
         Me.grpSRate.SuspendLayout()
         Me.grpACodec.SuspendLayout()
         Me.grpACh.SuspendLayout()
-        Me.grpGlobal.SuspendLayout()
+        Me.grpOther.SuspendLayout()
         Me.grpResolution.SuspendLayout()
-        Me.grpDumbCodec.SuspendLayout()
+        Me.grpVCodec.SuspendLayout()
         Me.TabConfig.SuspendLayout()
         Me.grpSoftOpt.SuspendLayout()
         Me.grpFFprobe.SuspendLayout()
@@ -236,6 +248,8 @@ Partial Class frmTMXF
         '
         'TabCodec
         '
+        Me.TabCodec.Controls.Add(Me._chk2)
+        Me.TabCodec.Controls.Add(Me.grpGlobal)
         Me.TabCodec.Controls.Add(Me.txtFFoutput)
         Me.TabCodec.Controls.Add(Me.grpInfo)
         Me.TabCodec.Controls.Add(Me.grpTCBurn)
@@ -243,9 +257,9 @@ Partial Class frmTMXF
         Me.TabCodec.Controls.Add(Me.grpSRate)
         Me.TabCodec.Controls.Add(Me.grpACodec)
         Me.TabCodec.Controls.Add(Me.grpACh)
-        Me.TabCodec.Controls.Add(Me.grpGlobal)
+        Me.TabCodec.Controls.Add(Me.grpOther)
         Me.TabCodec.Controls.Add(Me.grpResolution)
-        Me.TabCodec.Controls.Add(Me.grpDumbCodec)
+        Me.TabCodec.Controls.Add(Me.grpVCodec)
         Me.TabCodec.Location = New System.Drawing.Point(4, 22)
         Me.TabCodec.Name = "TabCodec"
         Me.TabCodec.Padding = New System.Windows.Forms.Padding(3)
@@ -254,13 +268,71 @@ Partial Class frmTMXF
         Me.TabCodec.Text = "Codec Config"
         Me.TabCodec.UseVisualStyleBackColor = True
         '
+        '_chk2
+        '
+        Me._chk2.AutoSize = True
+        Me._chk2.Location = New System.Drawing.Point(328, 0)
+        Me._chk2.Name = "_chk2"
+        Me._chk2.Size = New System.Drawing.Size(15, 14)
+        Me._chk2.TabIndex = 11
+        Me._chk2.UseVisualStyleBackColor = True
+        Me._chk2.Visible = False
+        '
+        'grpGlobal
+        '
+        Me.grpGlobal.Controls.Add(Me.chkReport)
+        Me.grpGlobal.Controls.Add(Me.chkToolTip)
+        Me.grpGlobal.Controls.Add(Me.chkOverwrite)
+        Me.grpGlobal.Location = New System.Drawing.Point(4, 430)
+        Me.grpGlobal.Name = "grpGlobal"
+        Me.grpGlobal.Size = New System.Drawing.Size(218, 73)
+        Me.grpGlobal.TabIndex = 10
+        Me.grpGlobal.TabStop = False
+        Me.grpGlobal.Text = "Global Options"
+        '
+        'chkReport
+        '
+        Me.chkReport.AutoSize = True
+        Me.chkReport.Checked = True
+        Me.chkReport.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkReport.Enabled = False
+        Me.chkReport.Location = New System.Drawing.Point(5, 19)
+        Me.chkReport.Name = "chkReport"
+        Me.chkReport.Size = New System.Drawing.Size(105, 17)
+        Me.chkReport.TabIndex = 0
+        Me.chkReport.Text = "Generate Report"
+        Me.chkReport.UseVisualStyleBackColor = True
+        '
+        'chkToolTip
+        '
+        Me.chkToolTip.AutoSize = True
+        Me.chkToolTip.Location = New System.Drawing.Point(133, 19)
+        Me.chkToolTip.Name = "chkToolTip"
+        Me.chkToolTip.Size = New System.Drawing.Size(79, 17)
+        Me.chkToolTip.TabIndex = 11
+        Me.chkToolTip.Text = "Tool-Tips ?"
+        Me.chkToolTip.UseVisualStyleBackColor = True
+        '
+        'chkOverwrite
+        '
+        Me.chkOverwrite.AutoSize = True
+        Me.chkOverwrite.Checked = True
+        Me.chkOverwrite.CheckState = System.Windows.Forms.CheckState.Indeterminate
+        Me.chkOverwrite.Enabled = False
+        Me.chkOverwrite.Location = New System.Drawing.Point(5, 41)
+        Me.chkOverwrite.Name = "chkOverwrite"
+        Me.chkOverwrite.Size = New System.Drawing.Size(106, 17)
+        Me.chkOverwrite.TabIndex = 1
+        Me.chkOverwrite.Text = "Overwrite Output"
+        Me.chkOverwrite.UseVisualStyleBackColor = True
+        '
         'txtFFoutput
         '
         Me.txtFFoutput.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.txtFFoutput.Cursor = System.Windows.Forms.Cursors.Default
         Me.txtFFoutput.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!)
         Me.txtFFoutput.ForeColor = System.Drawing.SystemColors.Info
-        Me.txtFFoutput.Location = New System.Drawing.Point(338, 8)
+        Me.txtFFoutput.Location = New System.Drawing.Point(338, 6)
         Me.txtFFoutput.Multiline = True
         Me.txtFFoutput.Name = "txtFFoutput"
         Me.txtFFoutput.ReadOnly = True
@@ -272,6 +344,8 @@ Partial Class frmTMXF
         '
         'grpInfo
         '
+        Me.grpInfo.Controls.Add(Me.lblCFR)
+        Me.grpInfo.Controls.Add(Me.txtCFR)
         Me.grpInfo.Controls.Add(Me.txtDrop)
         Me.grpInfo.Controls.Add(Me.lblDrop)
         Me.grpInfo.Controls.Add(Me.txtDur)
@@ -288,14 +362,33 @@ Partial Class frmTMXF
         Me.grpInfo.Controls.Add(Me.lblTC)
         Me.grpInfo.Location = New System.Drawing.Point(3, 318)
         Me.grpInfo.Name = "grpInfo"
-        Me.grpInfo.Size = New System.Drawing.Size(329, 114)
+        Me.grpInfo.Size = New System.Drawing.Size(329, 106)
         Me.grpInfo.TabIndex = 9
         Me.grpInfo.TabStop = False
         Me.grpInfo.Text = "Information"
         '
+        'lblCFR
+        '
+        Me.lblCFR.AutoSize = True
+        Me.lblCFR.Location = New System.Drawing.Point(253, 16)
+        Me.lblCFR.Name = "lblCFR"
+        Me.lblCFR.Size = New System.Drawing.Size(43, 13)
+        Me.lblCFR.TabIndex = 15
+        Me.lblCFR.Text = "Corr FR"
+        '
+        'txtCFR
+        '
+        Me.txtCFR.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCFR.Location = New System.Drawing.Point(251, 32)
+        Me.txtCFR.Name = "txtCFR"
+        Me.txtCFR.ReadOnly = True
+        Me.txtCFR.Size = New System.Drawing.Size(67, 20)
+        Me.txtCFR.TabIndex = 14
+        Me.txtCFR.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
         'txtDrop
         '
-        Me.txtDrop.Location = New System.Drawing.Point(252, 31)
+        Me.txtDrop.Location = New System.Drawing.Point(251, 76)
         Me.txtDrop.Name = "txtDrop"
         Me.txtDrop.ReadOnly = True
         Me.txtDrop.Size = New System.Drawing.Size(67, 20)
@@ -306,7 +399,7 @@ Partial Class frmTMXF
         'lblDrop
         '
         Me.lblDrop.AutoSize = True
-        Me.lblDrop.Location = New System.Drawing.Point(253, 16)
+        Me.lblDrop.Location = New System.Drawing.Point(251, 60)
         Me.lblDrop.Name = "lblDrop"
         Me.lblDrop.Size = New System.Drawing.Size(71, 13)
         Me.lblDrop.TabIndex = 12
@@ -430,16 +523,16 @@ Partial Class frmTMXF
         '
         Me.grpTCBurn.Controls.Add(Me.btnTCanalize)
         Me.grpTCBurn.Controls.Add(Me.chkTCBurn)
-        Me.grpTCBurn.Location = New System.Drawing.Point(3, 438)
+        Me.grpTCBurn.Location = New System.Drawing.Point(228, 430)
         Me.grpTCBurn.Name = "grpTCBurn"
-        Me.grpTCBurn.Size = New System.Drawing.Size(329, 65)
+        Me.grpTCBurn.Size = New System.Drawing.Size(99, 73)
         Me.grpTCBurn.TabIndex = 8
         Me.grpTCBurn.TabStop = False
         Me.grpTCBurn.Text = "Time Code Burn"
         '
         'btnTCanalize
         '
-        Me.btnTCanalize.Location = New System.Drawing.Point(248, 13)
+        Me.btnTCanalize.Location = New System.Drawing.Point(14, 42)
         Me.btnTCanalize.Name = "btnTCanalize"
         Me.btnTCanalize.Size = New System.Drawing.Size(75, 23)
         Me.btnTCanalize.TabIndex = 1
@@ -451,7 +544,7 @@ Partial Class frmTMXF
         '
         Me.chkTCBurn.AutoSize = True
         Me.chkTCBurn.Enabled = False
-        Me.chkTCBurn.Location = New System.Drawing.Point(6, 19)
+        Me.chkTCBurn.Location = New System.Drawing.Point(14, 19)
         Me.chkTCBurn.Name = "chkTCBurn"
         Me.chkTCBurn.Size = New System.Drawing.Size(65, 17)
         Me.chkTCBurn.TabIndex = 0
@@ -581,8 +674,8 @@ Partial Class frmTMXF
         '
         'grpACodec
         '
+        Me.grpACodec.Controls.Add(Me.rdbWAV)
         Me.grpACodec.Controls.Add(Me.rdbACDirect)
-        Me.grpACodec.Controls.Add(Me.rdbAAC)
         Me.grpACodec.Controls.Add(Me.rdbPCM24)
         Me.grpACodec.Controls.Add(Me.rdbPCM16)
         Me.grpACodec.Location = New System.Drawing.Point(3, 128)
@@ -592,10 +685,20 @@ Partial Class frmTMXF
         Me.grpACodec.TabStop = False
         Me.grpACodec.Text = "Audio Codec"
         '
+        'rdbWAV
+        '
+        Me.rdbWAV.AutoSize = True
+        Me.rdbWAV.Location = New System.Drawing.Point(5, 19)
+        Me.rdbWAV.Name = "rdbWAV"
+        Me.rdbWAV.Size = New System.Drawing.Size(76, 17)
+        Me.rdbWAV.TabIndex = 3
+        Me.rdbWAV.Text = "Audio Only"
+        Me.rdbWAV.UseVisualStyleBackColor = True
+        '
         'rdbACDirect
         '
         Me.rdbACDirect.AutoSize = True
-        Me.rdbACDirect.Location = New System.Drawing.Point(6, 19)
+        Me.rdbACDirect.Location = New System.Drawing.Point(6, 42)
         Me.rdbACDirect.Name = "rdbACDirect"
         Me.rdbACDirect.Size = New System.Drawing.Size(53, 17)
         Me.rdbACDirect.TabIndex = 3
@@ -604,23 +707,10 @@ Partial Class frmTMXF
         Me.rdbACDirect.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rdbACDirect.UseVisualStyleBackColor = True
         '
-        'rdbAAC
-        '
-        Me.rdbAAC.AutoSize = True
-        Me.rdbAAC.Enabled = False
-        Me.rdbAAC.Location = New System.Drawing.Point(6, 88)
-        Me.rdbAAC.Name = "rdbAAC"
-        Me.rdbAAC.Size = New System.Drawing.Size(65, 17)
-        Me.rdbAAC.TabIndex = 2
-        Me.rdbAAC.TabStop = True
-        Me.rdbAAC.Text = "AAC_LC"
-        Me.rdbAAC.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.rdbAAC.UseVisualStyleBackColor = True
-        '
         'rdbPCM24
         '
         Me.rdbPCM24.AutoSize = True
-        Me.rdbPCM24.Location = New System.Drawing.Point(6, 65)
+        Me.rdbPCM24.Location = New System.Drawing.Point(6, 88)
         Me.rdbPCM24.Name = "rdbPCM24"
         Me.rdbPCM24.Size = New System.Drawing.Size(82, 17)
         Me.rdbPCM24.TabIndex = 1
@@ -632,7 +722,7 @@ Partial Class frmTMXF
         'rdbPCM16
         '
         Me.rdbPCM16.AutoSize = True
-        Me.rdbPCM16.Location = New System.Drawing.Point(6, 42)
+        Me.rdbPCM16.Location = New System.Drawing.Point(6, 65)
         Me.rdbPCM16.Name = "rdbPCM16"
         Me.rdbPCM16.Size = New System.Drawing.Size(82, 17)
         Me.rdbPCM16.TabIndex = 0
@@ -705,56 +795,51 @@ Partial Class frmTMXF
         Me.rdbADirect.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.rdbADirect.UseVisualStyleBackColor = True
         '
-        'grpGlobal
+        'grpOther
         '
-        Me.grpGlobal.Controls.Add(Me.btnClear)
-        Me.grpGlobal.Controls.Add(Me.chkOverwrite)
-        Me.grpGlobal.Controls.Add(Me.chkReport)
-        Me.grpGlobal.Location = New System.Drawing.Point(3, 247)
-        Me.grpGlobal.Name = "grpGlobal"
-        Me.grpGlobal.Size = New System.Drawing.Size(329, 65)
-        Me.grpGlobal.TabIndex = 0
-        Me.grpGlobal.TabStop = False
-        Me.grpGlobal.Text = "Global Options"
+        Me.grpOther.Controls.Add(Me.chkHWaccel)
+        Me.grpOther.Controls.Add(Me.chkCorrect)
+        Me.grpOther.Controls.Add(Me.btnClear)
+        Me.grpOther.Location = New System.Drawing.Point(3, 247)
+        Me.grpOther.Name = "grpOther"
+        Me.grpOther.Size = New System.Drawing.Size(329, 65)
+        Me.grpOther.TabIndex = 0
+        Me.grpOther.TabStop = False
+        Me.grpOther.Text = "Other Options"
+        '
+        'chkHWaccel
+        '
+        Me.chkHWaccel.AutoSize = True
+        Me.chkHWaccel.Location = New System.Drawing.Point(5, 42)
+        Me.chkHWaccel.Name = "chkHWaccel"
+        Me.chkHWaccel.Size = New System.Drawing.Size(222, 17)
+        Me.chkHWaccel.TabIndex = 13
+        Me.chkHWaccel.Text = "GPU Decoding ( for testing purpose only.)"
+        Me.ToolTip.SetToolTip(Me.chkHWaccel, "Decode Video Frames on GPU. Faster on some Systems.")
+        Me.chkHWaccel.UseVisualStyleBackColor = True
+        '
+        'chkCorrect
+        '
+        Me.chkCorrect.AutoSize = True
+        Me.chkCorrect.Location = New System.Drawing.Point(5, 19)
+        Me.chkCorrect.Name = "chkCorrect"
+        Me.chkCorrect.Size = New System.Drawing.Size(118, 17)
+        Me.chkCorrect.TabIndex = 12
+        Me.chkCorrect.Text = "Correct Frame Rate"
+        Me.chkCorrect.UseVisualStyleBackColor = True
         '
         'btnClear
         '
-        Me.btnClear.Location = New System.Drawing.Point(278, 14)
+        Me.btnClear.Location = New System.Drawing.Point(274, 14)
         Me.btnClear.Name = "btnClear"
         Me.btnClear.Size = New System.Drawing.Size(45, 45)
         Me.btnClear.TabIndex = 10
-        Me.btnClear.Text = "Clear "
+        Me.btnClear.Text = "Clear Text"
         Me.btnClear.UseVisualStyleBackColor = True
-        Me.btnClear.Visible = False
-        '
-        'chkOverwrite
-        '
-        Me.chkOverwrite.AutoSize = True
-        Me.chkOverwrite.Checked = True
-        Me.chkOverwrite.CheckState = System.Windows.Forms.CheckState.Indeterminate
-        Me.chkOverwrite.Enabled = False
-        Me.chkOverwrite.Location = New System.Drawing.Point(7, 42)
-        Me.chkOverwrite.Name = "chkOverwrite"
-        Me.chkOverwrite.Size = New System.Drawing.Size(106, 17)
-        Me.chkOverwrite.TabIndex = 1
-        Me.chkOverwrite.Text = "Overwrite Output"
-        Me.chkOverwrite.UseVisualStyleBackColor = True
-        '
-        'chkReport
-        '
-        Me.chkReport.AutoSize = True
-        Me.chkReport.Checked = True
-        Me.chkReport.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkReport.Location = New System.Drawing.Point(7, 20)
-        Me.chkReport.Name = "chkReport"
-        Me.chkReport.Size = New System.Drawing.Size(105, 17)
-        Me.chkReport.TabIndex = 0
-        Me.chkReport.Text = "Generate Report"
-        Me.chkReport.UseVisualStyleBackColor = True
         '
         'grpResolution
         '
-        Me.grpResolution.Controls.Add(Me.rdb540)
+        Me.grpResolution.Controls.Add(Me.rdb360)
         Me.grpResolution.Controls.Add(Me.rdb486)
         Me.grpResolution.Controls.Add(Me.rdb720)
         Me.grpResolution.Controls.Add(Me.rdb1080)
@@ -765,16 +850,16 @@ Partial Class frmTMXF
         Me.grpResolution.TabStop = False
         Me.grpResolution.Text = "Resolution"
         '
-        'rdb540
+        'rdb360
         '
-        Me.rdb540.AutoSize = True
-        Me.rdb540.Location = New System.Drawing.Point(7, 90)
-        Me.rdb540.Name = "rdb540"
-        Me.rdb540.Size = New System.Drawing.Size(92, 17)
-        Me.rdb540.TabIndex = 3
-        Me.rdb540.TabStop = True
-        Me.rdb540.Text = "720 x540 | 4:3"
-        Me.rdb540.UseVisualStyleBackColor = True
+        Me.rdb360.AutoSize = True
+        Me.rdb360.Location = New System.Drawing.Point(7, 90)
+        Me.rdb360.Name = "rdb360"
+        Me.rdb360.Size = New System.Drawing.Size(98, 17)
+        Me.rdb360.TabIndex = 3
+        Me.rdb360.TabStop = True
+        Me.rdb360.Text = "640 x360 | 16:9"
+        Me.rdb360.UseVisualStyleBackColor = True
         '
         'rdb486
         '
@@ -809,34 +894,35 @@ Partial Class frmTMXF
         Me.rdb1080.Text = "1920 x1080 | 16:9"
         Me.rdb1080.UseVisualStyleBackColor = True
         '
-        'grpDumbCodec
+        'grpVCodec
         '
-        Me.grpDumbCodec.Controls.Add(Me.rdbWAV)
-        Me.grpDumbCodec.Controls.Add(Me.rdbDNxHD)
-        Me.grpDumbCodec.Controls.Add(Me.rdbProRes)
-        Me.grpDumbCodec.Controls.Add(Me.rdbH264)
-        Me.grpDumbCodec.Location = New System.Drawing.Point(3, 8)
-        Me.grpDumbCodec.Name = "grpDumbCodec"
-        Me.grpDumbCodec.Size = New System.Drawing.Size(118, 114)
-        Me.grpDumbCodec.TabIndex = 1
-        Me.grpDumbCodec.TabStop = False
-        Me.grpDumbCodec.Text = "Video Codec"
+        Me.grpVCodec.Controls.Add(Me.rdbVCcopy)
+        Me.grpVCodec.Controls.Add(Me.rdbDNxHD)
+        Me.grpVCodec.Controls.Add(Me.rdbProRes)
+        Me.grpVCodec.Controls.Add(Me.rdbH264)
+        Me.grpVCodec.Location = New System.Drawing.Point(3, 8)
+        Me.grpVCodec.Name = "grpVCodec"
+        Me.grpVCodec.Size = New System.Drawing.Size(118, 114)
+        Me.grpVCodec.TabIndex = 1
+        Me.grpVCodec.TabStop = False
+        Me.grpVCodec.Text = "Video Codec"
         '
-        'rdbWAV
+        'rdbVCcopy
         '
-        Me.rdbWAV.AutoSize = True
-        Me.rdbWAV.Location = New System.Drawing.Point(6, 88)
-        Me.rdbWAV.Name = "rdbWAV"
-        Me.rdbWAV.Size = New System.Drawing.Size(110, 17)
-        Me.rdbWAV.TabIndex = 3
-        Me.rdbWAV.Text = "WAV - Audio Only"
-        Me.rdbWAV.UseVisualStyleBackColor = True
+        Me.rdbVCcopy.AutoSize = True
+        Me.rdbVCcopy.Enabled = False
+        Me.rdbVCcopy.Location = New System.Drawing.Point(6, 21)
+        Me.rdbVCcopy.Name = "rdbVCcopy"
+        Me.rdbVCcopy.Size = New System.Drawing.Size(109, 17)
+        Me.rdbVCcopy.TabIndex = 3
+        Me.rdbVCcopy.TabStop = True
+        Me.rdbVCcopy.Text = "Copy input Codec"
+        Me.rdbVCcopy.UseVisualStyleBackColor = True
         '
         'rdbDNxHD
         '
         Me.rdbDNxHD.AutoSize = True
-        Me.rdbDNxHD.Enabled = False
-        Me.rdbDNxHD.Location = New System.Drawing.Point(6, 65)
+        Me.rdbDNxHD.Location = New System.Drawing.Point(6, 90)
         Me.rdbDNxHD.Name = "rdbDNxHD"
         Me.rdbDNxHD.Size = New System.Drawing.Size(62, 17)
         Me.rdbDNxHD.TabIndex = 2
@@ -846,7 +932,7 @@ Partial Class frmTMXF
         'rdbProRes
         '
         Me.rdbProRes.AutoSize = True
-        Me.rdbProRes.Location = New System.Drawing.Point(6, 42)
+        Me.rdbProRes.Location = New System.Drawing.Point(6, 67)
         Me.rdbProRes.Name = "rdbProRes"
         Me.rdbProRes.Size = New System.Drawing.Size(60, 17)
         Me.rdbProRes.TabIndex = 1
@@ -856,7 +942,7 @@ Partial Class frmTMXF
         'rdbH264
         '
         Me.rdbH264.AutoSize = True
-        Me.rdbH264.Location = New System.Drawing.Point(6, 19)
+        Me.rdbH264.Location = New System.Drawing.Point(6, 44)
         Me.rdbH264.Name = "rdbH264"
         Me.rdbH264.Size = New System.Drawing.Size(89, 17)
         Me.rdbH264.TabIndex = 0
@@ -865,6 +951,9 @@ Partial Class frmTMXF
         '
         'TabConfig
         '
+        Me.TabConfig.Controls.Add(Me.lblCustom)
+        Me.TabConfig.Controls.Add(Me.txtCustom)
+        Me.TabConfig.Controls.Add(Me.chkAdvanced)
         Me.TabConfig.Controls.Add(Me.grpSoftOpt)
         Me.TabConfig.Controls.Add(Me.lblTCdrop)
         Me.TabConfig.Controls.Add(Me.LblTCframe)
@@ -895,48 +984,65 @@ Partial Class frmTMXF
         Me.TabConfig.Text = "Software Config"
         Me.TabConfig.UseVisualStyleBackColor = True
         '
-        'grpSoftOpt
+        'lblCustom
         '
-        Me.grpSoftOpt.Controls.Add(Me.chkAdvanced)
-        Me.grpSoftOpt.Controls.Add(Me.chkVerbose)
-        Me.grpSoftOpt.Controls.Add(Me.chkToolTip)
-        Me.grpSoftOpt.Location = New System.Drawing.Point(745, 6)
-        Me.grpSoftOpt.Name = "grpSoftOpt"
-        Me.grpSoftOpt.Size = New System.Drawing.Size(200, 100)
-        Me.grpSoftOpt.TabIndex = 28
-        Me.grpSoftOpt.TabStop = False
-        Me.grpSoftOpt.Text = "Software Options"
+        Me.lblCustom.AutoSize = True
+        Me.lblCustom.Location = New System.Drawing.Point(9, 286)
+        Me.lblCustom.Name = "lblCustom"
+        Me.lblCustom.Size = New System.Drawing.Size(92, 13)
+        Me.lblCustom.TabIndex = 30
+        Me.lblCustom.Text = "Custom Command"
+        '
+        'txtCustom
+        '
+        Me.txtCustom.BackColor = System.Drawing.SystemColors.Info
+        Me.txtCustom.Enabled = False
+        Me.txtCustom.Location = New System.Drawing.Point(6, 302)
+        Me.txtCustom.Name = "txtCustom"
+        Me.txtCustom.Size = New System.Drawing.Size(939, 20)
+        Me.txtCustom.TabIndex = 29
         '
         'chkAdvanced
         '
         Me.chkAdvanced.AutoSize = True
-        Me.chkAdvanced.Enabled = False
-        Me.chkAdvanced.Location = New System.Drawing.Point(6, 19)
+        Me.chkAdvanced.Location = New System.Drawing.Point(751, 6)
         Me.chkAdvanced.Name = "chkAdvanced"
         Me.chkAdvanced.Size = New System.Drawing.Size(105, 17)
         Me.chkAdvanced.TabIndex = 1
         Me.chkAdvanced.Text = "Advanced Mode"
         Me.chkAdvanced.UseVisualStyleBackColor = True
         '
+        'grpSoftOpt
+        '
+        Me.grpSoftOpt.Controls.Add(Me.chkCustom)
+        Me.grpSoftOpt.Controls.Add(Me.chkVerbose)
+        Me.grpSoftOpt.Location = New System.Drawing.Point(745, 25)
+        Me.grpSoftOpt.Name = "grpSoftOpt"
+        Me.grpSoftOpt.Size = New System.Drawing.Size(200, 270)
+        Me.grpSoftOpt.TabIndex = 28
+        Me.grpSoftOpt.TabStop = False
+        Me.grpSoftOpt.Text = "Software Options"
+        '
+        'chkCustom
+        '
+        Me.chkCustom.AutoSize = True
+        Me.chkCustom.Enabled = False
+        Me.chkCustom.Location = New System.Drawing.Point(6, 247)
+        Me.chkCustom.Name = "chkCustom"
+        Me.chkCustom.Size = New System.Drawing.Size(138, 17)
+        Me.chkCustom.TabIndex = 3
+        Me.chkCustom.Text = "Use Custom Commands"
+        Me.chkCustom.UseVisualStyleBackColor = True
+        '
         'chkVerbose
         '
         Me.chkVerbose.AutoSize = True
-        Me.chkVerbose.Location = New System.Drawing.Point(6, 65)
+        Me.chkVerbose.Location = New System.Drawing.Point(6, 19)
         Me.chkVerbose.Name = "chkVerbose"
         Me.chkVerbose.Size = New System.Drawing.Size(95, 17)
         Me.chkVerbose.TabIndex = 2
         Me.chkVerbose.Text = "Verbose Mode"
         Me.chkVerbose.UseVisualStyleBackColor = True
-        '
-        'chkToolTip
-        '
-        Me.chkToolTip.AutoSize = True
-        Me.chkToolTip.Location = New System.Drawing.Point(6, 42)
-        Me.chkToolTip.Name = "chkToolTip"
-        Me.chkToolTip.Size = New System.Drawing.Size(79, 17)
-        Me.chkToolTip.TabIndex = 11
-        Me.chkToolTip.Text = "Tool Tips ?"
-        Me.chkToolTip.UseVisualStyleBackColor = True
         '
         'lblTCdrop
         '
@@ -1161,6 +1267,7 @@ Partial Class frmTMXF
         '
         'grpTemp
         '
+        Me.grpTemp.Controls.Add(Me._chk)
         Me.grpTemp.Controls.Add(Me.btnTempDefault)
         Me.grpTemp.Controls.Add(Me.txtTemp)
         Me.grpTemp.Controls.Add(Me.btnTemp)
@@ -1171,13 +1278,23 @@ Partial Class frmTMXF
         Me.grpTemp.TabStop = False
         Me.grpTemp.Text = "Temporary Folder"
         '
+        '_chk
+        '
+        Me._chk.AutoSize = True
+        Me._chk.Location = New System.Drawing.Point(917, 24)
+        Me._chk.Name = "_chk"
+        Me._chk.Size = New System.Drawing.Size(15, 14)
+        Me._chk.TabIndex = 3
+        Me._chk.ThreeState = True
+        Me._chk.UseVisualStyleBackColor = True
+        '
         'btnTempDefault
         '
-        Me.btnTempDefault.Location = New System.Drawing.Point(857, 19)
+        Me.btnTempDefault.Location = New System.Drawing.Point(858, 19)
         Me.btnTempDefault.Name = "btnTempDefault"
         Me.btnTempDefault.Size = New System.Drawing.Size(75, 23)
         Me.btnTempDefault.TabIndex = 2
-        Me.btnTempDefault.Text = "Set Default"
+        Me.btnTempDefault.Text = "Default"
         Me.btnTempDefault.UseVisualStyleBackColor = True
         '
         'txtTemp
@@ -1316,7 +1433,7 @@ Partial Class frmTMXF
         '
         Me.txtOutFilename.Location = New System.Drawing.Point(109, 585)
         Me.txtOutFilename.Name = "txtOutFilename"
-        Me.txtOutFilename.Size = New System.Drawing.Size(169, 20)
+        Me.txtOutFilename.Size = New System.Drawing.Size(339, 20)
         Me.txtOutFilename.TabIndex = 10
         '
         'lblOutName
@@ -1331,11 +1448,12 @@ Partial Class frmTMXF
         'txtNameDate
         '
         Me.txtNameDate.AutoSize = True
-        Me.txtNameDate.Location = New System.Drawing.Point(284, 588)
+        Me.txtNameDate.Location = New System.Drawing.Point(456, 592)
+        Me.txtNameDate.Margin = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.txtNameDate.Name = "txtNameDate"
-        Me.txtNameDate.Size = New System.Drawing.Size(65, 13)
+        Me.txtNameDate.Size = New System.Drawing.Size(79, 13)
         Me.txtNameDate.TabIndex = 12
-        Me.txtNameDate.Text = "Data e Hora"
+        Me.txtNameDate.Text = "00-00-00-00-00"
         '
         'ToolTip
         '
@@ -1369,21 +1487,31 @@ Partial Class frmTMXF
         Me.lblBeta.TabIndex = 15
         Me.lblBeta.Text = "Beta"
         '
-        'lblInt32
+        'lblCodecn
         '
-        Me.lblInt32.AutoSize = True
-        Me.lblInt32.Location = New System.Drawing.Point(120, 640)
-        Me.lblInt32.Name = "lblInt32"
-        Me.lblInt32.Size = New System.Drawing.Size(66, 13)
-        Me.lblInt32.TabIndex = 16
-        Me.lblInt32.Text = "file signature"
+        Me.lblCodecn.AutoSize = True
+        Me.lblCodecn.Location = New System.Drawing.Point(543, 592)
+        Me.lblCodecn.Name = "lblCodecn"
+        Me.lblCodecn.Size = New System.Drawing.Size(38, 13)
+        Me.lblCodecn.TabIndex = 18
+        Me.lblCodecn.Text = "Codec"
+        '
+        'lblNameRes
+        '
+        Me.lblNameRes.AutoSize = True
+        Me.lblNameRes.Location = New System.Drawing.Point(587, 592)
+        Me.lblNameRes.Name = "lblNameRes"
+        Me.lblNameRes.Size = New System.Drawing.Size(57, 13)
+        Me.lblNameRes.TabIndex = 19
+        Me.lblNameRes.Text = "Resolution"
         '
         'frmTMXF
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(984, 662)
-        Me.Controls.Add(Me.lblInt32)
+        Me.Controls.Add(Me.lblNameRes)
+        Me.Controls.Add(Me.lblCodecn)
         Me.Controls.Add(Me.lblBeta)
         Me.Controls.Add(Me.btnAbout)
         Me.Controls.Add(Me.txtNameDate)
@@ -1411,6 +1539,8 @@ Partial Class frmTMXF
         Me.tabsMain.ResumeLayout(False)
         Me.TabCodec.ResumeLayout(False)
         Me.TabCodec.PerformLayout()
+        Me.grpGlobal.ResumeLayout(False)
+        Me.grpGlobal.PerformLayout()
         Me.grpInfo.ResumeLayout(False)
         Me.grpInfo.PerformLayout()
         Me.grpTCBurn.ResumeLayout(False)
@@ -1423,12 +1553,12 @@ Partial Class frmTMXF
         Me.grpACodec.PerformLayout()
         Me.grpACh.ResumeLayout(False)
         Me.grpACh.PerformLayout()
-        Me.grpGlobal.ResumeLayout(False)
-        Me.grpGlobal.PerformLayout()
+        Me.grpOther.ResumeLayout(False)
+        Me.grpOther.PerformLayout()
         Me.grpResolution.ResumeLayout(False)
         Me.grpResolution.PerformLayout()
-        Me.grpDumbCodec.ResumeLayout(False)
-        Me.grpDumbCodec.PerformLayout()
+        Me.grpVCodec.ResumeLayout(False)
+        Me.grpVCodec.PerformLayout()
         Me.TabConfig.ResumeLayout(False)
         Me.TabConfig.PerformLayout()
         Me.grpSoftOpt.ResumeLayout(False)
@@ -1465,9 +1595,9 @@ Partial Class frmTMXF
     Friend WithEvents btnTempDefault As System.Windows.Forms.Button
     Friend WithEvents btnChk2 As System.Windows.Forms.Button
     Friend WithEvents btnChk1 As System.Windows.Forms.Button
-    Friend WithEvents grpGlobal As System.Windows.Forms.GroupBox
+    Friend WithEvents grpOther As System.Windows.Forms.GroupBox
     Friend WithEvents btnConvert As System.Windows.Forms.Button
-    Friend WithEvents grpDumbCodec As System.Windows.Forms.GroupBox
+    Friend WithEvents grpVCodec As System.Windows.Forms.GroupBox
     Friend WithEvents rdbWAV As System.Windows.Forms.RadioButton
     Friend WithEvents rdbDNxHD As System.Windows.Forms.RadioButton
     Friend WithEvents rdbProRes As System.Windows.Forms.RadioButton
@@ -1479,7 +1609,7 @@ Partial Class frmTMXF
     Friend WithEvents btnChk5 As System.Windows.Forms.Button
     Friend WithEvents btnChk4 As System.Windows.Forms.Button
     Friend WithEvents grpResolution As System.Windows.Forms.GroupBox
-    Friend WithEvents rdb540 As System.Windows.Forms.RadioButton
+    Friend WithEvents rdb360 As System.Windows.Forms.RadioButton
     Friend WithEvents rdb486 As System.Windows.Forms.RadioButton
     Friend WithEvents rdb720 As System.Windows.Forms.RadioButton
     Friend WithEvents rdb1080 As System.Windows.Forms.RadioButton
@@ -1495,7 +1625,6 @@ Partial Class frmTMXF
     Friend WithEvents rdbADirect As System.Windows.Forms.RadioButton
     Friend WithEvents lblAudioChCommand As System.Windows.Forms.Label
     Friend WithEvents rdbACDirect As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbAAC As System.Windows.Forms.RadioButton
     Friend WithEvents rdbPCM24 As System.Windows.Forms.RadioButton
     Friend WithEvents rdbPCM16 As System.Windows.Forms.RadioButton
     Friend WithEvents grpSRate As System.Windows.Forms.GroupBox
@@ -1553,6 +1682,18 @@ Partial Class frmTMXF
     Friend WithEvents lblBeta As System.Windows.Forms.Label
     Friend WithEvents chkToolTip As System.Windows.Forms.CheckBox
     Friend WithEvents grpSoftOpt As System.Windows.Forms.GroupBox
-    Friend WithEvents lblInt32 As System.Windows.Forms.Label
+    Friend WithEvents chkCorrect As System.Windows.Forms.CheckBox
+    Friend WithEvents lblCodecn As System.Windows.Forms.Label
+    Friend WithEvents grpGlobal As System.Windows.Forms.GroupBox
+    Friend WithEvents chkHWaccel As System.Windows.Forms.CheckBox
+    Friend WithEvents rdbVCcopy As System.Windows.Forms.RadioButton
+    Friend WithEvents lblCustom As System.Windows.Forms.Label
+    Friend WithEvents txtCustom As System.Windows.Forms.TextBox
+    Friend WithEvents chkCustom As System.Windows.Forms.CheckBox
+    Friend WithEvents lblCFR As System.Windows.Forms.Label
+    Friend WithEvents txtCFR As System.Windows.Forms.TextBox
+    Friend WithEvents _chk As System.Windows.Forms.CheckBox
+    Friend WithEvents lblNameRes As System.Windows.Forms.Label
+    Friend WithEvents _chk2 As System.Windows.Forms.CheckBox
 
 End Class

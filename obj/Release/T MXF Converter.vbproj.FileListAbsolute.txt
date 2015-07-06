@@ -26,3 +26,88 @@ C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Conv
 C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\obj\Release\T MXF Handler.exe
 C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\obj\Release\T MXF Handler.xml
 C:\Users\Thiago\Documents\Visual Studio 2012\Projects\T MXF converter\T MXF Converter\obj\Release\T MXF Handler.pdb
+H:\T MXF converter\T MXF Converter\bin\Release\T MXF Handler.exe.config
+H:\T MXF converter\T MXF Converter\obj\Release\T MXF Handler.exe
+H:\T MXF converter\T MXF Converter\obj\Release\T MXF Handler.xml
+H:\T MXF converter\T MXF Converter\obj\Release\T MXF Handler.pdb
+G:\T MXF converter\T MXF Converter\bin\Release\T MXF Handler.exe.config
+G:\T MXF converter\T MXF Converter\obj\Release\T MXF Handler.exe
+G:\T MXF converter\T MXF Converter\obj\Release\T MXF Handler.xml
+G:\T MXF converter\T MXF Converter\obj\Release\T MXF Handler.pdb
+G:\T MXF converter\T MXF Converter\bin\Release\T MXF Handler.exe.manifest
+G:\T MXF converter\T MXF Converter\bin\Release\T MXF Handler.application
+G:\T MXF converter\T MXF Converter\bin\Release\T MXF Handler.exe
+G:\T MXF converter\T MXF Converter\bin\Release\T MXF Handler.pdb
+G:\T MXF converter\T MXF Converter\bin\Release\T MXF Handler.xml
+G:\T MXF converter\T MXF Converter\bin\Release\T MXF Handler.exe.CodeAnalysisLog.xml
+G:\T MXF converter\T MXF Converter\bin\Release\T MXF Handler.exe.lastcodeanalysissucceeded
+G:\T MXF converter\T MXF Converter\obj\Release\T_MXF_Handler.frmTMXF.resources
+G:\T MXF converter\T MXF Converter\obj\Release\T_MXF_Handler.Resources.resources
+G:\T MXF converter\T MXF Converter\obj\Release\T_MXF_Handler.frmAbout.resources
+G:\T MXF converter\T MXF Converter\obj\Release\T MXF Converter.vbproj.GenerateResource.Cache
+G:\T MXF converter\T MXF Converter\obj\Release\T MXF Handler.TrustInfo.xml
+G:\T MXF converter\T MXF Converter\obj\Release\T MXF Handler.exe.manifest
+G:\T MXF converter\T MXF Converter\obj\Release\T MXF Handler.application
+H:\T MXF converter\T MXF Converter\bin\Release\T MXF Handler.exe.manifest
+H:\T MXF converter\T MXF Converter\bin\Release\T MXF Handler.application
+H:\T MXF converter\T MXF Converter\bin\Release\T MXF Handler.exe
+H:\T MXF converter\T MXF Converter\bin\Release\T MXF Handler.pdb
+H:\T MXF converter\T MXF Converter\bin\Release\T MXF Handler.xml
+H:\T MXF converter\T MXF Converter\bin\Release\T MXF Handler.exe.CodeAnalysisLog.xml
+H:\T MXF converter\T MXF Converter\bin\Release\T MXF Handler.exe.lastcodeanalysissucceeded
+H:\T MXF converter\T MXF Converter\obj\Release\T_MXF_Handler.frmTMXF.resources
+H:\T MXF converter\T MXF Converter\obj\Release\T_MXF_Handler.Resources.resources
+H:\T MXF converter\T MXF Converter\obj\Release\T_MXF_Handler.frmAbout.resources
+H:\T MXF converter\T MXF Converter\obj\Release\T MXF Converter.vbproj.GenerateResource.Cache
+H:\T MXF converter\T MXF Converter\obj\Release\T MXF Handler.TrustInfo.xml
+H:\T MXF converter\T MXF Converter\obj\Release\T MXF Handler.exe.manifest
+H:\T MXF converter\T MXF Converter\obj\Release\T MXF Handler.application
+G:\Atual -T MXF converter\T MXF Converter\bin\Release\T MXF Handler.exe.config
+G:\Atual -T MXF converter\T MXF Converter\bin\Release\T MXF Handler.exe.manifest
+G:\Atual -T MXF converter\T MXF Converter\bin\Release\T MXF Handler.application
+G:\Atual -T MXF converter\T MXF Converter\bin\Release\T MXF Handler.exe
+G:\Atual -T MXF converter\T MXF Converter\bin\Release\T MXF Handler.pdb
+G:\Atual -T MXF converter\T MXF Converter\bin\Release\T MXF Handler.xml
+G:\Atual -T MXF converter\T MXF Converter\bin\Release\T MXF Handler.exe.CodeAnalysisLog.xml
+G:\Atual -T MXF converter\T MXF Converter\bin\Release\T MXF Handler.exe.lastcodeanalysissucceeded
+G:\Atual -T MXF converter\T MXF Converter\obj\Release\T_MXF_Handler.frmTMXF.resources
+G:\Atual -T MXF converter\T MXF Converter\obj\Release\T_MXF_Handler.Resources.resources
+G:\Atual -T MXF converter\T MXF Converter\obj\Release\T_MXF_Handler.frmAbout.resources
+G:\Atual -T MXF converter\T MXF Converter\obj\Release\T MXF Converter.vbproj.GenerateResource.Cache
+G:\Atual -T MXF converter\T MXF Converter\obj\Release\T MXF Handler.TrustInfo.xml
+G:\Atual -T MXF converter\T MXF Converter\obj\Release\T MXF Handler.exe.manifest
+G:\Atual -T MXF converter\T MXF Converter\obj\Release\T MXF Handler.application
+G:\Atual -T MXF converter\T MXF Converter\obj\Release\T MXF Handler.exe
+G:\Atual -T MXF converter\T MXF Converter\obj\Release\T MXF Handler.xml
+G:\Atual -T MXF converter\T MXF Converter\obj\Release\T MXF Handler.pdb
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\bin\Release\T MXF Handler.exe.config
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\obj\Release\T MXF Handler.exe
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\obj\Release\T MXF Handler.xml
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\obj\Release\T MXF Handler.pdb
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\obj\Release\T_MXF_Handler.frmTMXF.resources
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\obj\Release\T_MXF_Handler.Resources.resources
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\obj\Release\T_MXF_Handler.frmAbout.resources
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\obj\Release\T MXF Converter.vbproj.GenerateResource.Cache
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\bin\Release\T MXF Handler.exe.manifest
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\bin\Release\T MXF Handler.application
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\bin\Release\T MXF Handler.exe
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\bin\Release\T MXF Handler.pdb
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\bin\Release\T MXF Handler.xml
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\bin\Release\T MXF Handler.exe.CodeAnalysisLog.xml
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\bin\Release\T MXF Handler.exe.lastcodeanalysissucceeded
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\obj\Release\T MXF Handler.TrustInfo.xml
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\obj\Release\T MXF Handler.exe.manifest
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\obj\Release\T MXF Handler.application
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\obj\Release\UserControl1.baml
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\obj\Release\UserControl1.g.vb
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\obj\Release\T MXF Handler_Content.g.vb
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\obj\Release\T MXF Handler_MarkupCompile.cache
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\obj\Release\T MXF Handler.g.resources
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\bin\Release\Done\T MXF Handler.exe.config
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\bin\Release\Done\T MXF Handler.exe.manifest
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\bin\Release\Done\T MXF Handler.application
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\bin\Release\Done\T MXF Handler.exe
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\bin\Release\Done\T MXF Handler.pdb
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\bin\Release\Done\T MXF Handler.xml
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\bin\Release\Done\T MXF Handler.exe.CodeAnalysisLog.xml
+C:\Users\Thiago\Desktop\T MXF converter - 10-04-15\T MXF Converter\bin\Release\Done\T MXF Handler.exe.lastcodeanalysissucceeded

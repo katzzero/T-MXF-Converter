@@ -185,6 +185,54 @@ Namespace My
                 Me("lognametmp") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property last() As Boolean
+            Get
+                Return CType(Me("last"),Boolean)
+            End Get
+            Set
+                Me("last") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property Correct() As Boolean
+            Get
+                Return CType(Me("Correct"),Boolean)
+            End Get
+            Set
+                Me("Correct") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property verbose() As Boolean
+            Get
+                Return CType(Me("verbose"),Boolean)
+            End Get
+            Set
+                Me("verbose") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property custom() As String
+            Get
+                Return CType(Me("custom"),String)
+            End Get
+            Set
+                Me("custom") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
@@ -195,7 +243,7 @@ Namespace My
      Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute()>  _
     Friend Module MySettingsProperty
         
-        <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")> _
+        <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")>  _
         Friend ReadOnly Property Settings() As Global.T_MXF_Handler.My.MySettings
             Get
                 Return Global.T_MXF_Handler.My.MySettings.Default
