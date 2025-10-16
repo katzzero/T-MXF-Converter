@@ -2,201 +2,31 @@
 Imports System.ComponentModel
 Imports Microsoft.VisualBasic
 Imports System.Security.Permissions
+Imports System.Windows.Forms ' Adicionado para garantir que os controles do Form sejam reconhecidos pelos módulos
 
 Public Class frmTMXF
 
     Private Sub frmTMXF_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim _totalmem As Integer = CDec(((My.Computer.Info.TotalPhysicalMemory.ToString) / 1024) / 1024)
-        Dim _avaimem As Integer = CDec(((My.Computer.Info.AvailablePhysicalMemory.ToString) / 1024) / 1024)
-        Dim _mempercent As Integer = (_avaimem / _totalmem) * 100
-
-        txtFFoutput.Text = DateAndTime.Now.ToString("HH:mm:ss") & " Initializing Systems ... "
-        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Computer name: " & Environment.MachineName
-        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Operating system: " & My.Computer.Info.OSFullName & " with " & Environment.ProcessorCount & " Logical Processors."
-        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Operating system version: " & Environment.OSVersion.ToString
-        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " System memory: " & _totalmem.ToString("####,####") & " MBs total with " & _avaimem.ToString("####,####") & " MBs available. " & _mempercent.ToString("##") & "% of total memory can be used for conversion."
-        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Hello " & Environment.UserName & "!"
+        txtFFoutput.Text = SystemInfo.GetInitializationLog()
 
         'Show version on label
         lblVersion.Text = "V." & Application.ProductVersion
-        Try
-            If System.IO.File.Exists(Application.StartupPath & "\bin\ffmpeg.exe") = True Then
-                txtFFmpeg.Text = Application.StartupPath & "\bin\ffmpeg.exe"
-                My.Settings.ffmpegpath = txtFFmpeg.Text
-            ElseIf System.IO.File.Exists("c:\ffmpeg\bin\ffmpeg.exe") = True Then
-                txtFFmpeg.Text = "c:\ffmpeg\bin\ffmpeg.exe"
-                My.Settings.ffmpegpath = txtFFmpeg.Text
-            End If
-            If System.IO.File.Exists(Application.StartupPath & "\bin\ffprobe.exe") = True Then
-                txtFFprobe.Text = Application.StartupPath & "\bin\ffprobe.exe"
-                My.Settings.ffprobepath = txtFFprobe.Text
-            ElseIf System.IO.File.Exists("c:\ffmpeg\bin\ffprobe.exe") = True Then
-                txtFFprobe.Text = "c:\ffmpeg\bin\ffprobe.exe"
-                My.Settings.ffprobepath = txtFFprobe.Text
 
-            End If
-        Catch ex As Exception
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " System Critical error parsing core files!"
-        End Try
+        ' Configuração de caminhos FFmpeg/FFprobe e Temp
+        FFmpegConfig.ConfigureFFmpegPaths(txtFFmpeg, txtFFprobe, txtFFoutput)
+        FFmpegConfig.ConfigureTempPath(txtTemp, txtFFoutput)
 
-        Try
-            If System.IO.File.Exists(My.Settings.ffprobepath.ToString) = True Then
-                txtFFprobe.Text = My.Settings.ffprobepath.ToString
-            ElseIf My.Settings.ffprobepath = "c:FFprobe" Or My.Settings.ffprobepath.Length <= 0 Then
-                OpenFFprobeDialog.ShowDialog()
-                txtFFprobe.Text = OpenFFprobeDialog.FileName
-                My.Settings.ffprobepath = txtFFprobe.Text
-                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFprobe.exe Selected ! "
-            ElseIf System.IO.File.Exists(My.Settings.ffprobepath.ToString) = False Then
-                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFprobe.exe Not Found - TC Burn Disabled !"
-                txtFFprobe.Text = "c:FFprobe"
-                My.Settings.ffprobepath = "c:FFprobe"
-            End If
+        ' Carregamento das últimas configurações
+        SettingsLoader.LoadLastSettings(Me)
 
-        Catch ex As Exception
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## FFprobe.exe Error ## - TC Burn Disabled !"
-        End Try
-
-        'Check if FFmpeg path is Ok and if not do this
-        Try
-            If txtFFmpeg.Text = "c:FFmpeg" Then
-                If My.Settings.ffmpegpath.Length = 0 Then
-                    OpenFFmpegDialog.ShowDialog()
-                    txtFFmpeg.Text = OpenFFmpegDialog.FileName.ToString
-                    My.Settings.ffmpegpath = OpenFFmpegDialog.FileName.ToString
-                    btnChk3.BackColor = Color.Green
-                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFmpeg executable Selected !! "
-                ElseIf System.IO.File.Exists(My.Settings.ffmpegpath.ToString) = True Then
-                    txtFFmpeg.Text = My.Settings.ffmpegpath.ToString
-                    btnChk3.BackColor = Color.Green
-                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFmpeg.exe found! "
-                End If
-            End If
-        Catch ex As Exception
-            My.Settings.ffmpegpath = ""
-            txtFFmpeg.Text = "c:FFmpeg"
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## FFmpeg path not found!! ## Please check the path in Software Config Tab or the software will be unable to convert!"
-        End Try
-
-
-        'Check if theres is a path for temp if not set default
-        If txtTemp.Text = "c:Temp" Then
-            If My.Settings.temppath.Length = 0 Then
-                txtTemp.Text = System.IO.Path.GetTempPath
-                My.Settings.temppath = txtTemp.Text.ToString
-                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Using system's default temporary folder."
-            Else
-                txtTemp.Text = My.Settings.temppath
-                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Using custom temporary folder."
-            End If
-        End If
-
-        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Recalling last used settings ..."
-
-        'Check last used codec and assign it
-        If My.Settings.lastVcodec = "h264" Then
-            rdbH264.Checked = True
-        ElseIf My.Settings.lastVcodec = "prores" Then
-            rdbProRes.Checked = True
-        ElseIf My.Settings.lastVcodec = "dnxhd" Then
-            rdbDNxHD.Checked = True
-        ElseIf My.Settings.lastVcodec = "wav" Then
-            rdbWAV.Checked = True
-        End If
-
-        'Check Last used Resolution and assign it
-        If My.Settings.lastres = "1080" Then
-            rdb1080.Checked = True
-        ElseIf My.Settings.lastres = "720" Then
-            rdb720.Checked = True
-        ElseIf My.Settings.lastres = "486" Then
-            rdb486.Checked = True
-        ElseIf My.Settings.lastres = "360" Then
-            rdb360.Checked = True
-        End If
-
-        'Check Last used Frame Rate and assign it
-        If My.Settings.LastFR = "frdirect" Then
-            rdbFRdirect.Checked = True
-        ElseIf My.Settings.LastFR = "24" Then
-            rdb24.Checked = True
-        ElseIf My.Settings.LastFR = "29" Then
-            rdb29D.Checked = True
-        ElseIf My.Settings.LastFR = "23" Then
-            rdb23.Checked = True
-        End If
-
-        'Check Last used Audio Codec and assign it
-        If My.Settings.lastAcodec = "PCM16" Then
-            rdbPCM16.Checked = True
-        ElseIf My.Settings.lastAcodec = "PCM24" Then
-            rdbPCM24.Checked = True
-        ElseIf My.Settings.lastAcodec = "wav" Then
-            rdbWAV.Checked = True
-        ElseIf My.Settings.lastAcodec = "acdirect" Then
-            rdbACDirect.Checked = True
-        End If
-
-        'Check Last used Audio Channels and assign it
-        If My.Settings.lastchannels = "direct" Then
-            rdbADirect.Checked = True
-        ElseIf My.Settings.lastchannels = "2ch" Then
-            rdbA2Ch.Checked = True
-        ElseIf My.Settings.lastchannels = "4ch" Then
-            rdbA4Ch.Checked = True
-        ElseIf My.Settings.lastchannels = "8ch" Then
-            rdbA8Ch.Checked = True
-        End If
-
-        'Check Last used Frame Rate and assign it
-        If My.Settings.LastSR = "srdirect" Then
-            rdbSRDirect.Checked = True
-        ElseIf My.Settings.LastSR = "sr44" Then
-            rdbSR44.Checked = True
-        ElseIf My.Settings.LastSR = "sr48" Then
-            rdbSR48.Checked = True
-        ElseIf My.Settings.LastSR = "sr96" Then
-            rdbSR96.Checked = True
-        End If
-
-        If My.Settings.last = False Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " No settings detected from previous use."
-        ElseIf My.Settings.last = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Settings Loaded OK."
-        End If
-
-
-        'Set date and time as part of the output name
+        ' Set date and time as part of the output name
         txtNameDate.Text = DateAndTime.Now.ToString("dd-MM-yyyy") & "-" & DateAndTime.Now.ToString("HH-mm")
         txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Software Started Successfully!"
-
-        If Not My.Settings.LastOutPath.Length = 0 Then
-            txtOutPath.Text = My.Settings.LastOutPath.ToString
-            btnSaveOut.Enabled = True
-
-        End If
-
-        If My.Settings.Correct = True Then
-            chkCorrect.Checked = True
-        End If
-
-        If My.Settings.verbose = True Then
-            chkVerbose.Checked = True
-        End If
-
-        If My.Settings.custom.Length = 0 Then
-            txtCustom.Text = "Enter Here !"
-        Else
-            txtCustom.Text = My.Settings.custom
-        End If
 
     End Sub
 
     Private Sub btnLoadMXF_Click(sender As Object, e As EventArgs) Handles btnLoadMXF.Click
-        Dim _mxfinfo As FileInfo
-        Dim _mxfsize As Integer
-        Dim _mxfsize_ok As String = " ## Error Parsing MXF Size ## "
-
+        ' Limpar campos de metadados
         txtAC.Text = ""
         txtDrop.Text = ""
         txtDur.Text = ""
@@ -205,150 +35,63 @@ Public Class frmTMXF
         txtFR.Text = ""
         txtSR.Text = ""
 
-        Try
-            If OpenMXFDialog.ShowDialog() = Windows.Forms.DialogResult.OK Then
-                txtMXFpath.Text = Microsoft.VisualBasic.Chr(34) & OpenMXFDialog.FileName.ToString & Microsoft.VisualBasic.Chr(34)
-                btnSaveOut.Enabled = True
+        ' 1. Abrir diálogo e obter caminho do arquivo
+        If OpenMXFDialog.ShowDialog() <> Windows.Forms.DialogResult.OK Then
+            txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Seleção de arquivo MXF cancelada. ##"
+            Return
+        End If
 
-                If System.IO.File.Exists(txtMXFpath.Text.Trim(Microsoft.VisualBasic.Chr(34))) Then
-                    btnChk1.BackColor = Color.Green
-                    lblMXFPathCommand.Text = "-i " & txtMXFpath.Text
-                    _mxfinfo = My.Computer.FileSystem.GetFileInfo(txtMXFpath.Text.Trim(Microsoft.VisualBasic.Chr(34)))
-                    _mxfsize = CDec((_mxfinfo.Length.ToString / 1024) / 1024)
-                    If _mxfsize > 999 Then
-                        _mxfsize_ok = _mxfsize.ToString("###,###")
-                    Else
-                        _mxfsize_ok = _mxfsize.ToString
-                    End If
-                    txtOutFilename.Text = System.IO.Path.GetFileNameWithoutExtension(txtMXFpath.Text.Trim(Microsoft.VisualBasic.Chr(34)))
-                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " MXF file loaded sucessfully ! The MXF have " & _mxfsize_ok.ToString & " MBs of data!"
-                End If
-                
+        Dim mxfPathWithQuotes As String = Microsoft.VisualBasic.Chr(34) & OpenMXFDialog.FileName.ToString & Microsoft.VisualBasic.Chr(34)
+        txtMXFpath.Text = mxfPathWithQuotes
+        btnSaveOut.Enabled = True
+
+        Dim mxfPath As String = mxfPathWithQuotes.Trim(Microsoft.VisualBasic.Chr(34))
+
+        If Not System.IO.File.Exists(mxfPath) Then
+            txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Problem Loading MXF file . Copy locally or choose another one. "
+            Return
+        End If
+
+        ' 2. Processar o arquivo MXF usando o novo módulo
+        Dim result As MXFProcessor.MXFAnalysisResult = MXFProcessor.ProcessMXFFile( _
+            mxfPathWithQuotes, _
+            Me.txtFFprobe.Text.ToString, _
+            Me.txtTemp.Text.ToString, _
+            Me.chkVerbose.Checked _
+        )
+
+        ' 3. Atualizar a interface com os resultados
+        If result.Success Then
+            btnChk1.BackColor = Color.Green
+            lblMXFPathCommand.Text = "-i " & mxfPathWithQuotes
+            txtOutFilename.Text = System.IO.Path.GetFileNameWithoutExtension(mxfPath)
+            txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " MXF file loaded sucessfully ! The MXF have " & result.MXFSizeMB & " MBs of data!"
+
+            ' Atualizar campos de metadados
+            txtTC.Text = result.TimeCode
+            txtFR.Text = result.FrameRate
+            txtVC.Text = result.VideoCodec
+            txtAC.Text = result.AudioCodec
+            txtSR.Text = result.SampleRate
+            txtDur.Text = result.Duration
+            txtDrop.Text = If(result.IsDropFrame, "Yes", "No")
+
+            ' Lógica de log verbose
+            If chkVerbose.Checked Then
+                txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFprobe Output: " & vbCrLf & result.FFprobeOutput
             End If
-        Catch ex As Exception
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Problem Loading MXF file . Copy locally or choose another one. "
-        End Try
 
-        If System.IO.File.Exists(txtMXFpath.Text.Trim(Microsoft.VisualBasic.Chr(34))) = True Then
-            Dim FFprobeProcess As New Process
-            Dim FFprobe_arguments As String
-            Dim io As StreamReader
-            Dim io_temp As String
-            io_temp = Nothing
-            FFprobe_arguments = " -hide_banner " & txtMXFpath.Text.ToString
+            ' Lógica específica do formulário (que não foi extraída)
+            Analize_sub(mxfPathWithQuotes)
 
-            Try
-                FFprobeProcess.StartInfo.FileName = Me.txtFFprobe.Text.ToString
-                FFprobeProcess.StartInfo.Arguments = FFprobe_arguments
-                FFprobeProcess.StartInfo.ErrorDialog = True
-                FFprobeProcess.StartInfo.RedirectStandardError = True
-                FFprobeProcess.StartInfo.UseShellExecute = False
-                FFprobeProcess.StartInfo.WorkingDirectory = Me.txtTemp.Text.ToString
-                FFprobeProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-                FFprobeProcess.StartInfo.CreateNoWindow = True
-                FFprobeProcess.Start()
-                io = FFprobeProcess.StandardError
-
-                FFprobeProcess.WaitForExit()
-                io_temp = io.ReadToEnd
-                If chkVerbose.Checked = True Then
-                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & io_temp
-                End If
-
-                Analize_sub(txtMXFpath.ToString)
-
-                Try
-                    Dim sTC As String = Strings.InStr(io_temp, "timecode") + 18
-                    If sTC = 18 Then
-                        txtTC.Text = "## Error ##"
-                        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Time Code data!! ##"
-                        chkTCBurn.Enabled = False
-                    Else
-                        Dim eTC As String = (sTC + 11)
-                        Dim MXFTC As String = Strings.Mid(io_temp, sTC, (eTC - sTC))
-                        txtTC.Text = MXFTC.ToString
-                    End If
-                Catch ex As Exception
-                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Time Code data!! ##"
-                    txtTC.Text = "## Error ##"
-                    chkTCBurn.Enabled = False
-                End Try
-
-                Try
-                    Dim fFR As String = Strings.InStr(io_temp, "fps") - 9
-                    'MessageBox.Show(FFR & " FFR")
-                    Dim mFR As String = Strings.Mid(io_temp, fFR, 12)
-                    'MessageBox.Show(mFR & " mfr")
-                    Dim sFR As String = Strings.InStr(mFR, ",") + 1
-                    Dim eFR As String = Strings.InStrRev(mFR, "fps")
-                    'MessageBox.Show(sFR & " sfr")
-                    Dim MXFFR As String = Strings.Mid(mFR, sFR, eFR)
-                    'MessageBox.Show(MXFFR & " mxffr")
-                    txtFR.Text = MXFFR.ToString
-                Catch ex As Exception
-                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Frame Rate data!! ##"
-                    txtFR.Text = "## Error ##"
-                End Try
-
-                Try
-                    Dim sVC As String = Strings.InStr(io_temp, "Video:") + 7
-                    Dim mVC As String = Strings.Mid(io_temp, sVC, sVC + 30)
-                    Dim eVC As String = Strings.InStr(mVC, ",") - 1
-                    Dim MXFVC As String = Strings.Mid(mVC, 1, eVC)
-                    txtVC.Text = MXFVC.ToString
-
-                Catch ex As Exception
-                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Video Codec data!! ##"
-                    txtVC.Text = "## Error ##"
-                End Try
-
-                Try
-                    Dim sAC As String = Strings.InStr(io_temp, "Audio:") + 7
-                    Dim mAC As String = Strings.Mid(io_temp, sAC, sAC + 30)
-                    'MessageBox.Show(mAC)
-                    Dim eAC As String = Strings.InStr(mAC, ",") - 1
-                    'MessageBox.Show(eAC)
-                    Dim MXFAC As String = Strings.Mid(mAC, 1, eAC)
-                    Dim mSR As String = Strings.Mid(mAC, (eAC + 1), 15)
-                    Dim eSR As String = Strings.InStr(mSR, "Hz") - 1
-                    Dim MXFSR As String = Strings.Mid(mSR, 3, eSR)
-                    'MessageBox.Show(MXFSR & vbCrLf & mSR)
-                    txtAC.Text = MXFAC.ToString
-                    txtSR.Text = MXFSR.ToString
-                Catch ex As Exception
-                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Audio Codec and Sample Rate data!! ##"
-                    txtAC.Text = "## Error ##"
-                    txtSR.Text = "## Error ##"
-                End Try
-
-                Try
-                    Dim sDR As String = Strings.InStr(io_temp, "Duration:") + 10
-                    If sDR = 10 Then
-                        txtTC.Text = "## Error ##"
-                        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Finding Duration data!! ##"
-                    Else
-                        Dim eDR As String = (sDR + 11)
-                        Dim MXFDR As String = Strings.Mid(io_temp, sDR, (eDR - sDR))
-                        txtDur.Text = MXFDR.ToString
-                    End If
-                Catch ex As Exception
-                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Finding Duration data!! ##"
-                    txtDur.Text = "## Error ##"
-                End Try
-
-                If txtTC.Text.Contains(";") = True Then
-                    txtDrop.Text = "Yes"
-                Else
-                    txtDrop.Text = "No"
-                End If
-
-            Catch ex As Exception
-                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Retrieving Information Data!! ##"
-                chkTCBurn.Enabled = False
-            End Try
+            ' Desabilitar TC Burn se houver erro no TimeCode
+            chkTCBurn.Enabled = (result.TimeCode <> "## Error ##")
 
         Else
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Select a MXF file first!! ##"
+            ' Lidar com erros de processamento
+            txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Retrieving Information Data!! ##"
+            txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Detalhe: " & result.ErrorMessage
+            chkTCBurn.Enabled = False
         End If
 
     End Sub
@@ -627,64 +370,8 @@ Public Class frmTMXF
         Dim _lastlog As New System.IO.FileSystemWatcher
         Dim _outinforaw As FileInfo
         Dim _outinfo As Integer
-        Dim _ffargReport As String
-        Dim _dnxhdBT As String = "45M"
-        Dim _dnxhdFR As String = "30000/1001"
-        Dim _GPU As String = ""
 
-        If txtFR.ToString.Contains("23") = True Then
-            _dnxhdFR = "24000/1001"
-            If rdb1080.Checked = True Then
-                _dnxhdBT = "36M "
-            ElseIf rdb720.Checked = True Then
-                _dnxhdBT = "60M "
-            End If
-        ElseIf txtFR.ToString.Contains("29") = True Then
-            _dnxhdFR = "30000/1001"
-            If rdb1080.Checked = True Then
-                _dnxhdBT = "45M "
-            ElseIf rdb720.Checked = True Then
-                _dnxhdBT = "75M "
-            End If
-        ElseIf txtFR.ToString.Contains("30") = True Then
-            _dnxhdFR = "30/1"
-            If rdb1080.Checked = True Then
-                _dnxhdBT = "45M "
-            ElseIf rdb720.Checked = True Then
-                _dnxhdBT = "75M "
-            End If
-        ElseIf txtFR.ToString.Contains("25") = True Then
-            _dnxhdFR = "25/1"
-            If rdb1080.Checked = True Then
-                _dnxhdBT = "36M "
-            ElseIf rdb720.Checked = True Then
-                _dnxhdBT = "60M "
-            End If
-        ElseIf txtFR.ToString.Contains("24") = True Then
-            _dnxhdFR = "24/1"
-            If rdb1080.Checked = True Then
-                _dnxhdBT = "36M "
-            ElseIf rdb720.Checked = True Then
-                _dnxhdBT = "60M "
-            End If
-
-        End If
-
-        If chkCorrect.Checked = True Then
-            If txtFR.Text.Contains(23) = True Or txtFR.ToString.Contains("29") = True Then
-                If rdbDNxHD.Checked = True Then
-                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Video Frame Rate need to be corrected for perfectly recognition, applying it now!! "
-                    Dim _FR_CORR As String = " -r " & _dnxhdFR
-                Else
-                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Problematic Frame Rate detected for use in Post-Production! "
-                End If
-
-            End If
-        End If
-        
-
-
-        _ffargReport = "-loglevel verbose"
+        ' 1. Configuração do FileSystemWatcher para o log do FFmpeg
         _lastlog.Path = txtTemp.Text
         _lastlog.NotifyFilter = (NotifyFilters.LastAccess Or NotifyFilters.LastWrite Or NotifyFilters.FileName Or NotifyFilters.DirectoryName)
         _lastlog.Filter = "*.log"
@@ -692,6 +379,7 @@ Public Class frmTMXF
         AddHandler _lastlog.Changed, AddressOf _lastlog_OnChanged
         _lastlog.EnableRaisingEvents = True
 
+        ' 2. Inicialização do Log e Tempo
         _date = DateAndTime.Now.ToString("yyyyMMdd")
         _time = DateAndTime.Now.ToString("HHmmss")
         _timestart = DateAndTime.Now.ToString("HH:mm:ss")
@@ -699,36 +387,10 @@ Public Class frmTMXF
         txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Conversion started ! " & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Waiting for the Conversion to Complete."
         txtNameDate.Text = DateAndTime.Now.ToString("dd-MM-yyyy") & "-" & DateAndTime.Now.ToString("HH-mm")
 
-        If rdbDNxHD.Checked = True Then
-            lblCodecCommand.Text = " -vcodec dnxhd -b:v " & _dnxhdBT.ToString & "-r " & _dnxhdFR.ToString
-        End If
+        ' 3. Geração do Comando FFmpeg usando o novo módulo
+        FFarguments = FFmpegCommandBuilder.BuildCommand(Me)
 
-        If chkTCBurn.Checked = True Then
-            lblTCburn.Text = " -vf " & (Microsoft.VisualBasic.Chr(34)) & "drawtext=fontfile=/windows/fonts/cour.ttf: fontsize=56: timecode='" & lblTChour.Text.ToString & "\:" & lblTCminute.Text.ToString & "\:" & lblTCsecond.Text.ToString & "\" & lblTCdrop.Text.ToString & LblTCframe.Text.ToString & "': r=" & _dnxhdFR & ": x=(w-tw)/2: y=h-(3.5*lh): box=1: boxcolor=0x00000075: fontcolor=0xffffff85: shadowcolor=0x00000065 : shadowx=2 :shadowy=2 " & (Microsoft.VisualBasic.Chr(34))
-        Else
-            lblTCburn.Text = ""
-        End If
-        '                                                                                                             01\:57\:00\:00
-        If chkReport.Checked = True Then
-            _ffargReport = "-report " & "-loglevel verbose -y -hide_banner "
-        Else
-            _ffargReport = "-loglevel verbose -y -hide_banner "
-        End If
-
-        If chkHWaccel.Checked = True Then
-            _GPU = " -hwaccel auto "
-        Else
-            _GPU = ""
-        End If
-
-        FFarguments = _ffargReport & _GPU & " -i " & txtMXFpath.Text.ToString & " " & lblCodecCommand.Text.ToString & " " & lblRes.Text.ToString & " " & lblTCburn.Text.ToString & " " & lblACodecCommand.Text.ToString & " " & lblAudioChCommand.Text.ToString & " " & (Microsoft.VisualBasic.Chr(34)) & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & lblCodecn.Text.ToString & lblNameRes.Text.ToString & ".mov" & (Microsoft.VisualBasic.Chr(34))
-        lblFFarguments.Text = FFarguments.ToString
-        If rdbWAV.Checked = True Then
-            FFarguments = _ffargReport & " -i " & txtMXFpath.Text.ToString & " " & lblCodecCommand.Text.ToString & "  " & lblACodecCommand.Text.ToString & "  " & (Microsoft.VisualBasic.Chr(34)) & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".wav" & (Microsoft.VisualBasic.Chr(34))
-        End If
-        If chkCustom.Checked = True Then
-            FFarguments = _ffargReport & " -i " & txtMXFpath.Text.ToString & " " & txtCustom.Text.ToString & "  " & (Microsoft.VisualBasic.Chr(34)) & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".mov" & (Microsoft.VisualBasic.Chr(34))
-        End If
+        ' 4. Execução do FFmpeg
         Try
             FFmpegprocess.StartInfo.FileName = Me.txtFFmpeg.Text.ToString
             FFmpegprocess.StartInfo.Arguments = FFarguments
@@ -742,7 +404,7 @@ Public Class frmTMXF
 
         End Try
 
-
+        ' 5. Finalização e Log
         _lastlog.EnableRaisingEvents = False
         _timeend = DateAndTime.Now.ToString("HH:mm:ss")
         _TimeTotal = _timeend - _timestart
@@ -754,17 +416,32 @@ Public Class frmTMXF
             End If
         End If
 
+        ' 6. Verificação do Arquivo de Saída
         Try
-            _outinforaw = My.Computer.FileSystem.GetFileInfo(txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & lblCodecn.Text.ToString & lblNameRes.Text.ToString & ".mov")
-            _outinfo = CDec((_outinforaw.Length.ToString / 1024) / 1024)
-            If _outinfo > 999 Then
-                _outinfo = _outinfo.ToString("###,###")
+            Dim outputFileName As String
+            If rdbWAV.Checked Then
+                outputFileName = txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".wav"
+            ElseIf chkCustom.Checked Then
+                outputFileName = txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & ".mov"
+            Else
+                outputFileName = txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & lblCodecn.Text.ToString & lblNameRes.Text.ToString & ".mov"
             End If
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Conversion to Completed !" & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Conversion Started At " & _timestart & " And Ended at " & _timeend & " Taking " & _TimeTotal.Minutes.ToString & " minutes to finish." & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " The file was saved as " & txtOutPath.Text.ToString & "\" & txtOutFilename.Text.ToString & "-" & txtNameDate.Text.ToString & lblCodecn.Text.ToString & lblNameRes.Text.ToString & ".mov" & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Output File have " & _outinfo.ToString & " MBs."
+
+            _outinforaw = My.Computer.FileSystem.GetFileInfo(outputFileName)
+            _outinfo = CInt((_outinforaw.Length / 1024) / 1024)
+            Dim _outinfo_str As String
+            If _outinfo > 999 Then
+                _outinfo_str = _outinfo.ToString("###,###")
+            Else
+                _outinfo_str = _outinfo.ToString
+            End If
+
+            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Conversion to Completed !" & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Conversion Started At " & _timestart & " And Ended at " & _timeend & " Taking " & _TimeTotal.Minutes.ToString & " minutes to finish." & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " The file was saved as " & outputFileName & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Output File have " & _outinfo_str & " MBs."
         Catch ex As Exception
             txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Problem finding the output file. Please check if it's ok."
         End Try
 
+        ' 7. Salvar Configurações Customizadas
         If chkCustom.Checked = True Then
             My.Settings.custom = txtCustom.Text
         ElseIf My.Settings.custom.Length > 0 Then
