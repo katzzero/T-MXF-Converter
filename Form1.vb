@@ -81,8 +81,8 @@ Public Class frmTMXF
                 txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " FFprobe Output: " & vbCrLf & result.FFprobeOutput
             End If
 
-            ' Lógica específica do formulário (que não foi extraída)
-            Analize_sub(mxfPathWithQuotes)
+            ' A lógica de Analize_sub foi movida para MXFProcessor.ProcessMXFFile.
+            ' A chamada é redundante e foi removida.
 
             ' Desabilitar TC Burn se houver erro no TimeCode
             chkTCBurn.Enabled = (result.TimeCode <> "## Error ##")
@@ -154,148 +154,32 @@ Public Class frmTMXF
 
     End Sub
 
-    Private Sub codec_CheckedChanged(sender As Object, e As EventArgs) Handles rdbH264.CheckedChanged, rdbDNxHD.CheckedChanged, rdbProRes.CheckedChanged, rdbWAV.CheckedChanged
-
-        If rdbH264.Checked = True Then
-            lblCodecCommand.Text = "-vcodec libx264 -profile:v baseline -tune fastdecode -g 1 -crf 18 -bf 0 -pix_fmt yuv420p -copyts"
-            My.Settings.lastVcodec = "h264"
-            rdb486.Enabled = True
-            rdb360.Enabled = True
-        ElseIf rdbVCcopy.Checked = True Then
-            lblCodecCommand.Text = " -vcodec copy "
-        ElseIf rdbProRes.Checked = True Then
-            lblCodecCommand.Text = "-vcodec prores_ks -profile:v 1 -qscale:v 9 -copyts"
-            My.Settings.lastVcodec = "prores"
-            rdb486.Enabled = True
-            rdb360.Enabled = True
-        ElseIf rdbDNxHD.Checked = True Then
-            lblCodecCommand.Text = "-vcodec dnxhd"
-            My.Settings.lastVcodec = "dnxhd"
-            rdb486.Enabled = False
-            rdb486.Checked = False
-            rdb360.Enabled = False
-            rdb360.Checked = False
-            rdb720.Checked = True
-        End If
-
+    Private Sub codec_CheckedChanged(sender As Object, e As EventArgs) Handles rdbH264.CheckedChanged, rdbDNxHD.CheckedChanged, rdbProRes.CheckedChanged, rdbWAV.CheckedChanged, rdbVCcopy.CheckedChanged
+        UICommandUpdater.UpdateVideoCodec(Me)
     End Sub
 
     Private Sub resolution_CheckedChanged(sender As Object, e As EventArgs) Handles rdb1080.CheckedChanged, rdb486.CheckedChanged, rdb360.CheckedChanged, rdb720.CheckedChanged
-
-        If rdb1080.Checked = True Then
-            lblRes.Text = " -s 1920x1080"
-            My.Settings.lastres = "1080"
-            lblNameRes.Text = " 1080p"
-        ElseIf rdb720.Checked = True Then
-            lblRes.Text = "-s 1280x720"
-            My.Settings.lastres = "720"
-            lblNameRes.Text = " 720p"
-        ElseIf rdb486.Checked = True Then
-            lblRes.Text = " -s 864x486"
-            My.Settings.lastres = "486"
-            lblNameRes.Text = " 486p"
-        ElseIf rdb360.Checked = True Then
-            lblRes.Text = "-s 640x360"
-            My.Settings.lastres = "360"
-            lblNameRes.Text = " 360p"
-        End If
-
+        UICommandUpdater.UpdateResolution(Me)
     End Sub
 
     Private Sub rdbSRDirect_CheckedChanged(sender As Object, e As EventArgs) Handles rdbSRDirect.CheckedChanged, rdbSR44.CheckedChanged, rdbSR48.CheckedChanged, rdbSR96.CheckedChanged
-
-        If rdbSRDirect.Checked = True Then
-            lblSRcommand.Text = "SR Command copy"
-            My.Settings.LastSR = "srdirect"
-        ElseIf rdbSR44.Checked = True Then
-            lblSRcommand.Text = "SR Command 44.1"
-            My.Settings.LastSR = "sr44"
-        ElseIf rdbSR48.Checked = True Then
-            lblSRcommand.Text = "SR Command 48"
-            My.Settings.LastSR = "sr48"
-        ElseIf rdbSR96.Checked = True Then
-            lblSRcommand.Text = "SR Command 96"
-            My.Settings.LastSR = "sr96"
-        End If
-
+        UICommandUpdater.UpdateSampleRate(Me)
     End Sub
 
     Private Sub rdbAchannels_CheckedChanged(sender As Object, e As EventArgs) Handles rdbADirect.CheckedChanged, rdbA2Ch.CheckedChanged, rdbA4Ch.CheckedChanged, rdbA8Ch.CheckedChanged
-
-        If rdbADirect.Checked = True Then
-            lblAudioChCommand.Text = "-map 0 -map -0:d"
-            My.Settings.lastchannels = "direct"
-        ElseIf rdbA2Ch.Checked = True Then
-            lblAudioChCommand.Text = "2 channels map"
-            My.Settings.lastchannels = "2ch"
-        ElseIf rdbA4Ch.Checked = True Then
-            lblAudioChCommand.Text = "4 Channels map"
-            My.Settings.lastchannels = "4ch"
-        ElseIf rdbA8Ch.Checked = True Then
-            lblAudioChCommand.Text = "8 Channels map"
-            My.Settings.lastchannels = "8ch"
-        End If
-
+        UICommandUpdater.UpdateAudioChannels(Me)
     End Sub
 
 
     Private Sub rdbACodec_CheckedChanged(sender As Object, e As EventArgs) Handles rdbPCM16.CheckedChanged, rdbPCM24.CheckedChanged, rdbACDirect.CheckedChanged
-
-        If rdbPCM16.Checked = True Then
-            lblACodecCommand.Text = "-acodec pcm_s16le"
-            My.Settings.lastAcodec = "PCM16"
-        ElseIf rdbPCM24.Checked = True Then
-            lblACodecCommand.Text = "-acodec pcm_s24le"
-            My.Settings.lastAcodec = "PCM24"
-        ElseIf rdbACDirect.Checked = True Then
-            lblACodecCommand.Text = "-acodec copy"
-            My.Settings.lastAcodec = "acdirect"
-        ElseIf rdbWAV.Checked = True Then
-            lblCodecCommand.Text = "-vn -copyts -map 0:a -filter_complex " & Microsoft.VisualBasic.Chr(34) & "[0:a] amerge=inputs=8" & Microsoft.VisualBasic.Chr(34) & ""
-            lblACodecCommand.Text = "-acodec pcm_s24le"
-            My.Settings.lastVcodec = "wav"
-            grpResolution.Enabled = False
-            grpVCodec.Enabled = False
-        End If
-        If rdbWAV.Checked = False Then
-            grpResolution.Enabled = True
-            grpVCodec.Enabled = True
-        End If
-
+        UICommandUpdater.UpdateAudioCodec(Me)
     End Sub
 
     Private Sub rdbFrameRate_CheckedChanged(sender As Object, e As EventArgs) Handles rdb29D.CheckedChanged, rdb24.CheckedChanged, rdb23.CheckedChanged, rdbFRdirect.CheckedChanged
-
-        If rdbFRdirect.Checked = True Then
-            lblFRcommand.Text = "FR Command copy"
-            My.Settings.LastFR = "frdirect"
-        ElseIf rdb23.Checked = True Then
-            lblFRcommand.Text = "FR Command 23"
-            My.Settings.LastFR = "23"
-        ElseIf rdb29D.Checked = True Then
-            lblFRcommand.Text = "FR Command 29"
-            My.Settings.LastFR = "29"
-        ElseIf rdb24.Checked = True Then
-            lblFRcommand.Text = "FR Command 24"
-            My.Settings.LastFR = "24"
-        End If
-
+        UICommandUpdater.UpdateFrameRate(Me)
     End Sub
 
-    Private Sub lblCodecCommand_TextChanged(sender As Object, e As EventArgs) Handles lblCodecCommand.TextChanged
-        If rdbH264.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Codec H.264 Selected."
-            lblCodecn.Text = " H.264"
-        ElseIf rdbProRes.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Codec ProRes Selected."
-            lblCodecn.Text = " ProRes"
-        ElseIf rdbDNxHD.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Codec DNxHD Selected."
-            lblCodecn.Text = " DNxHD"
-        ElseIf rdbWAV.Checked = True Then
-            txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Codec WAV Selected."
-        End If
-    End Sub
+    ' Lógica movida para UICommandUpdater.UpdateVideoCodec
 
     Private Sub lblRes_TextChanged(sender As Object, e As EventArgs) Handles lblRes.TextChanged
         If rdb1080.Checked = True Then
@@ -562,24 +446,7 @@ Public Class frmTMXF
     End Sub
 
     Private Sub txtFR_TextChanged(sender As Object, e As EventArgs) Handles txtFR.TextChanged
-
-        If txtFR.Text.Contains(23) = True Or txtFR.ToString.Contains(29) = True Then
-            If rdbDNxHD.Checked = True Then
-                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Problematic Frame Rate Detected !! Recommended use of DNxHD Codec. Proceed with Care."
-            End If
-        End If
-        If txtFR.ToString.Contains("23") = True Then
-            txtCFR.Text = "24000/1001"
-        ElseIf txtFR.ToString.Contains("29") = True Then
-            txtCFR.Text = "30000/1001"
-        ElseIf txtFR.ToString.Contains("30") = True Then
-            txtCFR.Text = "30/1"
-        ElseIf txtFR.ToString.Contains("25") = True Then
-            txtCFR.Text = "25/1"
-        ElseIf txtFR.ToString.Contains("24") = True Then
-            txtCFR.Text = "24/1"
-        End If
-
+        UICommandUpdater.LogFrameRateChange(Me)
     End Sub
 
     Private Sub chkCorrect_CheckedChanged(sender As Object, e As EventArgs) Handles chkCorrect.CheckedChanged
@@ -599,138 +466,10 @@ Public Class frmTMXF
         End If
     End Sub
 
-    Private Sub Analize_sub(ByVal __path)
-        txtAC.Text = ""
-        txtDrop.Text = ""
-        txtDur.Text = ""
-        txtTC.Text = ""
-        txtVC.Text = ""
-        txtFR.Text = ""
-        txtSR.Text = ""
-
-        If System.IO.File.Exists(Me.txtMXFpath.Text.Trim(Microsoft.VisualBasic.Chr(34))) = True Then
-            ' MessageBox.Show("Path ok")
-            Dim FFprobeProcess As New Process
-            Dim FFprobe_arguments As String
-            Dim io As StreamReader
-            Dim io_temp As String
-            io_temp = Nothing
-            FFprobe_arguments = " -hide_banner " & Me.txtMXFpath.Text.ToString
-
-            Try
-                FFprobeProcess.StartInfo.FileName = Me.txtFFprobe.Text.ToString
-                FFprobeProcess.StartInfo.Arguments = FFprobe_arguments
-                FFprobeProcess.StartInfo.ErrorDialog = True
-                FFprobeProcess.StartInfo.RedirectStandardError = True
-                FFprobeProcess.StartInfo.UseShellExecute = False
-                FFprobeProcess.StartInfo.WorkingDirectory = Me.txtTemp.Text.ToString
-                FFprobeProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-                FFprobeProcess.StartInfo.CreateNoWindow = True
-                FFprobeProcess.Start()
-                io = FFprobeProcess.StandardError
-
-                FFprobeProcess.WaitForExit()
-                io_temp = io.ReadToEnd
-                If chkVerbose.Checked = True Then
-                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & io_temp
-                End If
-
-                Try
-                    Dim sTC As String = Strings.InStr(io_temp, "timecode") + 18
-                    If sTC = 18 Then
-                        txtTC.Text = "## Error ##"
-                        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Time Code data!! ##"
-                        chkTCBurn.Enabled = False
-                    Else
-                        Dim eTC As String = (sTC + 11)
-                        Dim MXFTC As String = Strings.Mid(io_temp, sTC, (eTC - sTC))
-                        txtTC.Text = MXFTC.ToString
-                    End If
-                Catch ex As Exception
-                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Time Code data!! ##"
-                    txtTC.Text = "## Error ##"
-                    chkTCBurn.Enabled = False
-                End Try
-
-                Try
-                    Dim fFR As String = Strings.InStr(io_temp, "fps") - 9
-                    'MessageBox.Show(FFR & " FFR")
-                    Dim mFR As String = Strings.Mid(io_temp, fFR, 12)
-                    'MessageBox.Show(mFR & " mfr")
-                    Dim sFR As String = Strings.InStr(mFR, ",") + 1
-                    Dim eFR As String = Strings.InStrRev(mFR, "fps")
-                    'MessageBox.Show(sFR & " sfr")
-                    Dim MXFFR As String = Strings.Mid(mFR, sFR, eFR)
-                    'MessageBox.Show(MXFFR & " mxffr")
-                    txtFR.Text = MXFFR.ToString
-                Catch ex As Exception
-                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Frame Rate data!! ##"
-                    txtFR.Text = "## Error ##"
-                End Try
-
-                Try
-                    Dim sVC As String = Strings.InStr(io_temp, "Video:") + 7
-                    Dim mVC As String = Strings.Mid(io_temp, sVC, sVC + 30)
-                    Dim eVC As String = Strings.InStr(mVC, ",") - 1
-                    Dim MXFVC As String = Strings.Mid(mVC, 1, eVC)
-                    txtVC.Text = MXFVC.ToString
-
-                Catch ex As Exception
-                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Video Codec data!! ##"
-                    txtVC.Text = "## Error ##"
-                End Try
-
-                Try
-                    Dim sAC As String = Strings.InStr(io_temp, "Audio:") + 7
-                    Dim mAC As String = Strings.Mid(io_temp, sAC, sAC + 30)
-                    'MessageBox.Show(mAC)
-                    Dim eAC As String = Strings.InStr(mAC, ",") - 1
-                    'MessageBox.Show(eAC)
-                    Dim MXFAC As String = Strings.Mid(mAC, 1, eAC)
-                    Dim mSR As String = Strings.Mid(mAC, (eAC + 1), 15)
-                    Dim eSR As String = Strings.InStr(mSR, "Hz") - 1
-                    Dim MXFSR As String = Strings.Mid(mSR, 3, eSR)
-                    'MessageBox.Show(MXFSR & vbCrLf & mSR)
-                    txtAC.Text = MXFAC.ToString
-                    txtSR.Text = MXFSR.ToString
-                Catch ex As Exception
-                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Parsing Audio Codec and Sample Rate data!! ##"
-                    txtAC.Text = "## Error ##"
-                    txtSR.Text = "## Error ##"
-                End Try
-
-                Try
-                    Dim sDR As String = Strings.InStr(io_temp, "Duration:") + 10
-                    If sDR = 10 Then
-                        txtTC.Text = "## Error ##"
-                        txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Finding Duration data!! ##"
-                    Else
-                        Dim eDR As String = (sDR + 11)
-                        Dim MXFDR As String = Strings.Mid(io_temp, sDR, (eDR - sDR))
-                        txtDur.Text = MXFDR.ToString
-                    End If
-                Catch ex As Exception
-                    txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Finding Duration data!! ##"
-                    txtDur.Text = "## Error ##"
-                End Try
-
-                If txtTC.Text.Contains(";") = True Then
-                    txtDrop.Text = "Yes"
-                Else
-                    txtDrop.Text = "No"
-                End If
-
-            Catch ex As Exception
-                txtFFoutput.Text = txtFFoutput.Text & vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " ## Error Retrieving Information Data!! ##"
-                chkTCBurn.Enabled = False
-            End Try
-        End If
-
-
-    End Sub
-
     Private Sub btnTCanalize_Click(sender As Object, e As EventArgs) Handles btnTCanalize.Click
-        Analize_sub(txtMXFpath.ToString.Trim(Microsoft.VisualBasic.Chr(34)))
+        ' A função Analize_sub foi removida e sua lógica foi consolidada no btnLoadMXF_Click.
+        ' Chamando btnLoadMXF_Click para reanalisar o arquivo.
+        btnLoadMXF_Click(sender, e)
     End Sub
 
     Private Sub chkadvanced_checkedchanged(sender As Object, e As EventArgs) Handles chkAdvanced.CheckedChanged
