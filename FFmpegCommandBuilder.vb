@@ -1,5 +1,6 @@
 Imports Microsoft.VisualBasic
 Imports System.Windows.Forms
+Imports System.Text.RegularExpressions ' Necessário para o DNxHDCalculator
 
 Module FFmpegCommandBuilder
 
@@ -12,47 +13,21 @@ Module FFmpegCommandBuilder
         Dim FFarguments As String = ""
         Dim _ffargReport As String = "-loglevel verbose -y -hide_banner "
         Dim _GPU As String = ""
-        Dim _dnxhdBT As String = "45M"
-        Dim _dnxhdFR As String = "30000/1001" ' Valor padrão
-
         ' 1. Lógica de cálculo de Bitrate e Frame Rate para DNxHD
-        If form.rdbDNxHD.Checked Then
-            ' A lógica original usa txtFR.ToString.Contains, que é perigoso.
-            ' Assumindo que txtFR.Text contém o Frame Rate detectado pelo FFprobe.
-            Dim detectedFR As String = form.txtFR.Text.Trim()
+        Dim _dnxhdFR As String = ""
+        Dim _FR_CORR As String = ""
 
-            If detectedFR.Contains("23") Or detectedFR.Contains("24") Then
-                _dnxhdFR = "24000/1001" ' 23.976
-                If form.rdb1080.Checked Then
-                    _dnxhdBT = "36M"
-                ElseIf form.rdb720.Checked Then
-                    _dnxhdBT = "60M"
-                End If
-            ElseIf detectedFR.Contains("29") Or detectedFR.Contains("30") Then
-                _dnxhdFR = "30000/1001" ' 29.97
-                If form.rdb1080.Checked Then
-                    _dnxhdBT = "45M"
-                ElseIf form.rdb720.Checked Then
-                    _dnxhdBT = "75M"
-                End If
-            ElseIf detectedFR.Contains("25") Then
-                _dnxhdFR = "25/1" ' 25.00
-                If form.rdb1080.Checked Then
-                    _dnxhdBT = "36M"
-                ElseIf form.rdb720.Checked Then
-                    _dnxhdBT = "60M"
-                End If
-            End If
+        If form.rdbDNxHD.Checked Then
+            Dim dnxHDResult As DNxHDCalculator.DNxHDResult = DNxHDCalculator.CalculateDNxHDParams(form.txtFR.Text.Trim(), form.rdb1080.Checked)
+            _dnxhdFR = dnxHDResult.FrameRate
+            Dim _dnxhdBT As String = dnxHDResult.Bitrate
 
             ' Atualiza o lblCodecCommand para DNxHD com os valores calculados
             form.lblCodecCommand.Text = "-vcodec dnxhd -b:v " & _dnxhdBT.ToString & " -r " & _dnxhdFR.ToString
-        End If
 
-        ' 2. Lógica de Correção de Frame Rate (Apenas para DNxHD)
-        Dim _FR_CORR As String = ""
-        If form.chkCorrect.Checked Then
-            If form.txtFR.Text.Contains("23") Or form.txtFR.Text.Contains("29") Then
-                If form.rdbDNxHD.Checked Then
+            ' 2. Lógica de Correção de Frame Rate (Apenas para DNxHD)
+            If form.chkCorrect.Checked Then
+                If form.txtFR.Text.Contains("23") Or form.txtFR.Text.Contains("29") Then
                     form.txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Video Frame Rate need to be corrected for perfectly recognition, applying it now!! "
                     _FR_CORR = " -r " & _dnxhdFR
                 Else
