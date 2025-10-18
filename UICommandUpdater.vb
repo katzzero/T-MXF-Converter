@@ -148,6 +148,82 @@ Module UICommandUpdater
     ''' <summary>
     ''' Lógica de log para mudança de Frame Rate.
     ''' </summary>
+    ''' <summary>
+    ''' Lógica de log para mudança de Sample Rate.
+    ''' </summary>
+    Public Sub LogSampleRateChange(ByRef form As frmTMXF)
+        If form.rdbSRDirect.Checked Then
+            form.txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Sample Rate keep/copy selected."
+        ElseIf form.rdbSR44.Checked Then
+            form.txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 44.1Khz Sample Rate selected."
+        ElseIf form.rdbSR48.Checked Then
+            form.txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 48Khz Sample Rate selected."
+        ElseIf form.rdbSR96.Checked Then
+            form.txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 96Khz Sample Rate selected."
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' Lógica de log para mudança de Frame Rate Command.
+    ''' </summary>
+    Public Sub LogFrameRateCommandChange(ByRef form As frmTMXF)
+        If form.rdbFRdirect.Checked Then
+            form.txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Frame Rate keep/copy selected."
+        ElseIf form.rdb23.Checked Then
+            form.txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 23,976 FPS selected."
+        ElseIf form.rdb29D.Checked Then
+            form.txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 29,97 FPS selected."
+        ElseIf form.rdb24.Checked Then
+            form.txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 24 FPS selected."
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' Lógica de log para mudança de Codec de Áudio.
+    ''' </summary>
+    Public Sub LogAudioCodecChange(ByRef form As frmTMXF)
+        If form.rdbPCM16.Checked Then
+            form.txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " PCM 16bits Audio codec selected."
+        ElseIf form.rdbPCM24.Checked Then
+            form.txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " PCM 24bits Audio codec selected."
+        ElseIf form.rdbACDirect.Checked Then
+            form.txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Audio Codec selected for direct stream copy."
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' Lógica de log para mudança de Canais de Áudio.
+    ''' </summary>
+    Public Sub LogAudioChannelChange(ByRef form As frmTMXF)
+        If form.rdbADirect.Checked Then
+            form.txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Audio channels selected for Direct mapping."
+        ElseIf form.rdbA2Ch.Checked Then
+            form.txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Audio channels selected for Stereo mapping."
+        ElseIf form.rdbA4Ch.Checked Then
+            form.txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Audio channels selected for Quad mapping."
+        ElseIf form.rdbA8Ch.Checked Then
+            form.txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " Audio channels selected for 8 Channels mapping."
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' Lógica de log para mudança de Resolução.
+    ''' </summary>
+    Public Sub LogResolutionChange(ByRef form As frmTMXF)
+        If form.rdb1080.Checked Then
+            form.txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 1920x1080 Resolution, 16:9 aspect ratio, square pixel."
+        ElseIf form.rdb720.Checked Then
+            form.txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 1280x720 Resolution, 16:9 aspect ratio, square pixel."
+        ElseIf form.rdb486.Checked Then
+            form.txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 864x486 Resolution, 16:9 aspect ratio, square pixel."
+        ElseIf form.rdb360.Checked Then
+            form.txtFFoutput.Text &= vbCrLf & DateAndTime.Now.ToString("HH:mm:ss") & " 640x360 Resolution, 16:9 aspect ratio, square pixel."
+        End If
+    End Sub
+
+    ''' <summary>
+    ''' Lógica de log para mudança de Frame Rate.
+    ''' </summary>
     Public Sub LogFrameRateChange(ByRef form As frmTMXF)
         If form.txtFR.Text.Contains(23) Or form.txtFR.ToString.Contains(29) Then
             If form.rdbDNxHD.Checked Then
