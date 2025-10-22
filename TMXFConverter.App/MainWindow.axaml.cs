@@ -7,6 +7,7 @@ using TMXFConverter.Core;
 using FFMpegCore;
 using Avalonia.Platform.Storage;
 using System.Linq;
+using Avalonia.Threading;
 
 namespace TMXFConverter.App
 {
@@ -25,6 +26,8 @@ namespace TMXFConverter.App
             BtnLoadMXF.Click += BtnLoadMXF_Click;
             BtnSelectOutPath.Click += BtnSelectOutPath_Click;
             BtnConvert.Click += BtnConvert_Click;
+            RdbDNxHD.IsChecked = true; // Define um padrão inicial
+            Rdb1080.IsChecked = true; // Define um padrão inicial
         }
 
         private async void BtnLoadMXF_Click(object sender, RoutedEventArgs e)
@@ -101,6 +104,13 @@ namespace TMXFConverter.App
                 return;
             }
 
+            // Desabilita o botão para evitar cliques duplos e mostra a barra de progresso
+            BtnConvert.IsEnabled = false;
+            ProgressBarConversion.IsVisible = true;
+            TxtProgressStatus.IsVisible = true;
+            TxtProgressStatus.Text = "Iniciando...";
+            ProgressBarConversion.Value = 0;
+
             // 2. Mapeamento da UI para o DTO de Opções
             var options = new ConversionOptions
             {
@@ -147,7 +157,14 @@ namespace TMXFConverter.App
                 // Em um projeto real, isso seria feito na inicialização do App.
                 // Por simplicidade, vamos usar o método de execução assíncrona.
 
-                var success = await FFMpeg.Conversions.StartUnsafeForProbingAsync(arguments);
+                // Cria o reporter de progresso que irá atualizar a UI
+                var progressReporter = new ProgressReporter(
+                    progress => Dispatcher.UIThread.InvokeAsync(() => ProgressBarConversion.Value = progress * 100),
+                    status => Dispatcher.UIThread.InvokeAsync(() => TxtProgressStatus.Text = status)
+                );
+
+                // Configura o FFMpegCore para usar o reporter
+                var success = await FFMpeg.Conversions.StartUnsafeForProbingAsync(arguments, progressReporter);
 
                 if (success)
                 {
@@ -161,6 +178,14 @@ namespace TMXFConverter.App
             catch (Exception ex)
             {
                 TxtFFoutput.Text += $"{DateTime.Now:HH:mm:ss} ERRO FATAL: {ex.Message}{Environment.NewLine}";
+            }
+            finally
+            {
+                // Restaura o estado da UI
+                BtnConvert.IsEnabled = true;
+                ProgressBarConversion.IsVisible = false;
+                TxtProgressStatus.IsVisible = false;
+                ProgressBarConversion.Value = 0;
             }
         }
     }
